@@ -1,0 +1,58 @@
+Client
+Entité disposant d'une adresse et de coordonnées de contact qui demande la livraison de colis à la société de livraison à un point de livraison
+
+Point de livraison
+Noeud auquel sont livrés des colis
+
+Colis
+Objet devant être livré à un client à un point de livraison
+
+Noeud
+Point repéré par ses coordonnées
+
+Tronçon
+Arc orienté reliant exactement deux noeuds, avec un nom, une vitesse et une longueur, un noeud d'origine et un noeud de destination
+
+Chemin
+Ensemble de tronçons reliant deux clients, appelés origine et destination
+
+Itinéraire
+Ensemble de chemins consecutifs formant un circuit (le point de départ est le point d'arrivée)
+
+Dépot
+Unique type de noeud pouvant étant le point de départ (et d'arrivée) d'un itinéraire
+
+Plage de horaire
+Intervalle de temps DUREE À DEFINIR
+
+Livreur
+Personne chargée d'une tournée de livraison et disposant d'un camion, il ne peut livrer qu'une seule zone par jour
+
+Zone géographique
+Ensemble de noeuds connectés directement par des tronçons, qui ne peut admettre qu'un nombre limité de livraisons par journée, et qui n'est deservi que par un seul livreur
+
+Livraison
+Evenement défini par un ensemble de colis à livrer à un seul point de livraison dans une plage horaire définie et pour une durée de 10 minutes, la livraison comporte aussi un horaire de livraison, une livraison peut-être effectuée, restant à faire avec retard, ou restant à faire sans retard
+
+Feuille de route
+Ensemble de livraisons à effectuer pour un livreur et pour un jour, associé à l'itinéraire à suivre pour effectuer ces livraisons
+
+Camion
+Véhicule utilisé par un seul livreur pour effectuer l'ensemble de ses livraisons, il est localisé en temps réel par le système en renvoyant le tronçon (lorsqu'il est en route) ou le noeud (lorsqu'il livre) sur lequel il se situe
+
+Carte
+Ensemble de noeuds reliés par des tronçons
+
+Tronçon entrant
+Tronçon dont l'extremité est le noeud courant
+
+Tronçon sortant
+Tronçon dont l'origine est le noeud courant
+
+Tournée
+Ensemble de livraisons
+
+
+
+
+
