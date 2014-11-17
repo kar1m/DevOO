@@ -48,3 +48,6 @@ Tronçon dont l'origine est le noeud courant
 
 Tournée
 Ensemble de plages horaires comportant des livraisons associée à une zone qui comporte un dépot, et, après calcul, une liste ordonnée de chemins
+
+Feuille de route
+Description textuelle d'une tournée, comportant le nom des tronçons empruntés, les horaires d'arrivée et de départ d'un point de livraison, ainsi que les temps d'attente
