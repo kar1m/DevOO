@@ -1,0 +1,16 @@
+package Modele;
+
+import java.util.*;
+
+/**
+ * 
+ */
+public class Plan {
+
+    /**
+     * 
+     */
+    public Plan() {
+    }
+
+}

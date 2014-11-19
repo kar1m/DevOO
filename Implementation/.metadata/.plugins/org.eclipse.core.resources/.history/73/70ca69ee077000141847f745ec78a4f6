@@ -1,0 +1,41 @@
+package Modele;
+
+import java.util.*;
+
+/**
+ * Point repéré par ses coordonnées
+ */
+public class Noeud {
+
+    /**
+     * Point repéré par ses coordonnées
+     */
+    public Noeud() {
+    }
+
+    /**
+     * ID du noeud
+     */
+    private int idNoeud;
+
+    /**
+     * Abscisse du noeud
+     */
+    private int x;
+
+    /**
+     * Ordonnée du noeud
+     */
+    private int y;
+
+    /**
+     * 
+     */
+    private Set<Troncon> tronconSortant;
+
+    /**
+     * 
+     */
+    private Set<Troncon> tronconEntrant;
+
+}

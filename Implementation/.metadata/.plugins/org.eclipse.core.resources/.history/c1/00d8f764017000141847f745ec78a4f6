@@ -1,0 +1,38 @@
+package Modele;
+
+import java.util.*;
+
+/**
+ * 
+ */
+public class Livraison {
+
+    /**
+     * 
+     */
+    public Livraison() {
+    }
+
+    /**
+     * 
+     */
+    private int[] idLivraison;
+
+    /**
+     * 
+     */
+    private Client[] destinataire;
+
+    /**
+     * 
+     */
+    private PlageHoraire[] plageHoraireLivraison;
+
+    /**
+     * @param Element XMLnode
+     */
+    public void initLivraison(void Element XMLnode) {
+        // TODO implement here
+    }
+
+}

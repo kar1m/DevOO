@@ -1,0 +1,68 @@
+package Controleur;
+
+import java.util.*;
+
+import Modele.PlageHoraire;
+import Modele.Plan;
+
+/**
+ * 
+ */
+public class Application {
+
+    /**
+     * 
+     */
+    public Application() {
+    }
+
+    /**
+     * 
+     */
+    private Set<PlageHoraire> listeHorairesApp;
+
+    /**
+     * 
+     */
+    private Set<Action> listeAnnulation;
+
+    /**
+     * 
+     */
+    private Set<Action> listeExecution;
+
+    /**
+     * 
+     */
+    private Plan[] planApp;
+
+
+    /**
+     * 
+     */
+    public void chargerDemandeLivraison() {
+        // TODO implement here
+    }
+
+    /**
+     * 
+     */
+    public void chargerPlan() {
+        // TODO implement here
+    }
+
+    /**
+     * 
+     */
+    public void gererCommande() {
+        // TODO implement here
+    }
+
+    /**
+     * 
+     */
+    public void initApplication() {
+        // TODO implement here
+    }
+
+}

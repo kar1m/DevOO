@@ -1,0 +1,27 @@
+package Modele;
+
+import java.util.*;
+
+import org.w3c.dom.Element;
+
+/**
+ * 
+ */
+public class Plan {
+
+    /**
+     * 
+     */
+    public Plan() {
+    }
+    
+    public void initPlan(Element xmlChunk)
+    {
+    	NodeList listeNoeuds = xmlChunk.getElementsByTagName("Noeud");
+    }
+    
+    private List<Noeud> listeNoeuds;
+    
+    private List<Troncon> listeTroncons;
+
+}

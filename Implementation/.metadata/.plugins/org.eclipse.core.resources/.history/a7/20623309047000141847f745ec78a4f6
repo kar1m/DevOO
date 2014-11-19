@@ -1,0 +1,77 @@
+package Controleur;
+
+import java.util.*;
+import javax.swing.JFileChooser;
+
+import Modele.PlageHoraire;
+import Modele.Plan;
+
+/**
+ * 
+ */
+public class Application {
+
+    /**
+     * 
+     */
+    public Application() {
+    }
+
+    /**
+     * 
+     */
+    private Set<PlageHoraire> listeHorairesApp;
+
+    /**
+     * 
+     */
+    private Set<Action> listeAnnulation;
+
+    /**
+     * 
+     */
+    private Set<Action> listeExecution;
+
+    /**
+     * 
+     */
+    private Plan[] planApp;
+
+
+    /**
+     * 
+     */
+    public static void chargerDemandeLivraison() {
+    	JFileChooser popup = new JFileChooser();
+    	
+    	
+    }
+
+    /**
+     * 
+     */
+    public static void chargerPlan() {
+        // TODO implement here
+    }
+
+    /**
+     * 
+     */
+    public static void gererCommande() {
+        // TODO implement here
+    }
+
+    /**
+     * 
+     */
+    public static void initApplication() {
+        // TODO implement here
+    }
+    
+    public static void main(String[] arg)
+    {
+    	initApplication();
+    	
+    }
+
+}
