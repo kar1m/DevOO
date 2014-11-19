@@ -13,8 +13,6 @@ public class Noeud {
      * Point repéré par ses coordonnées
      */
     public Noeud() {
-    	this.tronconEntrant = new Vector<Troncon>();
-    	this.tronconSortant = new Vector<Troncon>();
     }
     
     public void initNoeud (Element xmlChunk)
@@ -25,34 +23,6 @@ public class Noeud {
     }
 
     /**
-	 * @return the tronconSortant
-	 */
-	public Vector<Troncon> getTronconSortant() {
-		return tronconSortant;
-	}
-
-	/**
-	 * @param tronconSortant the tronconSortant to set
-	 */
-	public void setTronconSortant(Troncon tronconSortant) {
-		this.tronconSortant.addElement(tronconSortant);
-	}
-
-	/**
-	 * @return the tronconEntrant
-	 */
-	public Vector<Troncon> getTronconEntrant() {
-		return tronconEntrant;
-	}
-
-	/**
-	 * @param tronconEntrant the tronconEntrant to set
-	 */
-	public void setTronconEntrant(Troncon tronconEntrant) {
-		this.tronconEntrant.addElement(tronconEntrant);
-	}
-
-	/**
      * ID du noeud
      */
     private int idNoeud;

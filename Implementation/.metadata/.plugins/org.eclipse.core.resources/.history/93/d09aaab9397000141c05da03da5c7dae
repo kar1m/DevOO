@@ -34,8 +34,8 @@ public class Noeud {
 	/**
 	 * @param tronconSortant the tronconSortant to set
 	 */
-	public void setTronconSortant(Troncon tronconSortant) {
-		this.tronconSortant.addElement(tronconSortant);
+	public void setTronconSortant(Vector<Troncon> tronconSortant) {
+		this.tronconSortant = tronconSortant;
 	}
 
 	/**
@@ -48,8 +48,8 @@ public class Noeud {
 	/**
 	 * @param tronconEntrant the tronconEntrant to set
 	 */
-	public void setTronconEntrant(Troncon tronconEntrant) {
-		this.tronconEntrant.addElement(tronconEntrant);
+	public void setTronconEntrant(Vector<Troncon> tronconEntrant) {
+		this.tronconEntrant = tronconEntrant;
 	}
 
 	/**

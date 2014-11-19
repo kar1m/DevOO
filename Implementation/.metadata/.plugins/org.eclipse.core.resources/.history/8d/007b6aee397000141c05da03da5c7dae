@@ -20,7 +20,7 @@ public class Plan {
     public void initPlan(Element xmlChunk)
     {
     	NodeList listeXMLNoeuds = xmlChunk.getElementsByTagName("Noeud");
-    	for (int i = 0; i<listeXMLNoeuds.getLength(); i++)
+    	for (int i = 0; i<listeNoeuds.getLength(); i++)
     	{
     		Noeud noeudActuel = new Noeud();
     		noeudActuel.initNoeud((Element)listeXMLNoeuds.item(i));
@@ -34,16 +34,8 @@ public class Plan {
         	Noeud depart = this.listeNoeuds.elementAt(i);
         	for(int j=0;j<listeXMLTroncons.getLength();j++)
         	{
-        		Element TronconXML = (Element)listeXMLTroncons.item(j);
-        		int destination = Integer.parseInt(TronconXML.getAttribute("idNoeudDestination"));
-        		Noeud arrivee = this.listeNoeuds.elementAt(destination);
-        		Troncon tronconActuel = new Troncon();
-            	tronconActuel.initTrancon(TronconXML,depart,arrivee);
-            	this.listeTroncons.add(tronconActuel);
-            	
-            	// Set les infos des noeuds
-            	this.listeNoeuds.elementAt(i).setTronconSortant(tronconActuel);
-            	this.listeNoeuds.elementAt(destination).setTronconEntrant(tronconActuel);
+        		Troncon tranconActuel = new Troncon();
+            	tranconActuel.initTrancon(xmlChunk);
         	}
         	
         	
