@@ -1,0 +1,20 @@
+package Modele;
+
+import java.util.*;
+
+/**
+ * 
+ */
+public class Plan {
+
+    /**
+     * 
+     */
+    public Plan() {
+    }
+    
+    private List<Noeud> listeNoeuds;
+    
+    private List<Troncon> listeTroncons;
+
+}

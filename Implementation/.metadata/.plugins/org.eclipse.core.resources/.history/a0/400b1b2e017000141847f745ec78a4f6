@@ -1,0 +1,34 @@
+package Modele;
+
+import java.util.*;
+
+/**
+ * 
+ */
+public class PlageHoraire {
+
+    /**
+     * 
+     */
+    public PlageHoraire() {
+    }
+
+    /**
+     * 
+     */
+    private date[] heureDebut;
+
+    /**
+     * 
+     */
+    private date[] heureFin;
+
+
+    /**
+     * @param Element XMLnode
+     */
+    public void initPlage(void Element XMLnode) {
+        // TODO implement here
+    }
+
+}
