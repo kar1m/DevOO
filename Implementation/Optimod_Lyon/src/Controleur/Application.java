@@ -20,7 +20,7 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import Modele.*;
-import Vue.Fenetre;
+import Vue.*;
 
 /**
  * 
@@ -55,11 +55,6 @@ public class Application {
      * 
      */
     	private Map<PlageHoraire,Vector<Livraison>> livraisonData;
-
-    /**
-     * 
-     */
-    	private Fenetre window;
     	
     /**
      * 
@@ -193,7 +188,6 @@ public class Application {
      */
     public void initApplication() {
         // TODO implement here
-    	this.window = new Fenetre(this);
     }
     
     public static void main(String[] arg)
