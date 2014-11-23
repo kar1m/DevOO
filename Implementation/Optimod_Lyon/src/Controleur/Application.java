@@ -20,6 +20,7 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import Modele.*;
+import Vue.Fenetre;
 
 /**
  * 
@@ -87,12 +88,12 @@ public class Application {
             	   NodeList plagesXML = racine.getElementsByTagName("Plage");
             	   for (int i = 0;i < plagesXML.getLength();i++)
             	   {
-            		   //création de la clef (PH)
+            		   //crï¿½ation de la clef (PH)
             		   Element plageXMLinstance = (Element)plagesXML.item(i);
             		   PlageHoraire nouvellePlage = new PlageHoraire();
             		   nouvellePlage.initPlage(plageXMLinstance);
             		   
-            		   //création des valeurs (Vector)
+            		   //crï¿½ation des valeurs (Vector)
             		   Vector<Livraison> livraisonPH = new Vector<Livraison>();
             		   NodeList livraisonXML = plageXMLinstance.getElementsByTagName("Livraison");
             		   for (int j = 0 ; j<livraisonXML.getLength();j++)
@@ -187,14 +188,16 @@ public class Application {
      */
     public void initApplication() {
         // TODO implement here
+    	Fenetre a = new Fenetre();
     }
     
     public static void main(String[] arg)
     {
     	Application commandCenter = new Application();
     	commandCenter.initApplication();
+    	
     	//commandCenter.chargerPlan();
-    	commandCenter.chargerDemandeLivraison();
+    	/*commandCenter.chargerDemandeLivraison();
     	//Pour tester
     	for (Map.Entry<PlageHoraire, Vector<Livraison>>entry : commandCenter.livraisonData.entrySet())
     	{
@@ -206,7 +209,7 @@ public class Application {
     			System.out.println(valu.getIdLivraison() + " "+ valu.getDestinataire().getIdClient()+ " "+ valu.getDestinataire().getIdNoeudAdresse());
     		}
     	}
-    	System.out.println("Success");
+    	System.out.println("Success");*/
 
     	
     }
