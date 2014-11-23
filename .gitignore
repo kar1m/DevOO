@@ -18,6 +18,9 @@ hs_err_pid*
 .recommenders/
 .metadata
 .recommenders
+Implementation/.metadata
+Implementation/.metadata/
+
 .gradle
 bin/
 tmp/
