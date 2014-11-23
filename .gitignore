@@ -14,7 +14,8 @@
 hs_err_pid*
 
 *.pydevproject
-.metadata
+.metadata/
+.recommenders/
 .gradle
 bin/
 tmp/
