@@ -1,7 +1,5 @@
 package Modele;
 
-import java.util.*;
-
 import org.w3c.dom.Element;
 
 /**
@@ -26,15 +24,27 @@ public class Livraison {
     private Client destinataire;
 
     /**
-     * 
-     */
-    private PlageHoraire plageHoraireLivraison;
-
-    /**
      * @param Element XMLnode
      */
     public void initLivraison(Element XMLnode) {
-        // TODO implement here
+        this.idLivraison = Integer.parseInt(XMLnode.getAttribute("id"));
+        this.destinataire = new Client();
+        destinataire.initClient(Integer.parseInt(XMLnode.getAttribute("adresse")), Integer.parseInt(XMLnode.getAttribute("client")));
     }
+
+	/**
+	 * @return the idLivraison
+	 */
+	public int getIdLivraison() {
+		return idLivraison;
+	}
+
+
+	/**
+	 * @return the destinataire
+	 */
+	public Client getDestinataire() {
+		return destinataire;
+	}
 
 }

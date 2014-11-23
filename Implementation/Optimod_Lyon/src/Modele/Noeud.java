@@ -77,4 +77,27 @@ public class Noeud {
      */
     private Vector<Troncon> tronconEntrant;
 
+	/**
+	 * @return the idNoeud
+	 */
+	public int getIdNoeud() {
+		return idNoeud;
+	}
+
+	/**
+	 * @return the x
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public int getY() {
+		return y;
+	}
+    
+    
+
 }

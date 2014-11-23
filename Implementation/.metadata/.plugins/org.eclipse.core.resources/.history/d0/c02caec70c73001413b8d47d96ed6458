@@ -1,0 +1,34 @@
+package Modele;
+
+import java.util.*;
+
+/**
+ * 
+ */
+public class Client {
+
+    /**
+     * 
+     */
+    public Client() {
+    }
+
+    /**
+     * 
+     */
+    private int idClient;
+
+    /**
+     * 
+     */
+    private int id_noeud_adresse;
+
+    /**
+     * @param Noeud adresse 
+     * @param int IdClient
+     */
+    public void initClient(int id_adresse, int id_Client) {
+        // TODO implement here
+    }
+
+}

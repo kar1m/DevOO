@@ -45,8 +45,6 @@ public class Plan {
             	this.listeNoeuds.elementAt(i).setTronconSortant(tronconActuel);
             	this.listeNoeuds.elementAt(destination).setTronconEntrant(tronconActuel);
         	}
-        	
-        	
     	}
     }
     
@@ -56,14 +54,15 @@ public class Plan {
 	public Vector<Noeud> getListeNoeuds() {
 		return listeNoeuds;
 	}
-
+	
 	/**
-	 * @param listeNoeuds the listeNoeuds to set
+	 * @return Noeud
 	 */
-	public void setListeNoeuds(Vector<Noeud> listeNoeuds) {
-		this.listeNoeuds = listeNoeuds;
+	public Noeud getNoeudbyID(int id)
+	{
+		return this.listeNoeuds.elementAt(id);
 	}
-
+	
 	/**
 	 * @return the listeTroncons
 	 */
@@ -71,12 +70,6 @@ public class Plan {
 		return listeTroncons;
 	}
 
-	/**
-	 * @param listeTroncons the listeTroncons to set
-	 */
-	public void setListeTroncons(Vector<Troncon> listeTroncons) {
-		this.listeTroncons = listeTroncons;
-	}
 
 	private Vector<Noeud> listeNoeuds;
     

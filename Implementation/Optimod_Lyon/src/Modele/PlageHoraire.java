@@ -1,7 +1,5 @@
 package Modele;
 
-import java.util.*;
-
 import org.w3c.dom.Element;
 
 /**
@@ -18,19 +16,37 @@ public class PlageHoraire {
     /**
      * 
      */
-    private Date heureDebut;
+    private String heureDebut;
 
     /**
      * 
      */
-    private Date heureFin;
+    private String heureFin;
 
 
     /**
      * @param Element XMLnode
      */
     public void initPlage(Element XMLnode) {
-        // TODO implement here
+        this.heureDebut = XMLnode.getAttribute("heureDebut");
+        this.heureFin = XMLnode.getAttribute("heureFin");
     }
+
+
+	/**
+	 * @return the heureDebut
+	 */
+	public String getHeureDebut() {
+		return heureDebut;
+	}
+
+
+	/**
+	 * @return the heureFin
+	 */
+	public String getHeureFin() {
+		return heureFin;
+	}
+    
 
 }
