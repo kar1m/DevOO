@@ -59,6 +59,11 @@ public class Application {
     /**
      * 
      */
+    	private Fenetre window;
+    	
+    /**
+     * 
+     */
     public void chargerDemandeLivraison() {
     	JFileChooser jFileChooserXML = new JFileChooser();
     	FileFilterApp filter = new FileFilterApp();
@@ -188,7 +193,7 @@ public class Application {
      */
     public void initApplication() {
         // TODO implement here
-    	Fenetre a = new Fenetre();
+    	this.window = new Fenetre(this);
     }
     
     public static void main(String[] arg)
