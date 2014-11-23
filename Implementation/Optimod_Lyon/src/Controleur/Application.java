@@ -211,4 +211,32 @@ public class Application {
     	
     }
 
+	/**
+	 * @return the listeAnnulation
+	 */
+	public Vector<Action> getListeAnnulation() {
+		return listeAnnulation;
+	}
+
+	/**
+	 * @return the listeExecution
+	 */
+	public Vector<Action> getListeExecution() {
+		return listeExecution;
+	}
+
+	/**
+	 * @return the planApp
+	 */
+	public Plan getPlanApp() {
+		return planApp;
+	}
+
+	/**
+	 * @return the livraisonData
+	 */
+	public Map<PlageHoraire, Vector<Livraison>> getLivraisonData() {
+		return livraisonData;
+	}
+
 }
