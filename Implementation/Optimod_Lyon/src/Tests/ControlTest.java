@@ -2,7 +2,6 @@ package Tests;
 
 import static org.junit.Assert.*;
 
-import java.util.Map;
 import java.util.Vector;
 
 import org.junit.Test;

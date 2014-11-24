@@ -100,8 +100,11 @@ public class Application {
     /**
      * 
      */
-    public void gererCommande() {
-        // TODO implement here
+    public void gererCommande(String commande) {
+        switch (commande)
+        {
+        	
+        }
     }
 
     /**
