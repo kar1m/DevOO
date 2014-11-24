@@ -36,7 +36,7 @@ public class Application {
     	private XMLhandler outilXML;
     	
  
-    public void chargerDemandeLivraison() {
+    private void chargerDemandeLivraison() {
 
     	File fichierData = outilXML.selectXML();
         if (fichierData != null) {
@@ -65,10 +65,7 @@ public class Application {
        } 
     }
 
-    /**
-     * 
-     */
-    public void chargerPlan() {
+    private void chargerPlan() {
 
     	File fichierData = outilXML.selectXML();
         if (fichierData != null) {
@@ -103,7 +100,24 @@ public class Application {
     public void gererCommande(String commande) {
         switch (commande)
         {
-        	
+        case Proprietes.AJOUTER_LIVRAISON :
+        	break;
+        case Proprietes.CALC_TOURNEE :
+        	break;
+        case Proprietes.SUPP_LIVRAISON :
+        	break;
+        case Proprietes.CHARGER_PLAN :
+        	this.chargerPlan();
+        	break;
+        case Proprietes.CHARGER_LIVRAISON : 
+        	this.chargerDemandeLivraison();
+        	break;
+        case Proprietes.UNDO :
+        	break;
+        case Proprietes.REDO : 
+        	break;
+        case Proprietes.SAVE:
+        	break;
         }
     }
 

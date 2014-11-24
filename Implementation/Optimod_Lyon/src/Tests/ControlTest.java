@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import Controleur.*;
 import Modele.*;
+import Outils.Proprietes;
 
 public class ControlTest {
 
@@ -15,7 +16,7 @@ public class ControlTest {
 	public void testChargerDemandeLivraison() {
 		try {
 			Application commandCenter = new Application();
-			commandCenter.chargerDemandeLivraison();
+			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON);;
 			//Pour tester
 			for (PlageHoraire entry : commandCenter.getModele()
 					.getLivraisonData()) {
@@ -42,7 +43,7 @@ public class ControlTest {
 	public void testChargerPlan() {
 		try {
 			Application commandCenter = new Application();
-			commandCenter.chargerPlan();
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN);;
 			//Pour tester
 			Plan ned = commandCenter.getModele().getPlanApp();
 			Vector<Troncon> ts = ned.getListeTroncons();

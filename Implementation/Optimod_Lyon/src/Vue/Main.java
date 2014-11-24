@@ -3,6 +3,7 @@ package Vue;
 import java.awt.EventQueue;
 
 import Controleur.Application;
+import Outils.Proprietes;
 
 public class Main {
 	/**
@@ -11,7 +12,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Application a = new Application();
-		a.chargerPlan();
+		// Passer toujours par gererCommande !!!!!!!!!!!!!!!!!!!
+		a.gererCommande(Proprietes.CHARGER_PLAN);
 		Fenetre frame = new Fenetre();
 		frame.setVisible(true);
 		frame.chargerPlan(a.getModele().getPlanApp());
