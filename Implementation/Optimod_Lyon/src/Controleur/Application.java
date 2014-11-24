@@ -111,14 +111,6 @@ public class Application {
         // TODO implement here
     }
     
-    public static void main(String[] arg)
-    {
-    	Application commandCenter = new Application();
-    	commandCenter.initApplication();
-
-    	
-    }
-
 	/**
 	 * @return the listeAnnulation
 	 */
