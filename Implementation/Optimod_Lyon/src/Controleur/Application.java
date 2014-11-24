@@ -47,14 +47,10 @@ public class Application {
                // lecture du contenu d'un fichier XML avec DOM
                Document document = constructeur.parse(fichierData);
                Element racine = document.getDocumentElement();
-               if (racine.getNodeName().equals("JourneeType")) 
-               {
+               
+               // Initialiser les données
                   modele.initLivraison(racine);
-               }
-               else
-               {
-            	   
-               }
+
            // todo : traiter les erreurs
            } catch (ParserConfigurationException pce) {
                System.out.println("Erreur de configuration du parseur DOM");
@@ -83,15 +79,10 @@ public class Application {
                // lecture du contenu d'un fichier XML avec DOM
                Document document = constructeur.parse(fichierData);
                Element racine = document.getDocumentElement();
-               if (racine.getNodeName().equals("Reseau")) 
-               {
+
                    // appel des initialiseurs
             	   modele.initDataPlan(racine);
-               }
-               else
-               {
-            	   
-               }
+
            // todo : traiter les erreurs
            } catch (ParserConfigurationException pce) {
                System.out.println("Erreur de configuration du parseur DOM");
