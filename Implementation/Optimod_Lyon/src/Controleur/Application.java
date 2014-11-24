@@ -33,7 +33,8 @@ public class Application {
     public Application() {
     	this.listeAnnulation = new Vector<Action>();
     	this.listeExecution = new Vector<Action>();
-    	this.livraisonData = new HashMap<PlageHoraire,Vector<Livraison>>();
+    	this.modele = new DataWareHouse();
+    	
     }
 
     /**
@@ -49,16 +50,10 @@ public class Application {
     /**
      * 
      */
-    	private Plan planApp;
-    
-    /**
-     * 
-     */
-    	private Map<PlageHoraire,Vector<Livraison>> livraisonData;
     	
-    /**
-     * 
-     */
+    	private DataWareHouse modele;
+    	
+ 
     public void chargerDemandeLivraison() {
     	JFileChooser jFileChooserXML = new JFileChooser();
     	FileFilterApp filter = new FileFilterApp();
@@ -84,29 +79,7 @@ public class Application {
                Element racine = document.getDocumentElement();
                if (racine.getNodeName().equals("JourneeType")) 
                {
-                   // appel des initialiseurs
-            	   NodeList plagesXML = racine.getElementsByTagName("Plage");
-            	   for (int i = 0;i < plagesXML.getLength();i++)
-            	   {
-            		   //cr�ation de la clef (PH)
-            		   Element plageXMLinstance = (Element)plagesXML.item(i);
-            		   PlageHoraire nouvellePlage = new PlageHoraire();
-            		   nouvellePlage.initPlage(plageXMLinstance);
-            		   
-            		   //cr�ation des valeurs (Vector)
-            		   Vector<Livraison> livraisonPH = new Vector<Livraison>();
-            		   NodeList livraisonXML = plageXMLinstance.getElementsByTagName("Livraison");
-            		   for (int j = 0 ; j<livraisonXML.getLength();j++)
-            		   {
-            			   Element livraisonXMLinstance = (Element)livraisonXML.item(j);
-            			   Livraison nouvelleLivraison = new Livraison();
-            			   nouvelleLivraison.initLivraison(livraisonXMLinstance);
-            			   livraisonPH.add(nouvelleLivraison);
-            		   }
-            		   
-            		   // Inserer le couple plage,Vector<Livraisons> dans la map de l'application
-            		   livraisonData.put(nouvellePlage, livraisonPH);
-            	   }
+                  modele.initMapLivraison(racine);
                }
                else
                {
@@ -155,8 +128,7 @@ public class Application {
                if (racine.getNodeName().equals("Reseau")) 
                {
                    // appel des initialiseurs
-            	   this.planApp = new Plan();
-            	   this.planApp.initPlan(racine);
+            	   modele.initDataPlan(racine);
                }
                else
                {
@@ -194,21 +166,6 @@ public class Application {
     {
     	Application commandCenter = new Application();
     	commandCenter.initApplication();
-    	
-    	//commandCenter.chargerPlan();
-    	/*commandCenter.chargerDemandeLivraison();
-    	//Pour tester
-    	for (Map.Entry<PlageHoraire, Vector<Livraison>>entry : commandCenter.livraisonData.entrySet())
-    	{
-    		PlageHoraire value = entry.getKey();
-    		System.out.println(value.getHeureDebut() + " " + value.getHeureFin());
-    		Vector<Livraison> vect = entry.getValue();
-    		for(Livraison valu : vect)
-    		{
-    			System.out.println(valu.getIdLivraison() + " "+ valu.getDestinataire().getIdClient()+ " "+ valu.getDestinataire().getIdNoeudAdresse());
-    		}
-    	}
-    	System.out.println("Success");*/
 
     	
     }
@@ -228,17 +185,11 @@ public class Application {
 	}
 
 	/**
-	 * @return the planApp
+	 * @return the modele
 	 */
-	public Plan getPlanApp() {
-		return planApp;
+	public DataWareHouse getModele() {
+		return modele;
 	}
 
-	/**
-	 * @return the livraisonData
-	 */
-	public Map<PlageHoraire, Vector<Livraison>> getLivraisonData() {
-		return livraisonData;
-	}
 
 }

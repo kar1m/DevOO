@@ -18,7 +18,7 @@ public class ControlTest {
 			Application commandCenter = new Application();
 			commandCenter.chargerDemandeLivraison();
 			//Pour tester
-			for (Map.Entry<PlageHoraire, Vector<Livraison>> entry : commandCenter
+			for (Map.Entry<PlageHoraire, Vector<Livraison>> entry : commandCenter.getModele()
 					.getLivraisonData().entrySet()) {
 				PlageHoraire value = entry.getKey();
 				System.out.println(value.getHeureDebut() + " "
@@ -45,7 +45,7 @@ public class ControlTest {
 			Application commandCenter = new Application();
 			commandCenter.chargerPlan();
 			//Pour tester
-			Plan ned = commandCenter.getPlanApp();
+			Plan ned = commandCenter.getModele().getPlanApp();
 			Vector<Troncon> ts = ned.getListeTroncons();
 			for (Troncon tr : ts)
 				{
