@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename compilation unit &apos;Controleur.FileFilter.java&apos; to &apos;FileFilterApp.java&apos;&#x0D;&#x0A;- Original project: &apos;Optimod_Lyon&apos;&#x0D;&#x0A;- Original element: &apos;Controleur.FileFilter.java&apos;&#x0D;&#x0A;- Renamed element: &apos;Controleur.FileFilterApp.java&apos;" description="Rename compilation unit &apos;FileFilter.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;Controleur{FileFilter.java" name="FileFilterApp.java" references="false" stamp="1416412207441" version="1.0"/>
-</session>
