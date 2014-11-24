@@ -18,12 +18,12 @@ public class ControlTest {
 			Application commandCenter = new Application();
 			commandCenter.chargerDemandeLivraison();
 			//Pour tester
-			for (Map.Entry<PlageHoraire, Vector<Livraison>> entry : commandCenter.getModele()
-					.getLivraisonData().entrySet()) {
-				PlageHoraire value = entry.getKey();
+			for (PlageHoraire entry : commandCenter.getModele()
+					.getLivraisonData()) {
+				PlageHoraire value = entry;
 				System.out.println(value.getHeureDebut() + " "
 						+ value.getHeureFin());
-				Vector<Livraison> vect = entry.getValue();
+				Vector<Livraison> vect = entry.getLivraisons();
 				for (Livraison valu : vect) {
 					System.out.println(valu.getIdLivraison() + " "
 							+ valu.getDestinataire().getIdClient() + " "

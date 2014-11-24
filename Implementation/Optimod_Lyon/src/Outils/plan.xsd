@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wmh="http://www.wmhelp.com/2003/eGenerator" elementFormDefault="qualified">
+  <xs:element name="Reseau">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Noeud" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Noeud">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="LeTronconSortant" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeTronconSortant">
+    <xs:complexType>
+      <xs:attribute name="nomRue" type="xs:string" use="required"/>
+      <xs:attribute name="vitesse" type="xs:string" use="required"/>
+      <xs:attribute name="longueur" type="xs:string" use="required"/>
+      <xs:attribute name="idNoeudDestination" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wmh="http://www.wmhelp.com/2003/eGenerator" elementFormDefault="qualified">
+  <xs:element name="JourneeType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Entrepot"/>
+        <xs:element ref="PlagesHoraires"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Entrepot">
+    <xs:complexType>
+      <xs:attribute name="adresse" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PlagesHoraires">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Plage" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Plage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Livraisons"/>
+      </xs:sequence>
+      <xs:attribute name="heureDebut" type="xs:string" use="required"/>
+      <xs:attribute name="heureFin" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Livraisons">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Livraison" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Livraison">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="client" type="xs:string" use="required"/>
+      <xs:attribute name="adresse" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

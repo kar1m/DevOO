@@ -4,74 +4,44 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-import Modele.*;
-import Vue.*;
+import Modele.DataWareHouse;
+import Outils.*;
 
 /**
  * 
  */
 public class Application {
 
-    /**
-     * 
-     */
     public Application() {
     	this.listeAnnulation = new Vector<Action>();
     	this.listeExecution = new Vector<Action>();
     	this.modele = new DataWareHouse();
+    	this.outilXML = new XMLhandler();
     	
     }
 
-    /**
-     * 
-     */
     	private Vector<Action> listeAnnulation;
 
-    /**
-     * 
-     */
     	private Vector<Action> listeExecution;
 
-    /**
-     * 
-     */
-    	
     	private DataWareHouse modele;
+    	
+    	private XMLhandler outilXML;
     	
  
     public void chargerDemandeLivraison() {
-    	JFileChooser jFileChooserXML = new JFileChooser();
-    	FileFilterApp filter = new FileFilterApp();
-    	File fichierData = null;
-    	
-        filter.addExtension("xml");
-        filter.setDescription("Fichier XML");
-        jFileChooserXML.setFileFilter(filter);
-        jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        int returnVal;
-        	returnVal = jFileChooserXML.showOpenDialog(null);
 
-        if (returnVal == JFileChooser.APPROVE_OPTION) 
-               fichierData = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
-        else
-        	System.out.println("canceled");
+    	File fichierData = outilXML.selectXML();
         if (fichierData != null) {
             try {
+            	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_DL);
                 // creation d'un constructeur de documents a l'aide d'une fabrique
                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
                // lecture du contenu d'un fichier XML avec DOM
@@ -79,7 +49,7 @@ public class Application {
                Element racine = document.getDocumentElement();
                if (racine.getNodeName().equals("JourneeType")) 
                {
-                  modele.initMapLivraison(racine);
+                  modele.initLivraison(racine);
                }
                else
                {
@@ -103,23 +73,11 @@ public class Application {
      * 
      */
     public void chargerPlan() {
-    	JFileChooser jFileChooserXML = new JFileChooser();
-    	FileFilterApp filter = new FileFilterApp();
-    	File fichierData = null;
-    	
-        filter.addExtension("xml");
-        filter.setDescription("Fichier XML");
-        jFileChooserXML.setFileFilter(filter);
-        jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        int returnVal;
-        	returnVal = jFileChooserXML.showOpenDialog(null);
 
-        if (returnVal == JFileChooser.APPROVE_OPTION) 
-               fichierData = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
-        else
-        	System.out.println("canceled");
+    	File fichierData = outilXML.selectXML();
         if (fichierData != null) {
             try {
+            	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_PLAN);
                 // creation d'un constructeur de documents a l'aide d'une fabrique
                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
                // lecture du contenu d'un fichier XML avec DOM

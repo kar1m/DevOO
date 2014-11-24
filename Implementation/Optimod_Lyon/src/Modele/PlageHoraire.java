@@ -1,27 +1,24 @@
 package Modele;
 
+import java.util.Vector;
+
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * 
  */
 public class PlageHoraire {
 
-    /**
-     * 
-     */
     public PlageHoraire() {
+    	this.livraisons = new Vector<Livraison>();
     }
 
-    /**
-     * 
-     */
     private String heureDebut;
 
-    /**
-     * 
-     */
     private String heureFin;
+    
+    private Vector<Livraison> livraisons;
 
 
     /**
@@ -30,6 +27,18 @@ public class PlageHoraire {
     public void initPlage(Element XMLnode) {
         this.heureDebut = XMLnode.getAttribute("heureDebut");
         this.heureFin = XMLnode.getAttribute("heureFin");
+        
+        	//Initialisation du vecteur de livraisons
+		   Vector<Livraison> livraisonPH = new Vector<Livraison>();
+		   NodeList livraisonXML = XMLnode.getElementsByTagName("Livraison");
+		   for (int j = 0 ; j<livraisonXML.getLength();j++)
+		   {
+			   Element livraisonXMLinstance = (Element)livraisonXML.item(j);
+			   Livraison nouvelleLivraison = new Livraison();
+			   nouvelleLivraison.initLivraison(livraisonXMLinstance);
+			   livraisonPH.add(nouvelleLivraison);
+		   }
+		   this.livraisons =  livraisonPH;
     }
 
 
@@ -39,14 +48,16 @@ public class PlageHoraire {
 	public String getHeureDebut() {
 		return heureDebut;
 	}
-
-
 	/**
 	 * @return the heureFin
 	 */
 	public String getHeureFin() {
 		return heureFin;
 	}
+	public Vector<Livraison> getLivraisons() {
+		return livraisons;
+	}
+	
     
 
 }

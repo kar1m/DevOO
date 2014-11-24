@@ -1,4 +1,4 @@
-package Controleur;
+package Outils;
 
 /*
  * @(#)ExampleFileFilter.java	1.16 04/07/26
