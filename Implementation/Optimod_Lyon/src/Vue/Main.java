@@ -14,6 +14,6 @@ public class Main {
 		a.chargerPlan();
 		Fenetre frame = new Fenetre();
 		frame.setVisible(true);
-		frame.chargerPlan(a.getPlanApp());
+		frame.chargerPlan(a.getModele().getPlanApp());
 	}
 }

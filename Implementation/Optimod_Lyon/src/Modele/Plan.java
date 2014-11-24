@@ -74,5 +74,31 @@ public class Plan {
 	private Vector<Noeud> listeNoeuds;
     
     private Vector<Troncon> listeTroncons;
+    
+    
+    public int getMaxX(Vector<Noeud> liste)
+	{
+		int max = 0; 
+		for ( Noeud a : liste)
+		{
+			if(a.getX()>max)
+			{
+				max = a.getX();
+			}
+		}
+		return max;
+	}
+	public int getMaxY(Vector<Noeud> liste)
+	{
+		int max = 0; 
+		for ( Noeud a : liste)
+		{
+			if(a.getY()>max)
+			{
+				max = a.getY();
+			}
+		}
+		return max;
+	}
 
 }
