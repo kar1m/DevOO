@@ -59,4 +59,14 @@ public class Troncon {
      */
     private Noeud depart;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Troncon [vitesse=" + vitesse + ", longueur=" + longueur
+				+ ", nomRue=" + nomRue + ", arrivee=" + arrivee.getIdNoeud() + ", depart="
+				+ depart.getIdNoeud() + "]";
+	}
+
 }

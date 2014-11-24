@@ -1,7 +1,5 @@
 package Modele;
 
-import java.util.*;
-
 /**
  * 
  */
@@ -21,14 +19,29 @@ public class Client {
     /**
      * 
      */
-    private Noeud adresse;
+    private int idNoeudAdresse;
 
     /**
      * @param Noeud adresse 
      * @param int IdClient
      */
-    public void initClient(Noeud adresse, int IdClient) {
-        // TODO implement here
+    public void initClient(int id_adresse, int id_Client) {
+        this.idNoeudAdresse = id_adresse;
+        this.idClient = id_Client;
     }
+
+	/**
+	 * @return the idClient
+	 */
+	public int getIdClient() {
+		return idClient;
+	}
+
+	/**
+	 * @return the idNoeudAdresse
+	 */
+	public int getIdNoeudAdresse() {
+		return idNoeudAdresse;
+	}
 
 }
