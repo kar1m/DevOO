@@ -25,26 +25,6 @@ public class VuePlan extends JPanel{
 	public VuePlan()
 	{
 		super();
-		this.addMouseListener(new MouseListener(){
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				for(VueNoeud a : listeVueNoeuds)
-				{
-					if(a.clickDessus(e.getX(), e.getY()))
-					{
-						System.out.println("Clicke");
-						return;
-					}
-				}
-				
-				System.out.println("PasClick");
-				return;
-			}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
-		});
 	}
 	
 	public void chargerPlan(Plan planApp)
@@ -60,15 +40,15 @@ public class VuePlan extends JPanel{
 
 		for(Noeud a : listeNoeuds)
 		{
-			this.listeVueNoeuds.add(new VueNoeud(toScreenX(a.getX()), toScreenY(a.getY()), 5,a));
+			this.listeVueNoeuds.add(new VueNoeud(toScreenX(a.getX()), toScreenY(a.getY()), 10,a));
 		}
 		
 		for(Troncon a : listeTroncons)
 		{
 			Noeud depart = a.getArrivee();
 			Noeud arrivee = a.getDepart();
-			VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), 5, depart);
-			VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 5, arrivee); 
+			VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), 10, depart);
+			VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 10, arrivee); 
 			
 			VueTroncon b = new VueTroncon(vuedepart, vuearrivee);
 			this.listeVueTroncons.add(b);
@@ -94,14 +74,22 @@ public class VuePlan extends JPanel{
 	public int toScreenX(int x)
 	{
 		int width = this.getWidth();		
-		float xecran = (float)(x) * (width-0) / (maxX - 0);
+		float xecran = (float)(x) * (width-0) / (maxX + 30 - 0);
 		return (int) xecran; 
 	}
 	public int toScreenY(int y)
 	{
 		int width = this.getHeight();		
-		float yecran = (float)(y) * (width-0) / (maxY - 0);
+		float yecran = (float)(y) * (width-0) / (maxY + 30 - 0);
 		return (int) yecran; 
+	}
+	
+	public Vector<VueNoeud> getListeVueNoeuds() {
+		return listeVueNoeuds;
+	}
+
+	public Vector<VueTroncon> getListeVueTroncons() {
+		return listeVueTroncons;
 	}
 
 }

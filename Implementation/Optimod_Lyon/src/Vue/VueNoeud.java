@@ -1,5 +1,6 @@
 package Vue;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import Modele.Noeud;
@@ -10,6 +11,7 @@ public class VueNoeud {
 	private int x; 
 	private int y; 
 	private int rayon; 
+	public boolean selected = false;
 	
 	public VueNoeud(int x, int y, int rayon, Noeud noeudAssocie)
 	{
@@ -20,6 +22,13 @@ public class VueNoeud {
 	}
 	public void dessiner(Graphics g)
 	{
+		if(selected)
+		{
+			g.setColor(Color.blue);
+		}else
+		{
+			g.setColor(Color.BLACK);
+		}
 		g.fillOval(x, y, rayon, rayon);
 	}
 	

@@ -1,5 +1,9 @@
 package Controleur;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -13,25 +17,31 @@ import org.xml.sax.SAXException;
 
 import Modele.DataWareHouse;
 import Outils.*;
+import Vue.Fenetre;
+import Vue.VueNoeud;
 
 /**
  * 
  */
-public class Application {
+public class Application implements MouseListener, ActionListener{
 
-    public Application() {
+	private DataWareHouse modele;
+	private Fenetre vue; 
+	
+	
+    public Application(Fenetre vue, DataWareHouse modele) {
     	this.listeAnnulation = new Vector<Action>();
     	this.listeExecution = new Vector<Action>();
-    	this.modele = new DataWareHouse();
     	this.outilXML = new XMLhandler();
+
     	
+    	this.modele = modele;
+    	this.vue = vue; 
     }
 
     	private Vector<Action> listeAnnulation;
 
     	private Vector<Action> listeExecution;
-
-    	private DataWareHouse modele;
     	
     	private XMLhandler outilXML;
     	
@@ -48,7 +58,7 @@ public class Application {
                Document document = constructeur.parse(fichierData);
                Element racine = document.getDocumentElement();
                
-               // Initialiser les données
+               // Initialiser les donnï¿½es
                   modele.initLivraison(racine);
 
            // todo : traiter les erreurs
@@ -147,6 +157,65 @@ public class Application {
 	 */
 	public DataWareHouse getModele() {
 		return modele;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Mouse Listener
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		boolean selected = false; 
+		
+		for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+		{
+			if(a.clickDessus(e.getX(), e.getY()))
+			{
+				a.selected = true;
+				selected = true; 
+				vue.logText("Clique sur X : " + a.getX() + " Y : " + a.getY());
+			}else
+			{
+				a.selected = false;
+			}
+		}
+		
+		vue.getPlan().repaint();
+		if(!selected)
+			vue.logText("Clique sur autre chose qu'un noeud");
+		return;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == vue.getBtnChargerPlan()){
+			gererCommande(Proprietes.CHARGER_PLAN);
+			vue.chargerPlan(modele.getPlanApp());
+			vue.repaint();
+			vue.logText("Plan chargÃ©");
+		}
+		
 	}
 
 
