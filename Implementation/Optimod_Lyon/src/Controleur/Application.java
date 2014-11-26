@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,6 +21,8 @@ import Modele.DataWareHouse;
 import Outils.*;
 import Vue.Fenetre;
 import Vue.VueNoeud;
+import Vue.VueNoeudLivraison;
+import Vue.VuePopup;
 
 /**
  * 
@@ -175,18 +179,44 @@ public class Application implements MouseListener, ActionListener{
 		// TODO Auto-generated method stub
 		boolean selected = false; 
 		
-		for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+		if(vue.getPlan().getListeVueNoeudLivraisons() != null)
 		{
-			if(a.clickDessus(e.getX(), e.getY()))
+			for(VueNoeudLivraison a : vue.getPlan().getListeVueNoeudLivraisons())
 			{
-				a.selected = true;
-				selected = true; 
-				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
-			}else
-			{
-				a.selected = false;
+				if(a.clickDessus(e.getX(), e.getY()))
+				{
+					a.selected = true;
+					selected = true; 
+					//VuePopup pop = new VuePopup(true); 
+					//pop.show(e.getComponent(), e.getX(), e.getY());
+					vue.logText("Clique sur une livraison");
+				}else
+				{
+					a.selected = false;
+				}
 			}
 		}
+		
+		if(vue.getPlan().getListeVueNoeuds() != null)
+		{
+			for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+			{
+				if(a.clickDessus(e.getX(), e.getY()))
+				{
+					a.selected = true;
+					selected = true; 
+					
+					
+					//VuePopup pop = new VuePopup(false); 
+					//pop.show(e.getComponent(), e.getX(), e.getY());
+					vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
+				}else
+				{
+					a.selected = false;
+				}
+			}
+		}
+
 		
 		vue.getPlan().repaint();
 		if(!selected)

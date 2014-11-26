@@ -1,5 +1,7 @@
 package Outils;
 
+import java.awt.Color;
+
 public class Proprietes {
 	
 	public static final String ERREUR_XML = "Fichier Non Valide";
@@ -9,7 +11,7 @@ public class Proprietes {
 	public static final String PATH_XSD_PLAN = "src/Outils/plan.xsd";
 
 	
-	// Commandes interprétables par le controleur 
+	// Commandes interprï¿½tables par le controleur 
 	public static final String AJOUTER_LIVRAISON = "Ajouter";
 	public static final String SUPP_LIVRAISON = "Supprimer";
 	public static final String CALC_TOURNEE = "Calculer";
@@ -19,4 +21,13 @@ public class Proprietes {
 	public static final String REDO = "REDO";
 	public static final String SAVE = "Save";
 
+	public static Color[] cols ;
+	
+	public static Color[] getDifferentColors(int n) {
+	    Color[] cols = new Color[n];
+	    for (int i = 0; i < n; i++)
+	    	cols[i] = Color.getHSBColor((float) i / n, 1, 1);
+	    return cols;
+	}
+	
 }

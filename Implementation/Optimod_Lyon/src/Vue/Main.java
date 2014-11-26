@@ -12,6 +12,9 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		Proprietes.cols = Proprietes.getDifferentColors(10);
+		
+		
 		DataWareHouse modele = new DataWareHouse();
 		Fenetre vue = new Fenetre();
 		Application controlleur = new Application(vue, modele);

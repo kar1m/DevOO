@@ -19,12 +19,13 @@ public class DataWareHouse {
 	public boolean initLivraison(Element racine) {
 		 try {
 			// appel des initialiseurs
+	   livraisonData = new Vector<PlageHoraire>();
 	   NodeList plagesXML = racine.getElementsByTagName("Plage");
 	   for (int i = 0;i < plagesXML.getLength();i++)
 	   {
 			   //cr�ation de la clef (PH)
 			   Element plageXMLinstance = (Element)plagesXML.item(i);
-			   PlageHoraire nouvellePlage = new PlageHoraire();
+			   PlageHoraire nouvellePlage = new PlageHoraire(i);
 			   nouvellePlage.initPlage(plageXMLinstance, planApp.getListeNoeuds());
 
 			   livraisonData.add(nouvellePlage);

@@ -67,7 +67,7 @@ public class VuePlan extends JPanel{
 		{
 			for(Livraison l : a.getLivraisons()){
 				Noeud noeud = l.getDestinataire().getNoeudAdresse();
-				VueNoeudLivraison vueNoeud = new VueNoeudLivraison(toScreenX(noeud.getX()), toScreenY(noeud.getY()), 10,noeud);
+				VueNoeudLivraison vueNoeud = new VueNoeudLivraison(toScreenX(noeud.getX()), toScreenY(noeud.getY()), 10,noeud, a.getId());
 				this.listeVueNoeudLivraisons.add(vueNoeud);
 			}
 		}
@@ -118,4 +118,9 @@ public class VuePlan extends JPanel{
 		return listeVueTroncons;
 	}
 
+	public Vector<VueNoeudLivraison> getListeVueNoeudLivraisons() {
+		return listeVueNoeudLivraisons;
+	}
+
+	
 }
