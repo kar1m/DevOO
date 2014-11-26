@@ -10,7 +10,7 @@
   </xs:element>
   <xs:element name="Entrepot">
     <xs:complexType>
-      <xs:attribute name="adresse" type="xs:string" use="required"/>
+      <xs:attribute name="adresse" type="xs:int" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="PlagesHoraires">
@@ -25,8 +25,8 @@
       <xs:sequence>
         <xs:element ref="Livraisons"/>
       </xs:sequence>
-      <xs:attribute name="heureDebut" type="xs:string" use="required"/>
-      <xs:attribute name="heureFin" type="xs:string" use="required"/>
+      <xs:attribute name="heureDebut" type="xs:time" use="required"/>
+      <xs:attribute name="heureFin" type="xs:time" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="Livraisons">
@@ -38,9 +38,30 @@
   </xs:element>
   <xs:element name="Livraison">
     <xs:complexType>
-      <xs:attribute name="id" type="xs:string" use="required"/>
-      <xs:attribute name="client" type="xs:string" use="required"/>
-      <xs:attribute name="adresse" type="xs:string" use="required"/>
+      <xs:attribute name="id" use="required">
+
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="client" use="required">
+
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="adresse" use="required">
+
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
 </xs:schema>

@@ -12,17 +12,59 @@
       <xs:sequence>
         <xs:element ref="LeTronconSortant" maxOccurs="unbounded"/>
       </xs:sequence>
-      <xs:attribute name="id" type="xs:string" use="required"/>
-      <xs:attribute name="x" type="xs:string" use="required"/>
-      <xs:attribute name="y" type="xs:string" use="required"/>
+      <xs:attribute name="id" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="x" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="y" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="LeTronconSortant">
     <xs:complexType>
-      <xs:attribute name="nomRue" type="xs:string" use="required"/>
-      <xs:attribute name="vitesse" type="xs:string" use="required"/>
-      <xs:attribute name="longueur" type="xs:string" use="required"/>
-      <xs:attribute name="idNoeudDestination" type="xs:string" use="required"/>
+      <xs:attribute name="nomRue" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:string">
+      			<xs:minLength value="1"></xs:minLength>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="vitesse" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:float">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="longueur" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:float">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="idNoeudDestination" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+      			<xs:minExclusive value="0"></xs:minExclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
 </xs:schema>
