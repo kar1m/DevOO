@@ -24,7 +24,7 @@ public class PlageHoraire {
     /**
      * @param Element XMLnode
      */
-    public void initPlage(Element XMLnode) {
+    public void initPlage(Element XMLnode, Vector<Noeud> l ) {
         this.heureDebut = XMLnode.getAttribute("heureDebut");
         this.heureFin = XMLnode.getAttribute("heureFin");
         
@@ -35,7 +35,7 @@ public class PlageHoraire {
 		   {
 			   Element livraisonXMLinstance = (Element)livraisonXML.item(j);
 			   Livraison nouvelleLivraison = new Livraison();
-			   nouvelleLivraison.initLivraison(livraisonXMLinstance);
+			   nouvelleLivraison.initLivraison(livraisonXMLinstance,l);
 			   livraisonPH.add(nouvelleLivraison);
 		   }
 		   this.livraisons =  livraisonPH;

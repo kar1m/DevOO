@@ -11,7 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import Controleur.Application;
+import Modele.Livraison;
 import Modele.Noeud;
+import Modele.PlageHoraire;
 import Modele.Plan;
 import Modele.Troncon;
 
@@ -52,6 +54,7 @@ public class Fenetre extends JFrame {
 		panel_1.add(btnChargerPlan);
 		
 		btnChargerDemandeLivraison = new JButton("Charger demande livraison");
+		btnChargerDemandeLivraison.setEnabled(false);
 		panel_1.add(btnChargerDemandeLivraison);
 		
 		btnUndo = new JButton("undo");
@@ -88,6 +91,10 @@ public class Fenetre extends JFrame {
 	public void chargerPlan(Plan planApp)
 	{
 		plan.chargerPlan(planApp);
+	}
+	public void chargerLivraison(Vector<PlageHoraire> p)
+	{
+		plan.chargerLivraison(p);
 	}
 
 

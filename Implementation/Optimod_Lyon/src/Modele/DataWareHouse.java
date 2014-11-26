@@ -25,7 +25,7 @@ public class DataWareHouse {
 			   //cr�ation de la clef (PH)
 			   Element plageXMLinstance = (Element)plagesXML.item(i);
 			   PlageHoraire nouvellePlage = new PlageHoraire();
-			   nouvellePlage.initPlage(plageXMLinstance);
+			   nouvellePlage.initPlage(plageXMLinstance, planApp.getListeNoeuds());
 
 			   livraisonData.add(nouvellePlage);
 	   }

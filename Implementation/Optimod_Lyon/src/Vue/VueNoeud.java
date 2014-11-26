@@ -7,10 +7,10 @@ import Modele.Noeud;
 
 public class VueNoeud {
 
-	private Noeud noeudAssocie;
-	private int x; 
-	private int y; 
-	private int rayon; 
+	protected Noeud noeudAssocie;
+	protected int x; 
+	protected int y; 
+	protected int rayon; 
 	public boolean selected = false;
 	
 	public VueNoeud(int x, int y, int rayon, Noeud noeudAssocie)
@@ -24,7 +24,7 @@ public class VueNoeud {
 	{
 		if(selected)
 		{
-			g.setColor(Color.blue);
+			g.setColor(Color.BLUE);
 		}else
 		{
 			g.setColor(Color.BLACK);
@@ -47,6 +47,10 @@ public class VueNoeud {
 	public int getY() {
 		return y;
 	}
+	public Noeud getNoeudAssocie() {
+		return noeudAssocie;
+	}
+	
 	
 	
 }
