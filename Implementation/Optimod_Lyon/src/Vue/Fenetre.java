@@ -117,4 +117,8 @@ public class Fenetre extends JFrame {
 	public JLabel getLblChargementFini() {
 		return lblChargementFini;
 	}
+	public VueTable getTable() {
+		return table;
+	}
+	
 }

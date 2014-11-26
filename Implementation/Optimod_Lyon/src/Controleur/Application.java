@@ -10,6 +10,8 @@ import java.util.*;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,7 +29,7 @@ import Vue.VuePopup;
 /**
  * 
  */
-public class Application implements MouseListener, ActionListener{
+public class Application implements MouseListener, ActionListener, ListSelectionListener{
 
 	private DataWareHouse modele;
 	private Fenetre vue; 
@@ -182,6 +184,7 @@ public class Application implements MouseListener, ActionListener{
 
 		if(vue.getPlan().getListeVueNoeudLivraisons() != null)
 		{
+			int i = 0; 
 			for(VueNoeudLivraison a : vue.getPlan().getListeVueNoeudLivraisons())
 			{
 				if(a.clickDessus(e.getX(), e.getY()))
@@ -195,14 +198,23 @@ public class Application implements MouseListener, ActionListener{
 						pop.show(e.getComponent(), e.getX(), e.getY());
 					}
 					
+					
+					vue.getTable().getT().setRowSelectionInterval(i, i);
 					vue.logText("Clique sur une livraison");
 				}else
 				{
 					a.selected = false;
 				}
+				i++; 
+			}
+			
+			if(!selectedL)
+			{
+				vue.getTable().getT().removeRowSelectionInterval(0, vue.getPlan().getListeVueNoeudLivraisons().size()-1);
 			}
 		}
 		
+
 		
 		
 		if(vue.getPlan().getListeVueNoeuds() != null)
@@ -263,6 +275,27 @@ public class Application implements MouseListener, ActionListener{
 			vue.repaint();
 			vue.logText("Demande de livraison chargée");
 		}
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("Hey");
+		for(int i=0; i<vue.getPlan().getListeVueNoeudLivraisons().size(); i++)
+		{
+			VueNoeudLivraison a = vue.getPlan().getListeVueNoeudLivraisons().get(i);
+			if(i==e.getFirstIndex())
+			{
+				a.selected=true;
+			}else
+			{
+				a.selected=false;
+			}
+		}
+		
+		for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+			a.selected=false;
+		vue.getPlan().repaint();
 	}
 
 

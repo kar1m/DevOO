@@ -25,5 +25,6 @@ public class Main {
 		vue.getBtnChargerDemandeLivraison().addActionListener(controlleur);
 		vue.getBtnRedo().addActionListener(controlleur);
 		vue.getBtnUndo().addActionListener(controlleur);
+		vue.getTable().getT().getSelectionModel().addListSelectionListener(controlleur);
 	}
 }
