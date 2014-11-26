@@ -32,26 +32,24 @@ import Vue.VuePopup;
 public class Application implements MouseListener, ActionListener, ListSelectionListener{
 
 	private DataWareHouse modele;
-	private Fenetre vue; 
-	
+	private Fenetre vue;
+	private Vector<Action> listeAnnulation;
+	private Vector<Action> listeExecution;
+	private XMLhandler outilXML;
 	
     public Application(Fenetre vue, DataWareHouse modele) {
     	this.listeAnnulation = new Vector<Action>();
     	this.listeExecution = new Vector<Action>();
     	this.outilXML = new XMLhandler();
-
-    	
     	this.modele = modele;
     	this.vue = vue; 
     }
 
-    	private Vector<Action> listeAnnulation;
-
-    	private Vector<Action> listeExecution;
+    public Application()
+    {
     	
-    	private XMLhandler outilXML;
+    }
     	
- 
     private void chargerDemandeLivraison() {
 
     	File fichierData = outilXML.selectXML();
@@ -114,27 +112,46 @@ public class Application implements MouseListener, ActionListener, ListSelection
      * 
      */
     public void gererCommande(String commande) {
-        switch (commande)
-        {
-        case Proprietes.AJOUTER_LIVRAISON :
-        	break;
-        case Proprietes.CALC_TOURNEE :
-        	break;
-        case Proprietes.SUPP_LIVRAISON :
-        	break;
-        case Proprietes.CHARGER_PLAN :
-        	this.chargerPlan();
-        	break;
-        case Proprietes.CHARGER_LIVRAISON : 
-        	this.chargerDemandeLivraison();
-        	break;
-        case Proprietes.UNDO :
-        	break;
-        case Proprietes.REDO : 
-        	break;
-        case Proprietes.SAVE:
-        	break;
-        }
+        try {
+				switch (commande)
+				{
+				case Proprietes.AJOUTER_LIVRAISON :
+					ActionAjouterLivraison action = new ActionAjouterLivraison();
+					action.Executer();
+					this.listeExecution.addElement(action);
+					break;
+				case Proprietes.CALC_TOURNEE :
+					break;
+				case Proprietes.SUPP_LIVRAISON :
+					ActionSupprimerLivraison action1 = new ActionSupprimerLivraison();
+					action1.Executer();
+					this.listeExecution.addElement(action1);
+					break;
+				case Proprietes.CHARGER_PLAN :
+					this.chargerPlan();
+					break;
+				case Proprietes.CHARGER_LIVRAISON : 
+					this.chargerDemandeLivraison();
+					break;
+				case Proprietes.UNDO :
+					Action actionAnnulable = this.listeExecution.lastElement();
+					actionAnnulable.Annuler();
+					this.listeExecution.removeElementAt(listeExecution.size());
+					listeAnnulation.addElement(actionAnnulable);
+					break;
+				case Proprietes.REDO : 
+					Action actionAnnulee = listeAnnulation.lastElement();
+					actionAnnulee.Executer();
+					listeAnnulation.removeElementAt(listeAnnulation.size());
+					listeExecution.addElement(actionAnnulee);
+					break;
+				case Proprietes.SAVE:
+					break;
+				}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /**
@@ -164,17 +181,10 @@ public class Application implements MouseListener, ActionListener, ListSelection
 	public DataWareHouse getModele() {
 		return modele;
 	}
+	
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	//Mouse Listener
+	//-------------------------------------Mouse Listener--------------------------------------------//
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
