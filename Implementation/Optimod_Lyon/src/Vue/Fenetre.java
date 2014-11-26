@@ -11,7 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import Controleur.Application;
+import Modele.Livraison;
 import Modele.Noeud;
+import Modele.PlageHoraire;
 import Modele.Plan;
 import Modele.Troncon;
 
@@ -27,12 +29,13 @@ public class Fenetre extends JFrame {
 	private JButton btnUndo; 
 	private JButton btnRedo; 
 	private JLabel lblChargementFini;
+	private VueTable table; 
 	/**
 	 * Create the frame.
 	 */
 	public Fenetre() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(150, 50, 900, 700);
+		setBounds(50, 50, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -52,6 +55,7 @@ public class Fenetre extends JFrame {
 		panel_1.add(btnChargerPlan);
 		
 		btnChargerDemandeLivraison = new JButton("Charger demande livraison");
+		btnChargerDemandeLivraison.setEnabled(false);
 		panel_1.add(btnChargerDemandeLivraison);
 		
 		btnUndo = new JButton("undo");
@@ -66,16 +70,11 @@ public class Fenetre extends JFrame {
 		lblChargementFini = new JLabel("Bienvenue dans l'application");
 		panel_2.add(lblChargementFini);
 		
-		JPanel panel_3 = new JPanel();
-		contentPane.add(panel_3, BorderLayout.EAST);
-		
-		JLabel lblPlan = new JLabel("Plan");
-		panel_3.setBackground(new Color(2));
-		panel_3.setSize(new Dimension(1000,5000));
-		panel_3.add(lblPlan);
-		
+		table = new VueTable();
+		contentPane.add(table, BorderLayout.EAST);
 		
 		setVisible(true);
+		setResizable(false);
 	}
 
 	
@@ -88,6 +87,11 @@ public class Fenetre extends JFrame {
 	public void chargerPlan(Plan planApp)
 	{
 		plan.chargerPlan(planApp);
+	}
+	public void chargerLivraison(Vector<PlageHoraire> p)
+	{
+		plan.chargerLivraison(p);
+		table.chargerTable(p);
 	}
 
 

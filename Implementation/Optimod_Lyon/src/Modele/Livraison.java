@@ -1,5 +1,7 @@
 package Modele;
 
+import java.util.Vector;
+
 import org.w3c.dom.Element;
 
 /**
@@ -26,10 +28,11 @@ public class Livraison {
     /**
      * @param Element XMLnode
      */
-    public void initLivraison(Element XMLnode) {
+    public void initLivraison(Element XMLnode, Vector<Noeud> l) {
         this.idLivraison = Integer.parseInt(XMLnode.getAttribute("id"));
+        Noeud noeudClient = l.get(Integer.parseInt(XMLnode.getAttribute("adresse")));
         this.destinataire = new Client();
-        destinataire.initClient(Integer.parseInt(XMLnode.getAttribute("adresse")), Integer.parseInt(XMLnode.getAttribute("client")));
+        destinataire.initClient( noeudClient , Integer.parseInt(XMLnode.getAttribute("client")));
     }
 
 	/**

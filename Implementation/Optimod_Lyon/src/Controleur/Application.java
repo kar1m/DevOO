@@ -181,7 +181,7 @@ public class Application implements MouseListener, ActionListener{
 			{
 				a.selected = true;
 				selected = true; 
-				vue.logText("Clique sur X : " + a.getX() + " Y : " + a.getY());
+				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
 			}else
 			{
 				a.selected = false;
@@ -214,8 +214,15 @@ public class Application implements MouseListener, ActionListener{
 			vue.chargerPlan(modele.getPlanApp());
 			vue.repaint();
 			vue.logText("Plan chargé");
+			vue.getBtnChargerDemandeLivraison().setEnabled(true);
 		}
-		
+		if(e.getSource() == vue.getBtnChargerDemandeLivraison())
+		{
+			gererCommande(Proprietes.CHARGER_LIVRAISON);
+			vue.chargerLivraison(modele.getLivraisonData());
+			vue.repaint();
+			vue.logText("Demande de livraison chargée");
+		}
 	}
 
 

@@ -11,7 +11,9 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import Modele.Livraison;
 import Modele.Noeud;
+import Modele.PlageHoraire;
 import Modele.Plan;
 import Modele.Troncon;
 
@@ -19,6 +21,8 @@ public class VuePlan extends JPanel{
 
 	private Vector<VueNoeud> listeVueNoeuds = null;
 	private Vector<VueTroncon> listeVueTroncons = null;
+	private Vector<VueNoeudLivraison> listeVueNoeudLivraisons = null;
+
 	private int maxX = 0; 
 	private int maxY = 0; 
 	
@@ -55,6 +59,20 @@ public class VuePlan extends JPanel{
 		}
 	}
 	
+	public void chargerLivraison(Vector<PlageHoraire> p)
+	{
+		
+		listeVueNoeudLivraisons = new Vector<VueNoeudLivraison>();
+		for(PlageHoraire a : p)
+		{
+			for(Livraison l : a.getLivraisons()){
+				Noeud noeud = l.getDestinataire().getNoeudAdresse();
+				VueNoeudLivraison vueNoeud = new VueNoeudLivraison(toScreenX(noeud.getX()), toScreenY(noeud.getY()), 10,noeud);
+				this.listeVueNoeudLivraisons.add(vueNoeud);
+			}
+		}
+		
+	}
 	public void paintComponent(Graphics g)
 	{	    
 	    if(listeVueNoeuds != null && listeVueTroncons != null)
@@ -65,6 +83,14 @@ public class VuePlan extends JPanel{
 	    	}
 	    	g.setColor(new Color(5));
 	    	for(VueTroncon a : listeVueTroncons)
+	    	{
+	    		a.dessiner(g);
+	    	}
+	    }
+	    
+	    if(listeVueNoeudLivraisons != null)
+	    {
+	    	for(VueNoeudLivraison a : listeVueNoeudLivraisons)
 	    	{
 	    		a.dessiner(g);
 	    	}

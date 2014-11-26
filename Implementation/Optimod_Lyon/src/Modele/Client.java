@@ -19,14 +19,14 @@ public class Client {
     /**
      * 
      */
-    private int idNoeudAdresse;
+    private Noeud noeudAdresse;
 
     /**
      * @param Noeud adresse 
      * @param int IdClient
      */
-    public void initClient(int id_adresse, int id_Client) {
-        this.idNoeudAdresse = id_adresse;
+    public void initClient(Noeud adresse, int id_Client) {
+        this.noeudAdresse = adresse;
         this.idClient = id_Client;
     }
 
@@ -40,8 +40,8 @@ public class Client {
 	/**
 	 * @return the idNoeudAdresse
 	 */
-	public int getIdNoeudAdresse() {
-		return idNoeudAdresse;
+	public Noeud getNoeudAdresse() {
+		return noeudAdresse;
 	}
 
 }
