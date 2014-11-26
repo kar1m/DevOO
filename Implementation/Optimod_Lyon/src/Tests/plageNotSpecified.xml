@@ -2,7 +2,7 @@
 <JourneeType>
     <Entrepot adresse="354"/>
     <PlagesHoraires>
-        <Plage heureDebut="8:30:0" heureFin="10:0:0">
+        <Plage heureDebut="08:30:00" heureFin="10:00:00">
             <Livraisons>
                 <Livraison id="1" client="631" adresse="204"/>
                 <Livraison id="2" client="645" adresse="104"/>
@@ -18,8 +18,8 @@
                 <Livraison id="4" client="771" adresse="34"/>
                 <Livraison id="5" client="396" adresse="11"/>
             </Livraisons>
-        </Plage>
-        <Plage heureDebut="14:0:0" heureFin="16:0:0">
+        <!--> </Plage> -->
+        <Plage heureDebut="14:00:00" heureFin="16:00:00">
             <Livraisons>
                 <Livraison id="1" client="821" adresse="57"/>
                 <Livraison id="2" client="379" adresse="161"/>
