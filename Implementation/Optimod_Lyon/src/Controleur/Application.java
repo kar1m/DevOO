@@ -1,5 +1,9 @@
 package Controleur;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -13,30 +17,36 @@ import org.xml.sax.SAXException;
 
 import Modele.DataWareHouse;
 import Outils.*;
+import Vue.Fenetre;
+import Vue.VueNoeud;
 
 /**
  * 
  */
-public class Application {
+public class Application implements MouseListener, ActionListener{
 
-    public Application() {
+	private DataWareHouse modele;
+	private Fenetre vue; 
+	
+	
+    public Application(Fenetre vue, DataWareHouse modele) {
     	this.listeAnnulation = new Vector<Action>();
     	this.listeExecution = new Vector<Action>();
-    	this.modele = new DataWareHouse();
     	this.outilXML = new XMLhandler();
+
     	
+    	this.modele = modele;
+    	this.vue = vue; 
     }
 
     	private Vector<Action> listeAnnulation;
 
     	private Vector<Action> listeExecution;
-
-    	private DataWareHouse modele;
     	
     	private XMLhandler outilXML;
     	
  
-    public void chargerDemandeLivraison() {
+    private void chargerDemandeLivraison() {
 
     	File fichierData = outilXML.selectXML();
         if (fichierData != null) {
@@ -47,14 +57,10 @@ public class Application {
                // lecture du contenu d'un fichier XML avec DOM
                Document document = constructeur.parse(fichierData);
                Element racine = document.getDocumentElement();
-               if (racine.getNodeName().equals("JourneeType")) 
-               {
+               
+               // Initialiser les donn�es
                   modele.initLivraison(racine);
-               }
-               else
-               {
-            	   
-               }
+
            // todo : traiter les erreurs
            } catch (ParserConfigurationException pce) {
                System.out.println("Erreur de configuration du parseur DOM");
@@ -69,10 +75,7 @@ public class Application {
        } 
     }
 
-    /**
-     * 
-     */
-    public void chargerPlan() {
+    private void chargerPlan() {
 
     	File fichierData = outilXML.selectXML();
         if (fichierData != null) {
@@ -83,15 +86,10 @@ public class Application {
                // lecture du contenu d'un fichier XML avec DOM
                Document document = constructeur.parse(fichierData);
                Element racine = document.getDocumentElement();
-               if (racine.getNodeName().equals("Reseau")) 
-               {
+
                    // appel des initialiseurs
             	   modele.initDataPlan(racine);
-               }
-               else
-               {
-            	   
-               }
+
            // todo : traiter les erreurs
            } catch (ParserConfigurationException pce) {
                System.out.println("Erreur de configuration du parseur DOM");
@@ -109,8 +107,28 @@ public class Application {
     /**
      * 
      */
-    public void gererCommande() {
-        // TODO implement here
+    public void gererCommande(String commande) {
+        switch (commande)
+        {
+        case Proprietes.AJOUTER_LIVRAISON :
+        	break;
+        case Proprietes.CALC_TOURNEE :
+        	break;
+        case Proprietes.SUPP_LIVRAISON :
+        	break;
+        case Proprietes.CHARGER_PLAN :
+        	this.chargerPlan();
+        	break;
+        case Proprietes.CHARGER_LIVRAISON : 
+        	this.chargerDemandeLivraison();
+        	break;
+        case Proprietes.UNDO :
+        	break;
+        case Proprietes.REDO : 
+        	break;
+        case Proprietes.SAVE:
+        	break;
+        }
     }
 
     /**
@@ -120,14 +138,6 @@ public class Application {
         // TODO implement here
     }
     
-    public static void main(String[] arg)
-    {
-    	Application commandCenter = new Application();
-    	commandCenter.initApplication();
-
-    	
-    }
-
 	/**
 	 * @return the listeAnnulation
 	 */
@@ -147,6 +157,65 @@ public class Application {
 	 */
 	public DataWareHouse getModele() {
 		return modele;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Mouse Listener
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		boolean selected = false; 
+		
+		for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+		{
+			if(a.clickDessus(e.getX(), e.getY()))
+			{
+				a.selected = true;
+				selected = true; 
+				vue.logText("Clique sur X : " + a.getX() + " Y : " + a.getY());
+			}else
+			{
+				a.selected = false;
+			}
+		}
+		
+		vue.getPlan().repaint();
+		if(!selected)
+			vue.logText("Clique sur autre chose qu'un noeud");
+		return;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == vue.getBtnChargerPlan()){
+			gererCommande(Proprietes.CHARGER_PLAN);
+			vue.chargerPlan(modele.getPlanApp());
+			vue.repaint();
+			vue.logText("Plan chargé");
+		}
+		
 	}
 
 

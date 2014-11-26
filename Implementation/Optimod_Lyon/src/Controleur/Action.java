@@ -1,34 +1,15 @@
 package Controleur;
 
-import java.util.*;
-
 /**
  * 
  */
 public abstract class Action {
 
-    /**
-     * 
-     */
     public Action() {
     }
 
+    public abstract boolean Executer();
 
-
-    /**
-     * @return
-     */
-    public boolean Executer() {
-        // TODO implement here
-        return false;
-    }
-
-    /**
-     * @return
-     */
-    public boolean Annuler() {
-        // TODO implement here
-        return false;
-    }
+    public abstract boolean Annuler();
 
 }

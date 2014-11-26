@@ -69,4 +69,16 @@ public class Troncon {
 				+ depart.getIdNoeud() + "]";
 	}
 
+
+	public Noeud getArrivee() {
+		return arrivee;
+	}
+
+
+	public Noeud getDepart() {
+		return depart;
+	}
+	
+	
+
 }
