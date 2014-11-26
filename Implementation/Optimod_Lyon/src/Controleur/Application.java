@@ -178,7 +178,8 @@ public class Application implements MouseListener, ActionListener{
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		boolean selected = false; 
-		
+		boolean selectedL = false; 
+
 		if(vue.getPlan().getListeVueNoeudLivraisons() != null)
 		{
 			for(VueNoeudLivraison a : vue.getPlan().getListeVueNoeudLivraisons())
@@ -186,9 +187,14 @@ public class Application implements MouseListener, ActionListener{
 				if(a.clickDessus(e.getX(), e.getY()))
 				{
 					a.selected = true;
-					selected = true; 
-					//VuePopup pop = new VuePopup(true); 
-					//pop.show(e.getComponent(), e.getX(), e.getY());
+					selectedL = true; 
+					
+					if (e.getModifiers() == MouseEvent.BUTTON3_MASK) 
+					{
+						VuePopup pop = new VuePopup(true); 
+						pop.show(e.getComponent(), e.getX(), e.getY());
+					}
+					
 					vue.logText("Clique sur une livraison");
 				}else
 				{
@@ -196,6 +202,8 @@ public class Application implements MouseListener, ActionListener{
 				}
 			}
 		}
+		
+		
 		
 		if(vue.getPlan().getListeVueNoeuds() != null)
 		{
@@ -206,9 +214,11 @@ public class Application implements MouseListener, ActionListener{
 					a.selected = true;
 					selected = true; 
 					
-					
-					//VuePopup pop = new VuePopup(false); 
-					//pop.show(e.getComponent(), e.getX(), e.getY());
+					if (e.getModifiers() == MouseEvent.BUTTON3_MASK && !selectedL) 
+					{
+						VuePopup pop = new VuePopup(false); 
+						pop.show(e.getComponent(), e.getX(), e.getY());
+					}
 					vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
 				}else
 				{

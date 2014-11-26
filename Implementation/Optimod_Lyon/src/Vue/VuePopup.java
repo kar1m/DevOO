@@ -12,8 +12,8 @@ public class VuePopup extends JPopupMenu {
 		add(a);
 		add(b);
 		
-		a.setEnabled(!livraison);
-		b.setEnabled(livraison);
+		a.setEnabled( !livraison );
+		b.setEnabled( livraison );
 
 	}
 }
