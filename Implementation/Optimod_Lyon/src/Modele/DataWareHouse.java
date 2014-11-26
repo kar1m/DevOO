@@ -57,7 +57,6 @@ public class DataWareHouse {
 	public Vector<PlageHoraire> getLivraisonData() {
 		return livraisonData;
 	}
-	
     
 }
 
