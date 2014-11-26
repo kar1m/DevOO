@@ -9,13 +9,14 @@ import org.junit.Test;
 import Controleur.*;
 import Modele.*;
 import Outils.Proprietes;
+import Vue.Fenetre;
 
 public class ControlTest {
 
 	@Test
 	public void testChargerDemandeLivraison() {
 		try {
-			Application commandCenter = new Application();
+			Application commandCenter = new Application(new Fenetre(),new DataWareHouse());
 			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON);;
 			//Pour tester
 			for (PlageHoraire entry : commandCenter.getModele()
@@ -42,7 +43,7 @@ public class ControlTest {
 	@Test
 	public void testChargerPlan() {
 		try {
-			Application commandCenter = new Application();
+			Application commandCenter = new Application(new Fenetre(),new DataWareHouse());
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN);;
 			//Pour tester
 			Plan ned = commandCenter.getModele().getPlanApp();
