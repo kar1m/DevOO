@@ -3,9 +3,7 @@ package Tests;
 import static org.junit.Assert.*;
 
 import java.util.Vector;
-
 import org.junit.Test;
-
 import Controleur.*;
 import Modele.*;
 import Outils.Proprietes;
