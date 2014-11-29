@@ -1,6 +1,10 @@
 package Vue;
 
 import java.awt.EventQueue;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JTable;
 
 import Controleur.Application;
 import Modele.DataWareHouse;
@@ -20,11 +24,13 @@ public class Main {
 		Application controlleur = new Application(vue, modele);
 	
 		
-		vue.getPlan().addMouseListener(controlleur);
 		vue.getBtnChargerPlan().addActionListener(controlleur);
 		vue.getBtnChargerDemandeLivraison().addActionListener(controlleur);
 		vue.getBtnRedo().addActionListener(controlleur);
 		vue.getBtnUndo().addActionListener(controlleur);
-		vue.getTable().getT().getSelectionModel().addListSelectionListener(controlleur);
+
+		
+		vue.getPlan().addMouseListener(controlleur);
+		vue.getTable().getT().addMouseListener(controlleur);
 	}
 }
