@@ -46,7 +46,25 @@ public class RegularGraph implements Graph {
 	
 	public RegularGraph(Noeud entrepot, Vector<PlageHoraire> plagesHoraires, Plan plan)
 	{
+		Vector<Chemin> chemins = calculerTousLesChemins(entrepot, plagesHoraires, plan);
 		
+		// Création de la matrice de couts
+		
+		cost = new int[nbVertices][nbVertices];
+	}
+	
+	public Vector<Chemin> calculerTousLesChemins(Noeud entrepot, Vector<PlageHoraire> plagesHoraires, Plan plan)
+	{
+		if (plagesHoraires.isEmpty()) {
+			return null;
+		}
+		
+		// Entre l'entrepot et la 1ere plage horaire
+		for (int i = 0; i < plagesHoraires.size(); i++) {
+			
+		}
+		
+		return null;
 	}
 
 	public int getMaxArcCost() {
