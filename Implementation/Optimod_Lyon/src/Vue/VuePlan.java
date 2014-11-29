@@ -67,7 +67,7 @@ public class VuePlan extends JPanel{
 		{
 			for(Livraison l : a.getLivraisons()){
 				Noeud noeud = l.getDestinataire().getNoeudAdresse();
-				VueNoeudLivraison vueNoeud = new VueNoeudLivraison(toScreenX(noeud.getX()), toScreenY(noeud.getY()), 10,noeud, a.getId());
+				VueNoeudLivraison vueNoeud = new VueNoeudLivraison(toScreenX(noeud.getX()), toScreenY(noeud.getY()), 10, l , a.getId());
 				this.listeVueNoeudLivraisons.add(vueNoeud);
 			}
 		}

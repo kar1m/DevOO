@@ -2,6 +2,7 @@ package Controleur;
 
 import Modele.*;
 import Outils.*;
+import Controleur.*;
 
 public class CalculTournee {
 
