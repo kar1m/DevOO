@@ -19,20 +19,21 @@ public class ActionChargerPlan extends Action {
 
 	
 	private DataWareHouse modele;
-
-	public ActionChargerPlan(DataWareHouse modele)
+	private XMLhandler outilXML;
+	private String pathFichierData; 
+	
+	public ActionChargerPlan(DataWareHouse modele, XMLhandler outilXML, String pathFichierData)
 	{
 		this.modele = modele;
+		this.outilXML = outilXML;
+		this.pathFichierData = pathFichierData;
 	}
 	
 	
 	@Override
 	public boolean Executer() {
 		// TODO Auto-generated method stub
-		
-		XMLhandler outilXML = new XMLhandler();
-
-		File fichierData = outilXML.selectXML();
+		File fichierData = new File(pathFichierData);
         if (fichierData != null) {
             try {
             	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_PLAN);

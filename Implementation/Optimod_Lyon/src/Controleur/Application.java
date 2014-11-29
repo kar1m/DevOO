@@ -77,7 +77,9 @@ public class Application implements MouseListener, ActionListener{
 					}
 					break;
 				case Proprietes.CHARGER_PLAN :
-					ActionChargerPlan action2 = new ActionChargerPlan(modele);
+					XMLhandler outilXML = (XMLhandler) args.get(0);
+					String path = (String) args.get(1);
+					ActionChargerPlan action2 = new ActionChargerPlan(modele, outilXML, path);
 					action2.Executer();
 					vue.chargerPlan(modele.getPlanApp());
 					vue.repaint();
@@ -294,8 +296,13 @@ public class Application implements MouseListener, ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == vue.getBtnChargerPlan()){
-			gererCommande(Proprietes.CHARGER_PLAN, null);
+		if(e.getSource() == vue.getBtnChargerPlan()){		
+			XMLhandler outilXML = new XMLhandler();
+			String path = outilXML.selectXML();
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add(outilXML);
+			args.add(path);
+			gererCommande(Proprietes.CHARGER_PLAN, args);
 		}
 		if(e.getSource() == vue.getBtnChargerDemandeLivraison())
 		{
