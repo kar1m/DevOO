@@ -48,6 +48,33 @@ public class DataWareHouse {
 		
 	}
 
+	public PlageHoraire supprimerLivraison(Livraison l)
+	{
+		for(PlageHoraire a : livraisonData)
+		{
+			for(Livraison b : a.getLivraisons())
+			{
+				if(l==b)
+				{
+					a.getLivraisons().remove(b);
+					return a;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public void ajouterLivraison(PlageHoraire a, Livraison l)
+	{
+		int index = livraisonData.indexOf(a);
+		if(index == -1)
+		{
+			a.getLivraisons().add(l);
+			livraisonData.add(a);
+		}else{
+			livraisonData.get(index).getLivraisons().add(l);
+		}
+	}
 	/**
 	 * @return the planApp
 	 */

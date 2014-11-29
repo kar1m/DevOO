@@ -3,14 +3,14 @@
     <Entrepot adresse="354"/>
     <PlagesHoraires>
         <!-- Pas d'heure de début-->
-        <Plage heureDebut= heureFin="10:0:0">
+        <Plage heureDebut="09:00:00">
             <Livraisons>
                 <Livraison id="1" client="631" adresse="204"/>
                 <Livraison id="2" client="645" adresse="104"/>
                 <Livraison id="3" client="626" adresse="326"/>
             </Livraisons>
         </Plage>
-        <Plage heureDebut="10:0:0" heureFin="11:30:0">
+        <Plage heureDebut="10:00:00" heureFin="11:30:00">
             <Livraisons>
                 <Livraison id="1" client="234" adresse="236"/>
                 <Livraison id="2" client="386" adresse="257"/>
@@ -19,7 +19,7 @@
                 <Livraison id="5" client="396" adresse="11"/>
             </Livraisons>
         </Plage>
-        <Plage heureDebut="14:0:0" heureFin="16:0:0">
+        <Plage heureDebut="14:00:00" heureFin="16:00:00">
             <Livraisons>
                 <Livraison id="1" client="821" adresse="57"/>
                 <Livraison id="2" client="379" adresse="161"/>

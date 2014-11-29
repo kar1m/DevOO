@@ -25,8 +25,8 @@
       <xs:sequence>
         <xs:element ref="Livraisons"/>
       </xs:sequence>
-      <xs:attribute name="heureDebut" type="xs:time" use="required"/>
-      <xs:attribute name="heureFin" type="xs:time" use="required"/>
+      <xs:attribute name="heureDebut" type="xs:string" use="required"/>
+      <xs:attribute name="heureFin" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="Livraisons">
