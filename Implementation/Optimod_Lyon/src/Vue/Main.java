@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import Controleur.Application;
 import Modele.DataWareHouse;
 import Outils.Proprietes;
+import Tests.ControlTest;
 
 public class Main {
 	/**
@@ -15,7 +16,9 @@ public class Main {
 		DataWareHouse modele = new DataWareHouse();
 		Fenetre vue = new Fenetre();
 		Application controlleur = new Application(vue, modele);
-	
+		
+		ControlTest tests = new ControlTest();
+		tests.testUndoRedo();
 		
 		vue.getPlan().addMouseListener(controlleur);
 		vue.getBtnChargerPlan().addActionListener(controlleur);
