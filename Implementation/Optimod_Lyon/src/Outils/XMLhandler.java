@@ -17,11 +17,10 @@ import org.xml.sax.SAXException;
  */
 public class XMLhandler {
 	
-	public File selectXML()
+	public String selectXML()
 	{
     	JFileChooser jFileChooserXML = new JFileChooser();
     	FileFilterApp filter = new FileFilterApp();
-    	File fichierData = null;
     	
         filter.addExtension("xml");
         filter.setDescription("Fichier XML");
@@ -31,8 +30,8 @@ public class XMLhandler {
         	returnVal = jFileChooserXML.showOpenDialog(null);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) 
-               fichierData = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
-        return fichierData;
+        		return jFileChooserXML.getSelectedFile().getAbsolutePath();
+        return null;
 	}
 	
 		
