@@ -28,20 +28,21 @@ import Modele.PlageHoraire;
 public class AjoutLivraison extends JDialog {
 	private JComboBox plageHoraireComboBox;
 	private JTextField clientField;
-	Vector<PlageHoraire> listePlage; 
-	Noeud noeudAdresse;
-	  
+	private Vector<PlageHoraire> listePlage; 
+	private Noeud noeudAdresse;
+	private boolean btnOkSelected = false; 
+
 	public AjoutLivraison(JFrame f, String title, boolean modal, Vector<PlageHoraire> p, Noeud noeudAdresse)
 	{
-	    super(f, title, modal);
-	    this.setSize(300, 300);
-	    this.setLocationRelativeTo(null);
-	    this.setResizable(false);
-	    
-	    this.listePlage=p;
-	    this.noeudAdresse = noeudAdresse;
-	    this.initComponent(p, noeudAdresse);
-	    this.setVisible(true);
+		super(f, title, modal);
+		this.setSize(300, 300);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+
+		this.listePlage=p;
+		this.noeudAdresse = noeudAdresse;
+		this.initComponent(p, noeudAdresse);
+		this.setVisible(true);
 	}
 
 	private void initComponent(Vector<PlageHoraire> p, Noeud noeudAdresse){
@@ -51,55 +52,56 @@ public class AjoutLivraison extends JDialog {
 		clientField.setPreferredSize(new Dimension(100, 25));
 
 		panNom.setBorder(BorderFactory.createTitledBorder("Client"));
-	    JLabel clientLabel = new JLabel("Saisir un nom :");
-	    panNom.add(clientLabel);
-	    panNom.add(clientField);
-	    
-	    
-	    
-	    //La couleur des cheveux
-	    JPanel panHoraire = new JPanel();
-	    panHoraire.setPreferredSize(new Dimension(220, 80));
-	    panHoraire.setBorder(BorderFactory.createTitledBorder("Plage Horaire"));
-	    plageHoraireComboBox = new JComboBox();
-	    for(PlageHoraire a : p){
-		    plageHoraireComboBox.addItem(a.getHeureDebut() + "-" + a.getHeureFin());
-	    }
-	    panHoraire.add(plageHoraireComboBox);
-	    
-	    
-	    JPanel panAdresse = new JPanel();
-	    panAdresse.setPreferredSize(new Dimension(220, 80));
-	    panAdresse.setBorder(BorderFactory.createTitledBorder("Adresse"));
-	    JTextField adresse = new JTextField(); 
+		JLabel clientLabel = new JLabel("Saisir un nom :");
+		panNom.add(clientLabel);
+		panNom.add(clientField);
+
+
+
+		//La couleur des cheveux
+		JPanel panHoraire = new JPanel();
+		panHoraire.setPreferredSize(new Dimension(220, 80));
+		panHoraire.setBorder(BorderFactory.createTitledBorder("Plage Horaire"));
+		plageHoraireComboBox = new JComboBox();
+		for(PlageHoraire a : p){
+			plageHoraireComboBox.addItem(a.getHeureDebut() + "-" + a.getHeureFin());
+		}
+		panHoraire.add(plageHoraireComboBox);
+
+
+		JPanel panAdresse = new JPanel();
+		panAdresse.setPreferredSize(new Dimension(220, 80));
+		panAdresse.setBorder(BorderFactory.createTitledBorder("Adresse"));
+		JTextField adresse = new JTextField(); 
 		adresse.setPreferredSize(new Dimension(100, 25));
 		adresse.setText(Integer.toString(noeudAdresse.getIdNoeud()));
 		adresse.setEnabled(false);
-	    panAdresse.add(adresse);
-	    
-	    JPanel content = new JPanel();
-	    content.add(panNom);
-	    content.add(panHoraire);
-	    content.add(panAdresse);
+		panAdresse.add(adresse);
+
+		JPanel content = new JPanel();
+		content.add(panNom);
+		content.add(panHoraire);
+		content.add(panAdresse);
 
 
-	    JPanel panelBoutons = new JPanel();
-	    JButton btnOk = new JButton("Ok");
-	    JButton btnAnnuler = new JButton("Annuler");
-	    panelBoutons.add(btnOk);
-	    panelBoutons.add(btnAnnuler);
-	    
-	    this.getContentPane().add(content, BorderLayout.CENTER);
+		JPanel panelBoutons = new JPanel();
+		JButton btnOk = new JButton("Ok");
+		JButton btnAnnuler = new JButton("Annuler");
+		panelBoutons.add(btnOk);
+		panelBoutons.add(btnAnnuler);
+
+		this.getContentPane().add(content, BorderLayout.CENTER);
 		this.getContentPane().add(panelBoutons, BorderLayout.SOUTH); 
-		
-		
+
+
 		btnOk.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
+				btnOkSelected = true;
 			}
-			
+
 		});
 		btnAnnuler.addActionListener(new ActionListener(){
 
@@ -107,11 +109,11 @@ public class AjoutLivraison extends JDialog {
 				// TODO Auto-generated method stub
 				setVisible(false);
 			}
-			
+
 		});
 	}
 
-		   
+
 	public PlageHoraire getPlageSelectionnee()
 	{
 		return listePlage.get(plageHoraireComboBox.getSelectedIndex());
@@ -120,8 +122,12 @@ public class AjoutLivraison extends JDialog {
 	{
 		return Integer.parseInt(clientField.getText());
 	}
-		
 
-	     
+	public boolean isBtnOkSelected() {
+		return btnOkSelected;
 	}
+
+
+
+}
 

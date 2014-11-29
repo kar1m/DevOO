@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 
 import Modele.Livraison;
-import Modele.Noeud;
 import Outils.Proprietes;
 
 public class VueNoeudLivraison extends VueNoeud {
@@ -20,7 +19,6 @@ public class VueNoeudLivraison extends VueNoeud {
 		super(x,y,rayon,l.getDestinataire().getNoeudAdresse());
 		this.livraison = l ; 
 		this.couleur = couleur;
-		System.out.println(couleur);
 	}
 	public void dessiner(Graphics g)
 	{

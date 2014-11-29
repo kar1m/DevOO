@@ -53,5 +53,10 @@ public class Livraison {
 	public void setDestinataire(Client destinataire) {
 		this.destinataire = destinataire;
 	}
+	
+	public void generateIdLivraison()
+	{
+		this.idLivraison = (int)(Math.random()*50000);
+	}
 
 }

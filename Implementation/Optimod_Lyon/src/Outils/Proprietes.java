@@ -25,8 +25,8 @@ public class Proprietes {
 	
 	public static Color[] getDifferentColors(int n) {
 	    Color[] cols = new Color[n];
-	    for (int i = 0; i < n; i++)
-	    	cols[i] = Color.getHSBColor((float) i / n, 1, 1);
+	    for (int i = 1; i < n+1; i++)
+	    	cols[i-1] = Color.getHSBColor((float) i / n, 1, 1);
 	    return cols;
 	}
 	

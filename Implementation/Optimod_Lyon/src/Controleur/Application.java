@@ -39,9 +39,8 @@ public class Application implements MouseListener, ActionListener{
 
     public Application()
     {
-    	
+    	this(new Fenetre(), new DataWareHouse());
     }
-    	
 
     /**
      * 
@@ -63,6 +62,7 @@ public class Application implements MouseListener, ActionListener{
 						vue.chargerLivraison(modele.getLivraisonData());
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						vue.logText("Livraison Ajoutee");
 					}
 					break;
 				case Proprietes.CALC_TOURNEE :
@@ -79,6 +79,7 @@ public class Application implements MouseListener, ActionListener{
 						vue.chargerLivraison(modele.getLivraisonData());
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						vue.logText("Livraison Supprimee");
 					}
 					break;
 				case Proprietes.CHARGER_PLAN :
@@ -205,18 +206,23 @@ public class Application implements MouseListener, ActionListener{
 			}else{
 				pop.getA().addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
-						AjoutLivraison md1 = new AjoutLivraison(vue, "exemple avec JDialog modal", true, modele.getLivraisonData(), noeud.getNoeudAssocie());
+						AjoutLivraison md1 = new AjoutLivraison(vue, "Ajouter Livraison", true, modele.getLivraisonData(), noeud.getNoeudAssocie());
 						
-						Livraison l = new Livraison(); 
-				        Client c = new Client();
-				        c.initClient( noeud.getNoeudAssocie() , md1.getIdClientSelectionne());
-				        l.setDestinataire(c);
-				        
-				        ArrayList<Object> args = new ArrayList<Object>(); 
-				        args.add(md1.getPlageSelectionnee());
-				        args.add(l);
+						if(md1.isBtnOkSelected())
+						{
+							Livraison l = new Livraison(); 
+					        Client c = new Client();
+					        c.initClient( noeud.getNoeudAssocie() , md1.getIdClientSelectionne());
+					        l.setDestinataire(c);
+					        l.generateIdLivraison();
+					        
+					        ArrayList<Object> args = new ArrayList<Object>(); 
+					        args.add(md1.getPlageSelectionnee());
+					        args.add(l);
 
-				        gererCommande(Proprietes.AJOUTER_LIVRAISON, args);						 
+					        gererCommande(Proprietes.AJOUTER_LIVRAISON, args);			
+						}
+										 
 					}					
 				});
 			}
