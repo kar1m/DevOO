@@ -56,8 +56,5 @@ public class PlageHoraire {
 	}
 	public Vector<Livraison> getLivraisons() {
 		return livraisons;
-	}
-	
-    
-
+	}	   
 }
