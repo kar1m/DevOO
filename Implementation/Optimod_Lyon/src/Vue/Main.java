@@ -23,10 +23,7 @@ public class Main {
 		DataWareHouse modele = new DataWareHouse();
 		Fenetre vue = new Fenetre();
 		Application controlleur = new Application(vue, modele);
-		
-		ControlTest tests = new ControlTest();
-		tests.testUndoRedo();
-		
+				
 		vue.getBtnChargerPlan().addActionListener(controlleur);
 		vue.getBtnChargerDemandeLivraison().addActionListener(controlleur);
 		vue.getBtnRedo().addActionListener(controlleur);

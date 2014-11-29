@@ -168,6 +168,12 @@ public class Application implements MouseListener, ActionListener{
 				
 				pop.getB().addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
+						ArrayList<Object> args = new ArrayList<Object>();
+						args.add(a.getLivraison());
+						
+						gererCommande(Proprietes.SUPP_LIVRAISON, args);		
+						vue.chargerLivraison(modele.getLivraisonData());
+						vue.getPlan().repaint();
 						System.out.println("Clique sur Supprimer Livraison " + a);
 					}					
 				});
