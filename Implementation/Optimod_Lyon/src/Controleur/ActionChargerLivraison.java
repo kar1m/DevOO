@@ -18,14 +18,12 @@ import Outils.XMLhandler;
 public class ActionChargerLivraison extends Action {
 
 	private DataWareHouse modele;
-	private XMLhandler outilXML;
 	private String pathFichier;
 	
 	
-	public ActionChargerLivraison(DataWareHouse modele, XMLhandler outilXML, String pathFichier)
+	public ActionChargerLivraison(DataWareHouse modele, String pathFichier)
 	{
 		this.modele = modele;
-		this.outilXML = outilXML; 
 		this.pathFichier = pathFichier; 
 	}
 	@Override
@@ -34,7 +32,7 @@ public class ActionChargerLivraison extends Action {
 		File fichierData = new File(pathFichier);
         if (fichierData != null) {
             try {
-            	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_DL);
+            	XMLhandler.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_DL);
                 // creation d'un constructeur de documents a l'aide d'une fabrique
                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
                // lecture du contenu d'un fichier XML avec DOM

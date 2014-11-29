@@ -76,11 +76,10 @@ public class Application implements MouseListener, ActionListener{
 					}
 					break;
 				case Proprietes.CHARGER_PLAN :
-					if(args.size() == 2)
+					if(args.size() == 1)
 					{
-						XMLhandler outilXML = (XMLhandler) args.get(0);
-						String path = (String) args.get(1);
-						ActionChargerPlan action2 = new ActionChargerPlan(modele, outilXML, path);
+						String path = (String) args.get(0);
+						ActionChargerPlan action2 = new ActionChargerPlan(modele, path);
 						action2.Executer();
 						vue.chargerPlan(modele.getPlanApp());
 						vue.repaint();
@@ -89,11 +88,10 @@ public class Application implements MouseListener, ActionListener{
 					}
 					break;
 				case Proprietes.CHARGER_LIVRAISON :
-					if(args.size() == 2)
+					if(args.size() == 1)
 					{
-						XMLhandler outilXML = (XMLhandler) args.get(0);
-						String path = (String) args.get(1);
-						ActionChargerLivraison action3 = new ActionChargerLivraison(modele, outilXML, path);
+						String path = (String) args.get(0);
+						ActionChargerLivraison action3 = new ActionChargerLivraison(modele, path);
 						action3.Executer();
 						vue.chargerLivraison(modele.getLivraisonData());
 						vue.repaint();
@@ -304,19 +302,15 @@ public class Application implements MouseListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == vue.getBtnChargerPlan()){		
-			XMLhandler outilXML = new XMLhandler();
-			String path = outilXML.selectXML();
+			String path = XMLhandler.selectXML();
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add(outilXML);
 			args.add(path);
 			gererCommande(Proprietes.CHARGER_PLAN, args);
 		}
 		if(e.getSource() == vue.getBtnChargerDemandeLivraison())
 		{
-			XMLhandler outilXML = new XMLhandler();
-			String path = outilXML.selectXML();
+			String path = XMLhandler.selectXML();
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add(outilXML);
 			args.add(path);
 			gererCommande(Proprietes.CHARGER_LIVRAISON,args);
 		}

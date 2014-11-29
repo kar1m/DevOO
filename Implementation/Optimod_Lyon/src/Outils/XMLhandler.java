@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
  */
 public class XMLhandler {
 	
-	public String selectXML()
+	public static String selectXML()
 	{
     	JFileChooser jFileChooserXML = new JFileChooser();
     	FileFilterApp filter = new FileFilterApp();
@@ -35,7 +35,7 @@ public class XMLhandler {
 	}
 	
 		
-		public boolean checkXML (String input, String modeleXSD) throws SAXException, IOException {
+		public static boolean  checkXML (String input, String modeleXSD) throws SAXException, IOException {
 	        SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
 	        File schemaLocation = new File(modeleXSD);
 	        Schema schema = factory.newSchema(schemaLocation);

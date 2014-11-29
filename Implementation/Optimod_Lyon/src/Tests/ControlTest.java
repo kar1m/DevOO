@@ -27,7 +27,6 @@ public class ControlTest {
 		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 		args.clear();
-		args.add(new XMLhandler());
 		args.add("/Users/Amine/Documents/4IF/DevOO/Ressources/livraison10.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 		
@@ -47,7 +46,6 @@ public class ControlTest {
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 			args.clear();
-			args.add(new XMLhandler());
 			args.add("/Users/Amine/Documents/4IF/DevOO/Ressources/livraison10x10-1.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 			

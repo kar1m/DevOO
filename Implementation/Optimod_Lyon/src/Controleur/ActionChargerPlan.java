@@ -19,13 +19,11 @@ public class ActionChargerPlan extends Action {
 
 	
 	private DataWareHouse modele;
-	private XMLhandler outilXML;
 	private String pathFichierData; 
 	
-	public ActionChargerPlan(DataWareHouse modele, XMLhandler outilXML, String pathFichierData)
+	public ActionChargerPlan(DataWareHouse modele, String pathFichierData)
 	{
 		this.modele = modele;
-		this.outilXML = outilXML;
 		this.pathFichierData = pathFichierData;
 	}
 	
@@ -36,7 +34,7 @@ public class ActionChargerPlan extends Action {
 		File fichierData = new File(pathFichierData);
         if (fichierData != null) {
             try {
-            	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_PLAN);
+            	XMLhandler.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_PLAN);
                 // creation d'un constructeur de documents a l'aide d'une fabrique
                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
                // lecture du contenu d'un fichier XML avec DOM
