@@ -10,10 +10,12 @@ import org.w3c.dom.NodeList;
  */
 public class PlageHoraire {
 
-    public PlageHoraire() {
+    public PlageHoraire(int ID) {
     	this.livraisons = new Vector<Livraison>();
+    	this.idPlageHoraire = ID;
     }
 
+    private int idPlageHoraire; 
     private String heureDebut;
 
     private String heureFin;
@@ -58,6 +60,12 @@ public class PlageHoraire {
 		return livraisons;
 	}
 	
+	public int getId()
+	{
+		return idPlageHoraire;
+	}
+	
     
+
 
 }

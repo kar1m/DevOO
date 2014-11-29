@@ -11,7 +11,7 @@ import Modele.Livraison;
 import Modele.PlageHoraire;
 
 public class VueTable extends JPanel {
-	JTable t; 
+	private JTable t; 
 	public VueTable()
 	{		
 		ModeleTable modele = new ModeleTable(new Vector<Vector<Object>>());
@@ -41,5 +41,9 @@ public class VueTable extends JPanel {
 		ModeleTable modele = new ModeleTable(donnees);
 		t.setModel(modele);
 		
+	}
+
+	public JTable getT() {
+		return t;
 	}
 }
