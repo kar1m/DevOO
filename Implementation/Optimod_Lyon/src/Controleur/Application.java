@@ -201,7 +201,7 @@ public class Application implements MouseListener, ActionListener{
 		vue.getPlan().repaint();
 	}
 	
-	public void gererClickDroit(MouseEvent e, boolean livraison, Noeud noeudConcerne)
+	public void gererClickDroit(MouseEvent e, boolean livraison, VueNoeud noeud)
 	{
 		if (e.getModifiers() == MouseEvent.BUTTON3_MASK) 
 		{
@@ -210,9 +210,11 @@ public class Application implements MouseListener, ActionListener{
 			
 			if(livraison)
 			{
+				VueNoeudLivraison a = (VueNoeudLivraison) noeud; 
+				
 				pop.getB().addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
-						System.out.println("Clique sur Supprimer");
+						System.out.println("Clique sur Supprimer Livraison " + a);
 					}					
 				});
 			}else{
@@ -236,7 +238,7 @@ public class Application implements MouseListener, ActionListener{
 			{
 				a.selected = true;	
 				livraisonSelected = true;
-				gererClickDroit(e,true, a.getNoeudAssocie());		
+				gererClickDroit(e,true, a);		
 				vue.getTable().getT().setRowSelectionInterval(i, i);
 				vue.logText("Clique sur une livraison");
 			}else{
@@ -268,7 +270,7 @@ public class Application implements MouseListener, ActionListener{
 			{
 				a.selected = true;
 				selected = true; 
-				gererClickDroit(e,false, a.getNoeudAssocie());		
+				gererClickDroit(e,false, a);		
 				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
 			}else{
 				a.selected = false;

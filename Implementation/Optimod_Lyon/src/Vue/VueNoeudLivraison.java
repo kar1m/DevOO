@@ -6,16 +6,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 
+import Modele.Livraison;
 import Modele.Noeud;
 import Outils.Proprietes;
 
 public class VueNoeudLivraison extends VueNoeud {
 	private int couleur;
-		   
+	private Livraison livraison;
 	   
-	public VueNoeudLivraison(int x, int y, int rayon, Noeud noeudAssocie, int couleur)
+	   
+	public VueNoeudLivraison(int x, int y, int rayon, Livraison l, int couleur)
 	{
-		super(x,y,rayon,noeudAssocie);
+		super(x,y,rayon,l.getDestinataire().getNoeudAdresse());
+		this.livraison = l ; 
 		this.couleur = couleur;
 		System.out.println(couleur);
 	}
@@ -36,5 +39,10 @@ public class VueNoeudLivraison extends VueNoeud {
 			g.setColor( Proprietes.cols[couleur]);
 		}
 		g.fillOval(x, y, rayon, rayon);
+	}
+	
+	
+	public Livraison getLivraison() {
+		return livraison;
 	}
 }
