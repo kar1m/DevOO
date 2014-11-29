@@ -69,6 +69,8 @@ public class Application implements MouseListener, ActionListener{
 						action.Executer();
 						this.listeExecution.addElement(action);
 						this.listeAnnulation.clear();
+						
+						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
 				case Proprietes.CALC_TOURNEE :
@@ -81,15 +83,26 @@ public class Application implements MouseListener, ActionListener{
 						action1.Executer();
 						this.listeExecution.addElement(action1);
 						this.listeAnnulation.clear();
+						
+						vue.chargerLivraison(modele.getLivraisonData());
+						vue.getPlan().repaint();
+						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
 				case Proprietes.CHARGER_PLAN :
 					ActionChargerPlan action2 = new ActionChargerPlan(modele);
 					action2.Executer();
+					vue.chargerPlan(modele.getPlanApp());
+					vue.repaint();
+					vue.logText("Plan chargé");
+					vue.getBtnChargerDemandeLivraison().setEnabled(true);
 					break;
 				case Proprietes.CHARGER_LIVRAISON : 
 					ActionChargerLivraison action3 = new ActionChargerLivraison(modele);
 					action3.Executer();
+					vue.chargerLivraison(modele.getLivraisonData());
+					vue.repaint();
+					vue.logText("Demande de livraison chargée");
 					break;
 				case Proprietes.UNDO :
 					if(listeExecution.size() > 0)
@@ -98,6 +111,10 @@ public class Application implements MouseListener, ActionListener{
 						actionAnnulable.Annuler();
 						this.listeExecution.removeElementAt(listeExecution.size()-1);
 						listeAnnulation.addElement(actionAnnulable);
+						
+						vue.chargerLivraison(modele.getLivraisonData());
+						vue.getPlan().repaint();
+						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
 				case Proprietes.REDO : 
@@ -107,6 +124,10 @@ public class Application implements MouseListener, ActionListener{
 						actionAnnulee.Executer();
 						listeAnnulation.removeElementAt(listeAnnulation.size()-1);
 						listeExecution.addElement(actionAnnulee);	
+						
+						vue.chargerLivraison(modele.getLivraisonData());
+						vue.getPlan().repaint();
+						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
 				case Proprietes.SAVE:
@@ -178,11 +199,7 @@ public class Application implements MouseListener, ActionListener{
 					public void actionPerformed(ActionEvent e) {
 						ArrayList<Object> args = new ArrayList<Object>();
 						args.add(a.getLivraison());
-						
 						gererCommande(Proprietes.SUPP_LIVRAISON, args);		
-						vue.chargerLivraison(modele.getLivraisonData());
-						vue.getPlan().repaint();
-						System.out.println("Clique sur Supprimer Livraison " + a);
 					}					
 				});
 			}else{
@@ -290,29 +307,18 @@ public class Application implements MouseListener, ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == vue.getBtnChargerPlan()){
 			gererCommande(Proprietes.CHARGER_PLAN, null);
-			vue.chargerPlan(modele.getPlanApp());
-			vue.repaint();
-			vue.logText("Plan chargé");
-			vue.getBtnChargerDemandeLivraison().setEnabled(true);
 		}
 		if(e.getSource() == vue.getBtnChargerDemandeLivraison())
 		{
 			gererCommande(Proprietes.CHARGER_LIVRAISON,null);
-			vue.chargerLivraison(modele.getLivraisonData());
-			vue.repaint();
-			vue.logText("Demande de livraison chargée");
 		}
 		if(e.getSource() == vue.getBtnUndo())
 		{
 			gererCommande(Proprietes.UNDO,null);
-			vue.chargerLivraison(modele.getLivraisonData());
-			vue.getPlan().repaint();
 		}
 		if(e.getSource() == vue.getBtnRedo())
 		{
 			gererCommande(Proprietes.REDO,null);
-			vue.chargerLivraison(modele.getLivraisonData());
-			vue.getPlan().repaint();
 		}
 	}
 }

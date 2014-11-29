@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import Controleur.Action;
 import Controleur.Application;
 import Modele.Livraison;
 import Modele.Noeud;
@@ -75,9 +76,16 @@ public class Fenetre extends JFrame {
 		
 		setVisible(true);
 		setResizable(false);
+		
+		btnUndo.setEnabled(false);
+		btnRedo.setEnabled(false);
 	}
 
-	
+	public void updateUndoRedo(boolean undo, boolean redo)
+	{
+		btnUndo.setEnabled(undo);
+		btnRedo.setEnabled(redo);
+	}
 	
 
 	public void logText(String t)
