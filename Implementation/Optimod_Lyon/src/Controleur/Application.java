@@ -10,6 +10,7 @@ import java.util.*;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,6 +23,7 @@ import org.xml.sax.SAXException;
 import Modele.DataWareHouse;
 import Modele.Livraison;
 import Modele.PlageHoraire;
+import Modele.Noeud;
 import Outils.*;
 import Vue.Fenetre;
 import Vue.VueNoeud;
@@ -31,7 +33,7 @@ import Vue.VuePopup;
 /**
  * 
  */
-public class Application implements MouseListener, ActionListener, ListSelectionListener{
+public class Application implements MouseListener, ActionListener{
 
 	private DataWareHouse modele;
 	private Fenetre vue;
@@ -139,90 +141,135 @@ public class Application implements MouseListener, ActionListener, ListSelection
 
 	
 	//-------------------------------------Mouse Listener--------------------------------------------//
+	public void clickTable(MouseEvent e)
+	{
+		JTable target = (JTable)e.getSource();
+        int row = target.getSelectedRow();
+        
+		for(int i=0; i<vue.getPlan().getListeVueNoeudLivraisons().size(); i++)
+			vue.getPlan().getListeVueNoeudLivraisons().get(i).selected= (i==row);
+			
+		for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+			a.selected=false;
+		
+		vue.getPlan().repaint();
+	}
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void gererClickDroit(MouseEvent e, boolean livraison, Noeud noeudConcerne)
+	{
+		if (e.getModifiers() == MouseEvent.BUTTON3_MASK) 
+		{
+			VuePopup pop = new VuePopup(livraison); 
+			pop.show(e.getComponent(), e.getX(), e.getY());
+			
+			if(livraison)
+			{
+				pop.getB().addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Clique sur Supprimer");
+					}					
+				});
+			}else{
+				pop.getA().addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Clique sur Ajouter");
+					}					
+				});
+			}
+		}
+	}
+	
+	public boolean gererClickLivraison(MouseEvent e)
+	{
+		boolean livraisonSelected = false; 
+
+		for(int i=0; i < vue.getPlan().getListeVueNoeudLivraisons().size(); i++)
+		{
+			VueNoeudLivraison a = vue.getPlan().getListeVueNoeudLivraisons().get(i);
+			if(a.clickDessus(e.getX(), e.getY()))
+			{
+				a.selected = true;	
+				livraisonSelected = true;
+				gererClickDroit(e,true, a.getNoeudAssocie());		
+				vue.getTable().getT().setRowSelectionInterval(i, i);
+				vue.logText("Clique sur une livraison");
+			}else{
+				a.selected = false;
+			}
+		}
+				
+		//Si livraison selectionnee, on delesectionne tous les noeuds du plan 
+		//Sinon, on deselectionne toutes les row du JTable
+		if(livraisonSelected)
+		{
+			for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+				a.selected = false;
+		}else
+		{
+			vue.getTable().getT().removeRowSelectionInterval(0, vue.getPlan().getListeVueNoeudLivraisons().size()-1);
+		}
+		
+		return livraisonSelected; 
+	}
+	
+	public boolean gererClickPlan(MouseEvent e)
+	{
 		boolean selected = false; 
-		boolean selectedL = false; 
+		
+		for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
+		{
+			if(a.clickDessus(e.getX(), e.getY()))
+			{
+				a.selected = true;
+				selected = true; 
+				gererClickDroit(e,false, a.getNoeudAssocie());		
+				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
+			}else{
+				a.selected = false;
+			}
+		}	
+
+		return selected;
+	}
+	
+	public void clickPlan(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
 
 		if(vue.getPlan().getListeVueNoeudLivraisons() != null)
 		{
-			int i = 0; 
-			for(VueNoeudLivraison a : vue.getPlan().getListeVueNoeudLivraisons())
+			//Si on a bien cliqué sur une livraison, on peut ne pas faire la suite
+			if(gererClickLivraison(e))
 			{
-				if(a.clickDessus(e.getX(), e.getY()))
-				{
-					a.selected = true;
-					selectedL = true; 
-					
-					if (e.getModifiers() == MouseEvent.BUTTON3_MASK) 
-					{
-						VuePopup pop = new VuePopup(true); 
-						pop.show(e.getComponent(), e.getX(), e.getY());
-					}
-					
-					
-					vue.getTable().getT().setRowSelectionInterval(i, i);
-					vue.logText("Clique sur une livraison");
-				}else
-				{
-					a.selected = false;
-				}
-				i++; 
-			}
-			
-			if(!selectedL)
-			{
-				vue.getTable().getT().removeRowSelectionInterval(0, vue.getPlan().getListeVueNoeudLivraisons().size()-1);
+				vue.getPlan().repaint();
+				return;	
 			}
 		}
-		
-
-		
-		
+				
 		if(vue.getPlan().getListeVueNoeuds() != null)
 		{
-			for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
-			{
-				if(a.clickDessus(e.getX(), e.getY()))
-				{
-					a.selected = true;
-					selected = true; 
-					
-					if (e.getModifiers() == MouseEvent.BUTTON3_MASK && !selectedL) 
-					{
-						VuePopup pop = new VuePopup(false); 
-						pop.show(e.getComponent(), e.getX(), e.getY());
-					}
-					vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
-				}else
-				{
-					a.selected = false;
-				}
-			}
+			if(!gererClickPlan(e))
+				vue.logText("Clique sur autre chose qu'un noeud");
 		}
-
-		
+				
 		vue.getPlan().repaint();
-		if(!selected)
-			vue.logText("Clique sur autre chose qu'un noeud");
-		return;
 	}
 
-	@Override
+	
+	public void mouseClicked(MouseEvent e) {	
+		if(e.getSource() == vue.getTable().getT())
+		{
+			clickTable(e);
+		}else if(e.getSource() == vue.getPlan())
+		{
+			clickPlan(e);
+		}
+	}
 	public void mousePressed(MouseEvent e) {}
-
-	@Override
 	public void mouseReleased(MouseEvent e) {}
-
-	@Override
 	public void mouseEntered(MouseEvent e) {}
-
-	@Override
 	public void mouseExited(MouseEvent e) {}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == vue.getBtnChargerPlan()){
@@ -234,33 +281,10 @@ public class Application implements MouseListener, ActionListener, ListSelection
 		}
 		if(e.getSource() == vue.getBtnChargerDemandeLivraison())
 		{
-			gererCommande(Proprietes.CHARGER_LIVRAISON);
+			gererCommande(Proprietes.CHARGER_LIVRAISON,null);
 			vue.chargerLivraison(modele.getLivraisonData());
 			vue.repaint();
 			vue.logText("Demande de livraison chargée");
 		}
 	}
-
-	@Override
-	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("Hey");
-		for(int i=0; i<vue.getPlan().getListeVueNoeudLivraisons().size(); i++)
-		{
-			VueNoeudLivraison a = vue.getPlan().getListeVueNoeudLivraisons().get(i);
-			if(i==e.getFirstIndex())
-			{
-				a.selected=true;
-			}else
-			{
-				a.selected=false;
-			}
-		}
-		
-		for(VueNoeud a : vue.getPlan().getListeVueNoeuds())
-			a.selected=false;
-		vue.getPlan().repaint();
-	}
-
-
 }
