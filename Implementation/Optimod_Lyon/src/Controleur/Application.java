@@ -4,27 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
 import Modele.DataWareHouse;
 import Modele.Livraison;
 import Modele.PlageHoraire;
-import Modele.Noeud;
 import Outils.*;
+import Vue.AjoutLivraison;
 import Vue.Fenetre;
 import Vue.VueNoeud;
 import Vue.VueNoeudLivraison;
@@ -68,8 +56,7 @@ public class Application implements MouseListener, ActionListener{
 						ActionAjouterLivraison action = new ActionAjouterLivraison(modele, a, l);
 						action.Executer();
 						this.listeExecution.addElement(action);
-						this.listeAnnulation.clear();
-						
+						this.listeAnnulation.clear();	
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
@@ -205,6 +192,8 @@ public class Application implements MouseListener, ActionListener{
 			}else{
 				pop.getA().addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
+						AjoutLivraison md1 = new AjoutLivraison(vue, "exemple avec JDialog modal", true);
+					
 						System.out.println("Clique sur Ajouter");
 					}					
 				});
