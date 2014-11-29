@@ -10,25 +10,49 @@ import org.junit.Test;
 import Controleur.*;
 import Modele.*;
 import Outils.Proprietes;
+import Outils.XMLhandler;
 import Vue.Fenetre;
 
 public class ControlTest {
 
+	@Test 
+	public void testCharger()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(new XMLhandler());
+		args.add("/Users/Amine/Documents/4IF/DevOO/Ressources/plan10x10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+		args.clear();
+		args.add(new XMLhandler());
+		args.add("/Users/Amine/Documents/4IF/DevOO/Ressources/livraison10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+		
+		
+		assertTrue(commandCenter.getModele().getLivraisonData().size() > 0 );
+		
+	}
 	@Test
 	public void testChargerDemandeLivraison() {
 		try {
 			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
-			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, null);
-			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, null);
-			//Pour tester
-			System.out.println("AfficherResults");
-			for (PlageHoraire entry : commandCenter.getModele().getLivraisonData()) {
-				System.out.println(entry.getHeureDebut() + " " + entry.getHeureFin());
-				for (Livraison valu : entry.getLivraisons()) {
-					System.out.println(valu.getIdLivraison() + " " + valu.getDestinataire().getIdClient() + " " + valu.getDestinataire().getNoeudAdresse());
-				}
-			}
-			assertTrue(true);
+			
+			
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add(new XMLhandler());
+			args.add("/Users/Amine/Documents/4IF/DevOO/Ressources/plan10x10.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+			args.clear();
+			args.add(new XMLhandler());
+			args.add("/Users/Amine/Documents/4IF/DevOO/Ressources/livraison10x10-1.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+			
+			
+			assertTrue(commandCenter.getModele().getLivraisonData().size() > 0 );
 		} 
 		catch (Exception e) {
 			// TODO: handle exception
@@ -37,26 +61,26 @@ public class ControlTest {
 		
 	}
 
-//	@Test
-//	public void testChargerPlan() {
-//		try {
-//
-//			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
-//			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, null);
-//			//Pour tester
-//			Plan ned = commandCenter.getModele().getPlanApp();
-//			Vector<Troncon> ts = ned.getListeTroncons();
-//			for (Troncon tr : ts)
-//				{
-//					System.out.println(tr.toString());
-//				}
-//			}
-//			catch (Exception e)
-//			{
-//				fail("Error Occured");
-//			}
-//		
-//	}
+	@Test
+	public void testChargerPlan() {
+		try {
+
+			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+			
+			
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add(new XMLhandler());
+			args.add("/Users/Amine/Documents/4IF/DevOO/Ressources/plan10x10.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+			
+			assertFalse(commandCenter.getModele().getPlanApp().getListeNoeuds().size() == 0);
+		}
+		catch (Exception e)
+		{
+			fail("Error Occured");
+		}
+		
+	}
 	
 	
 	

@@ -12,7 +12,6 @@ import Modele.DataWareHouse;
 import Modele.Livraison;
 import Modele.PlageHoraire;
 import Outils.*;
-import Vue.AjoutLivraison;
 import Vue.Fenetre;
 import Vue.VueNoeud;
 import Vue.VueNoeudLivraison;
@@ -202,7 +201,7 @@ public class Application implements MouseListener, ActionListener{
 			}else{
 				pop.getA().addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
-						AjoutLivraison md1 = new AjoutLivraison(vue, "exemple avec JDialog modal", true);
+						//AjoutLivraison md1 = new AjoutLivraison(vue, "exemple avec JDialog modal", true);
 					
 						System.out.println("Clique sur Ajouter");
 					}					
