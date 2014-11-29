@@ -77,21 +77,29 @@ public class Application implements MouseListener, ActionListener{
 					}
 					break;
 				case Proprietes.CHARGER_PLAN :
-					XMLhandler outilXML = (XMLhandler) args.get(0);
-					String path = (String) args.get(1);
-					ActionChargerPlan action2 = new ActionChargerPlan(modele, outilXML, path);
-					action2.Executer();
-					vue.chargerPlan(modele.getPlanApp());
-					vue.repaint();
-					vue.logText("Plan chargé");
-					vue.getBtnChargerDemandeLivraison().setEnabled(true);
+					if(args.size() == 2)
+					{
+						XMLhandler outilXML = (XMLhandler) args.get(0);
+						String path = (String) args.get(1);
+						ActionChargerPlan action2 = new ActionChargerPlan(modele, outilXML, path);
+						action2.Executer();
+						vue.chargerPlan(modele.getPlanApp());
+						vue.repaint();
+						vue.logText("Plan chargé");
+						vue.getBtnChargerDemandeLivraison().setEnabled(true);
+					}
 					break;
-				case Proprietes.CHARGER_LIVRAISON : 
-					ActionChargerLivraison action3 = new ActionChargerLivraison(modele);
-					action3.Executer();
-					vue.chargerLivraison(modele.getLivraisonData());
-					vue.repaint();
-					vue.logText("Demande de livraison chargée");
+				case Proprietes.CHARGER_LIVRAISON :
+					if(args.size() == 2)
+					{
+						XMLhandler outilXML = (XMLhandler) args.get(0);
+						String path = (String) args.get(1);
+						ActionChargerLivraison action3 = new ActionChargerLivraison(modele, outilXML, path);
+						action3.Executer();
+						vue.chargerLivraison(modele.getLivraisonData());
+						vue.repaint();
+						vue.logText("Demande de livraison chargée");
+					}
 					break;
 				case Proprietes.UNDO :
 					if(listeExecution.size() > 0)
@@ -306,7 +314,12 @@ public class Application implements MouseListener, ActionListener{
 		}
 		if(e.getSource() == vue.getBtnChargerDemandeLivraison())
 		{
-			gererCommande(Proprietes.CHARGER_LIVRAISON,null);
+			XMLhandler outilXML = new XMLhandler();
+			String path = outilXML.selectXML();
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add(outilXML);
+			args.add(path);
+			gererCommande(Proprietes.CHARGER_LIVRAISON,args);
 		}
 		if(e.getSource() == vue.getBtnUndo())
 		{

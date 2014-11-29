@@ -18,18 +18,20 @@ import Outils.XMLhandler;
 public class ActionChargerLivraison extends Action {
 
 	private DataWareHouse modele;
+	private XMLhandler outilXML;
+	private String pathFichier;
 	
 	
-	public ActionChargerLivraison(DataWareHouse modele)
+	public ActionChargerLivraison(DataWareHouse modele, XMLhandler outilXML, String pathFichier)
 	{
 		this.modele = modele;
+		this.outilXML = outilXML; 
+		this.pathFichier = pathFichier; 
 	}
 	@Override
 	public boolean Executer() {
-		XMLhandler outilXML = new XMLhandler();
-
 		
-		File fichierData = outilXML.selectXML();
+		File fichierData = new File(pathFichier);
         if (fichierData != null) {
             try {
             	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_DL);
