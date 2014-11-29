@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,79 +18,108 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import Modele.Client;
 import Modele.Livraison;
+import Modele.Noeud;
 import Modele.PlageHoraire;
 
 public class AjoutLivraison extends JDialog {
-	private PlageHoraire a; 
-	private Client c; 
-	private Livraison l; 
-	  private boolean sendData;
-	  private JLabel clientLabel,  horaireLabel;
-	  private JComboBox PlageHoraire;
-	  private JTextField Client;
+	private JComboBox plageHoraireComboBox;
+	private JTextField clientField;
+	Vector<PlageHoraire> listePlage; 
+	Noeud noeudAdresse;
 	  
-	  
-	public AjoutLivraison(JFrame f, String titre, boolean modal)
+	public AjoutLivraison(JFrame f, String title, boolean modal, Vector<PlageHoraire> p, Noeud noeudAdresse)
 	{
-		super(f, titre, modal);
-			    this.setSize(550, 270);
-			    this.setLocationRelativeTo(null);
-			    this.setResizable(false);
-			    this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-			    this.initComponent();
-		  }
+	    super(f, title, modal);
+	    this.setSize(300, 300);
+	    this.setLocationRelativeTo(null);
+	    this.setResizable(false);
+	    
+	    this.listePlage=p;
+	    this.noeudAdresse = noeudAdresse;
+	    this.initComponent(p, noeudAdresse);
+	    this.setVisible(true);
+	}
 
-		  private void initComponent(){
-	
+	private void initComponent(Vector<PlageHoraire> p, Noeud noeudAdresse){
+		JPanel panNom = new JPanel();
+		panNom.setPreferredSize(new Dimension(220, 60));
+		clientField = new JTextField(); 
+		clientField.setPreferredSize(new Dimension(100, 25));
 
-		    //Le Client
-		    JPanel panNom = new JPanel();
-		    panNom.setBackground(Color.white);
-		    panNom.setPreferredSize(new Dimension(220, 60));
-		    Client = new JTextField();
-		    Client.setPreferredSize(new Dimension(100, 25));
-		    panNom.setBorder(BorderFactory.createTitledBorder("Nom du personnage"));
-		    clientLabel = new JLabel("Saisir un nom :");
-		    panNom.add(clientLabel);
-		    panNom.add(Client);
+		panNom.setBorder(BorderFactory.createTitledBorder("Client"));
+	    JLabel clientLabel = new JLabel("Saisir un nom :");
+	    panNom.add(clientLabel);
+	    panNom.add(clientField);
+	    
+	    
+	    
+	    //La couleur des cheveux
+	    JPanel panHoraire = new JPanel();
+	    panHoraire.setPreferredSize(new Dimension(220, 80));
+	    panHoraire.setBorder(BorderFactory.createTitledBorder("Plage Horaire"));
+	    plageHoraireComboBox = new JComboBox();
+	    for(PlageHoraire a : p){
+		    plageHoraireComboBox.addItem(a.getHeureDebut() + "-" + a.getHeureFin());
+	    }
+	    panHoraire.add(plageHoraireComboBox);
+	    
+	    
+	    JPanel panAdresse = new JPanel();
+	    panAdresse.setPreferredSize(new Dimension(220, 80));
+	    panAdresse.setBorder(BorderFactory.createTitledBorder("Adresse"));
+	    JTextField adresse = new JTextField(); 
+		adresse.setPreferredSize(new Dimension(100, 25));
+		adresse.setText(Integer.toString(noeudAdresse.getIdNoeud()));
+		adresse.setEnabled(false);
+	    panAdresse.add(adresse);
+	    
+	    JPanel content = new JPanel();
+	    content.add(panNom);
+	    content.add(panHoraire);
+	    content.add(panAdresse);
 
 
+	    JPanel panelBoutons = new JPanel();
+	    JButton btnOk = new JButton("Ok");
+	    JButton btnAnnuler = new JButton("Annuler");
+	    panelBoutons.add(btnOk);
+	    panelBoutons.add(btnAnnuler);
+	    
+	    this.getContentPane().add(content, BorderLayout.CENTER);
+		this.getContentPane().add(panelBoutons, BorderLayout.SOUTH); 
+		
+		
+		btnOk.addActionListener(new ActionListener(){
 
-		 
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+			}
+			
+		});
+		btnAnnuler.addActionListener(new ActionListener(){
 
-		    //La couleur des cheveux
-		    JPanel panHoraire = new JPanel();
-		    panHoraire.setBackground(Color.white);
-		    panHoraire.setPreferredSize(new Dimension(220, 60));
-		    panHoraire.setBorder(BorderFactory.createTitledBorder("Plage Horaire"));
-		    PlageHoraire = new JComboBox();
-		    PlageHoraire.addItem("8h00-9h00");
-		    PlageHoraire.addItem("9h00-10h00");
-		    PlageHoraire.addItem("10h00-11h00");
-		    PlageHoraire.addItem("11h00-12h00");
-		    horaireLabel = new JLabel("Plage Horaire");
-		    panHoraire.add(horaireLabel);
-		    panHoraire.add(PlageHoraire);
-
-		    JPanel content = new JPanel();
-		    content.setBackground(Color.white);
-		    content.add(panNom);
-		    content.add(panHoraire);
-
-		    JPanel control = new JPanel();
-		    JButton okBouton = new JButton("OK");
-		    
-		    
-
-		      
-		    
-		    };
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+			}
+			
+		});
+	}
 
 		   
-		  
+	public PlageHoraire getPlageSelectionnee()
+	{
+		return listePlage.get(plageHoraireComboBox.getSelectedIndex());
+	}
+	public int getIdClientSelectionne()
+	{
+		return Integer.parseInt(clientField.getText());
+	}
 		
 
 	     

@@ -6,12 +6,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import Modele.Client;
 import Modele.DataWareHouse;
 import Modele.Livraison;
 import Modele.PlageHoraire;
 import Outils.*;
+import Vue.AjoutLivraison;
 import Vue.Fenetre;
 import Vue.VueNoeud;
 import Vue.VueNoeudLivraison;
@@ -56,6 +59,9 @@ public class Application implements MouseListener, ActionListener{
 						action.Executer();
 						this.listeExecution.addElement(action);
 						this.listeAnnulation.clear();	
+
+						vue.chargerLivraison(modele.getLivraisonData());
+						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
@@ -199,9 +205,18 @@ public class Application implements MouseListener, ActionListener{
 			}else{
 				pop.getA().addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
-						//AjoutLivraison md1 = new AjoutLivraison(vue, "exemple avec JDialog modal", true);
-					
-						System.out.println("Clique sur Ajouter");
+						AjoutLivraison md1 = new AjoutLivraison(vue, "exemple avec JDialog modal", true, modele.getLivraisonData(), noeud.getNoeudAssocie());
+						
+						Livraison l = new Livraison(); 
+				        Client c = new Client();
+				        c.initClient( noeud.getNoeudAssocie() , md1.getIdClientSelectionne());
+				        l.setDestinataire(c);
+				        
+				        ArrayList<Object> args = new ArrayList<Object>(); 
+				        args.add(md1.getPlageSelectionnee());
+				        args.add(l);
+
+				        gererCommande(Proprietes.AJOUTER_LIVRAISON, args);						 
 					}					
 				});
 			}
