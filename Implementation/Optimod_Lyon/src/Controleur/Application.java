@@ -68,6 +68,7 @@ public class Application implements MouseListener, ActionListener{
 						ActionAjouterLivraison action = new ActionAjouterLivraison(modele, a, l);
 						action.Executer();
 						this.listeExecution.addElement(action);
+						this.listeAnnulation.clear();
 					}
 					break;
 				case Proprietes.CALC_TOURNEE :
@@ -79,6 +80,7 @@ public class Application implements MouseListener, ActionListener{
 						ActionSupprimerLivraison action1 = new ActionSupprimerLivraison(modele,l);
 						action1.Executer();
 						this.listeExecution.addElement(action1);
+						this.listeAnnulation.clear();
 					}
 					break;
 				case Proprietes.CHARGER_PLAN :
@@ -90,16 +92,22 @@ public class Application implements MouseListener, ActionListener{
 					action3.Executer();
 					break;
 				case Proprietes.UNDO :
-					Action actionAnnulable = this.listeExecution.lastElement();
-					actionAnnulable.Annuler();
-					this.listeExecution.removeElementAt(listeExecution.size());
-					listeAnnulation.addElement(actionAnnulable);
+					if(listeExecution.size() > 0)
+					{
+						Action actionAnnulable = this.listeExecution.lastElement();
+						actionAnnulable.Annuler();
+						this.listeExecution.removeElementAt(listeExecution.size()-1);
+						listeAnnulation.addElement(actionAnnulable);
+					}
 					break;
 				case Proprietes.REDO : 
-					Action actionAnnulee = listeAnnulation.lastElement();
-					actionAnnulee.Executer();
-					listeAnnulation.removeElementAt(listeAnnulation.size());
-					listeExecution.addElement(actionAnnulee);
+					if(listeAnnulation.size() > 0 )
+					{
+						Action actionAnnulee = listeAnnulation.lastElement();
+						actionAnnulee.Executer();
+						listeAnnulation.removeElementAt(listeAnnulation.size()-1);
+						listeExecution.addElement(actionAnnulee);	
+					}
 					break;
 				case Proprietes.SAVE:
 					break;
@@ -293,6 +301,18 @@ public class Application implements MouseListener, ActionListener{
 			vue.chargerLivraison(modele.getLivraisonData());
 			vue.repaint();
 			vue.logText("Demande de livraison chargée");
+		}
+		if(e.getSource() == vue.getBtnUndo())
+		{
+			gererCommande(Proprietes.UNDO,null);
+			vue.chargerLivraison(modele.getLivraisonData());
+			vue.getPlan().repaint();
+		}
+		if(e.getSource() == vue.getBtnRedo())
+		{
+			gererCommande(Proprietes.REDO,null);
+			vue.chargerLivraison(modele.getLivraisonData());
+			vue.getPlan().repaint();
 		}
 	}
 }
