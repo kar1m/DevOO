@@ -21,6 +21,8 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import Modele.DataWareHouse;
+import Modele.Livraison;
+import Modele.PlageHoraire;
 import Modele.Noeud;
 import Outils.*;
 import Vue.Fenetre;
@@ -37,12 +39,10 @@ public class Application implements MouseListener, ActionListener{
 	private Fenetre vue;
 	private Vector<Action> listeAnnulation;
 	private Vector<Action> listeExecution;
-	private XMLhandler outilXML;
 	
     public Application(Fenetre vue, DataWareHouse modele) {
     	this.listeAnnulation = new Vector<Action>();
     	this.listeExecution = new Vector<Action>();
-    	this.outilXML = new XMLhandler();
     	this.modele = modele;
     	this.vue = vue; 
     }
@@ -52,88 +52,42 @@ public class Application implements MouseListener, ActionListener{
     	
     }
     	
-    private void chargerDemandeLivraison() {
-
-    	File fichierData = outilXML.selectXML();
-        if (fichierData != null) {
-            try {
-            	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_DL);
-                // creation d'un constructeur de documents a l'aide d'une fabrique
-               DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
-               // lecture du contenu d'un fichier XML avec DOM
-               Document document = constructeur.parse(fichierData);
-               Element racine = document.getDocumentElement();
-               
-               // Initialiser les donn�es
-                  modele.initLivraison(racine);
-
-           // todo : traiter les erreurs
-           } catch (ParserConfigurationException pce) {
-               System.out.println("Erreur de configuration du parseur DOM");
-               System.out.println("lors de l'appel a fabrique.newDocumentBuilder();");
-           } catch (SAXException se) {
-               System.out.println("Erreur lors du parsing du document");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           } catch (IOException ioe) {
-               System.out.println("Erreur d'entree/sortie");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           }
-       } 
-    }
-
-    private void chargerPlan() {
-
-    	File fichierData = outilXML.selectXML();
-        if (fichierData != null) {
-            try {
-            	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_PLAN);
-                // creation d'un constructeur de documents a l'aide d'une fabrique
-               DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
-               // lecture du contenu d'un fichier XML avec DOM
-               Document document = constructeur.parse(fichierData);
-               Element racine = document.getDocumentElement();
-
-                   // appel des initialiseurs
-            	   modele.initDataPlan(racine);
-
-           // todo : traiter les erreurs
-           } catch (ParserConfigurationException pce) {
-               System.out.println("Erreur de configuration du parseur DOM");
-               System.out.println("lors de l'appel a fabrique.newDocumentBuilder();");
-           } catch (SAXException se) {
-               System.out.println("Erreur lors du parsing du document");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           } catch (IOException ioe) {
-               System.out.println("Erreur d'entree/sortie");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           }
-       } 
-    }
 
     /**
      * 
      */
-    public void gererCommande(String commande) {
+    public void gererCommande(String commande, ArrayList<Object> args) {
         try {
 				switch (commande)
 				{
 				case Proprietes.AJOUTER_LIVRAISON :
-					ActionAjouterLivraison action = new ActionAjouterLivraison();
-					action.Executer();
-					this.listeExecution.addElement(action);
+					if(args.size() == 2)
+					{
+						PlageHoraire a = (PlageHoraire) args.get(0);
+						Livraison l = (Livraison) args.get(1);
+						ActionAjouterLivraison action = new ActionAjouterLivraison(modele, a, l);
+						action.Executer();
+						this.listeExecution.addElement(action);
+					}
 					break;
 				case Proprietes.CALC_TOURNEE :
 					break;
 				case Proprietes.SUPP_LIVRAISON :
-					ActionSupprimerLivraison action1 = new ActionSupprimerLivraison();
-					action1.Executer();
-					this.listeExecution.addElement(action1);
+					if(args.size() == 1)
+					{
+						Livraison l = (Livraison) args.get(0);
+						ActionSupprimerLivraison action1 = new ActionSupprimerLivraison(modele,l);
+						action1.Executer();
+						this.listeExecution.addElement(action1);
+					}
 					break;
 				case Proprietes.CHARGER_PLAN :
-					this.chargerPlan();
+					ActionChargerPlan action2 = new ActionChargerPlan(modele);
+					action2.Executer();
 					break;
 				case Proprietes.CHARGER_LIVRAISON : 
-					this.chargerDemandeLivraison();
+					ActionChargerLivraison action3 = new ActionChargerLivraison(modele);
+					action3.Executer();
 					break;
 				case Proprietes.UNDO :
 					Action actionAnnulable = this.listeExecution.lastElement();
@@ -321,7 +275,7 @@ public class Application implements MouseListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == vue.getBtnChargerPlan()){
-			gererCommande(Proprietes.CHARGER_PLAN);
+			gererCommande(Proprietes.CHARGER_PLAN, null);
 			vue.chargerPlan(modele.getPlanApp());
 			vue.repaint();
 			vue.logText("Plan chargé");
@@ -329,7 +283,7 @@ public class Application implements MouseListener, ActionListener{
 		}
 		if(e.getSource() == vue.getBtnChargerDemandeLivraison())
 		{
-			gererCommande(Proprietes.CHARGER_LIVRAISON);
+			gererCommande(Proprietes.CHARGER_LIVRAISON,null);
 			vue.chargerLivraison(modele.getLivraisonData());
 			vue.repaint();
 			vue.logText("Demande de livraison chargée");
