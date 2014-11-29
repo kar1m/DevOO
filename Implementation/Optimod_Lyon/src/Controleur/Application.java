@@ -34,7 +34,6 @@ public class Application implements MouseListener, ActionListener{
     public Application(Fenetre vue, DataWareHouse modele) {
     	this.listeAnnulation = new Vector<Action>();
     	this.listeExecution = new Vector<Action>();
-    	this.outilXML = new XMLhandler();
     	this.modele = modele;
     	this.vue = vue; 
     }
@@ -73,34 +72,6 @@ public class Application implements MouseListener, ActionListener{
        } 
     }
 
-    private void chargerPlan() {
-
-    	File fichierData = outilXML.selectXML();
-        if (fichierData != null) {
-            try {
-            	outilXML.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_PLAN);
-                // creation d'un constructeur de documents a l'aide d'une fabrique
-               DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
-               // lecture du contenu d'un fichier XML avec DOM
-               Document document = constructeur.parse(fichierData);
-               Element racine = document.getDocumentElement();
-
-                   // appel des initialiseurs
-            	   modele.initDataPlan(racine);
-
-           // todo : traiter les erreurs
-           } catch (ParserConfigurationException pce) {
-               System.out.println("Erreur de configuration du parseur DOM");
-               System.out.println("lors de l'appel a fabrique.newDocumentBuilder();");
-           } catch (SAXException se) {
-               System.out.println("Erreur lors du parsing du document");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           } catch (IOException ioe) {
-               System.out.println("Erreur d'entree/sortie");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           }
-       } 
-    }
 
     /**
      * 
@@ -122,7 +93,8 @@ public class Application implements MouseListener, ActionListener{
 					this.listeExecution.addElement(action1);
 					break;
 				case Proprietes.CHARGER_PLAN :
-					this.chargerPlan();
+					ActionChargerPlan action2 = new ActionChargerPlan(modele);
+					action2.Executer();
 					break;
 				case Proprietes.CHARGER_LIVRAISON : 
 					this.chargerDemandeLivraison();
