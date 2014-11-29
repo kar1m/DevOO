@@ -88,10 +88,15 @@ public class Application implements MouseListener, ActionListener{
 						String path = (String) args.get(0);
 						ActionChargerPlan action2 = new ActionChargerPlan(modele, path);
 						action2.Executer();
+						
 						vue.chargerPlan(modele.getPlanApp());
+						vue.chargerLivraison(modele.getLivraisonData());
 						vue.repaint();
 						vue.logText("Plan chargé");
 						vue.getBtnChargerDemandeLivraison().setEnabled(true);
+						this.listeAnnulation.clear();
+						this.listeExecution.clear();
+						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
 				case Proprietes.CHARGER_LIVRAISON :
@@ -100,9 +105,14 @@ public class Application implements MouseListener, ActionListener{
 						String path = (String) args.get(0);
 						ActionChargerLivraison action3 = new ActionChargerLivraison(modele, path);
 						action3.Executer();
+						
 						vue.chargerLivraison(modele.getLivraisonData());
 						vue.repaint();
 						vue.logText("Demande de livraison chargée");
+						vue.getBtnCalcul().setEnabled(true);
+						this.listeAnnulation.clear();
+						this.listeExecution.clear();
+						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
 				case Proprietes.UNDO :
@@ -334,6 +344,10 @@ public class Application implements MouseListener, ActionListener{
 			ArrayList<Object> args = new ArrayList<Object>();
 			args.add(path);
 			gererCommande(Proprietes.CHARGER_LIVRAISON,args);
+		}
+		if(e.getSource() == vue.getBtnCalcul())
+		{
+			gererCommande(Proprietes.CALC_TOURNEE, null);
 		}
 		if(e.getSource() == vue.getBtnUndo())
 		{

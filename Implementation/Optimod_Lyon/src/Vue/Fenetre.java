@@ -27,6 +27,7 @@ public class Fenetre extends JFrame {
 	private VuePlan plan; 
 	private JButton btnChargerPlan; 
 	private JButton btnChargerDemandeLivraison;
+	private JButton btnCalcul;
 	private JButton btnUndo; 
 	private JButton btnRedo; 
 	private JLabel lblChargementFini;
@@ -59,10 +60,16 @@ public class Fenetre extends JFrame {
 		btnChargerDemandeLivraison.setEnabled(false);
 		panel_1.add(btnChargerDemandeLivraison);
 		
+		btnCalcul = new JButton("Calcul Tournée");
+		btnCalcul.setEnabled(false);
+		panel_1.add(btnCalcul);
+		
 		btnUndo = new JButton("undo");
+		btnUndo.setEnabled(false);
 		panel_1.add(btnUndo);
 		
 		btnRedo = new JButton("redo");
+		btnRedo.setEnabled(false);
 		panel_1.add(btnRedo);
 		
 		JPanel panel_2 = new JPanel();
@@ -77,8 +84,6 @@ public class Fenetre extends JFrame {
 		setVisible(true);
 		setResizable(false);
 		
-		btnUndo.setEnabled(false);
-		btnRedo.setEnabled(false);
 	}
 
 	public void updateUndoRedo(boolean undo, boolean redo)
@@ -128,5 +133,10 @@ public class Fenetre extends JFrame {
 	public VueTable getTable() {
 		return table;
 	}
+
+	public JButton getBtnCalcul() {
+		return btnCalcul;
+	}
+	
 	
 }
