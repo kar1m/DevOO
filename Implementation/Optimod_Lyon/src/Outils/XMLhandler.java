@@ -17,11 +17,10 @@ import org.xml.sax.SAXException;
  */
 public class XMLhandler {
 	
-	public File selectXML()
+	public static String selectXML()
 	{
     	JFileChooser jFileChooserXML = new JFileChooser();
     	FileFilterApp filter = new FileFilterApp();
-    	File fichierData = null;
     	
         filter.addExtension("xml");
         filter.setDescription("Fichier XML");
@@ -31,12 +30,12 @@ public class XMLhandler {
         	returnVal = jFileChooserXML.showOpenDialog(null);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) 
-               fichierData = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
-        return fichierData;
+        		return jFileChooserXML.getSelectedFile().getAbsolutePath();
+        return null;
 	}
 	
 		
-		public boolean checkXML (String input, String modeleXSD) throws SAXException, IOException {
+		public static boolean  checkXML (String input, String modeleXSD) throws SAXException, IOException {
 	        SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
 	        File schemaLocation = new File(modeleXSD);
 	        Schema schema = factory.newSchema(schemaLocation);
