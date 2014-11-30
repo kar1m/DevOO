@@ -33,6 +33,7 @@ public class Troncon {
     	this.nomRue = xmlChunk.getAttribute("nomRue");
     	this.depart = entree;
     	this.arrivee = sortie;
+    	this.temps = longueur/vitesse;
     }
     /**
      * Vitesse de circulation moyenne du trançon
@@ -58,7 +59,8 @@ public class Troncon {
      * 
      */
     private Noeud depart;
-
+    
+    private double temps = 0;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -77,6 +79,10 @@ public class Troncon {
 
 	public Noeud getDepart() {
 		return depart;
+	}
+	
+	public double getTemps() {
+		return temps;
 	}
 	
 	

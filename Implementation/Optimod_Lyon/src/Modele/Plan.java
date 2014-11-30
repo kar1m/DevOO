@@ -100,5 +100,11 @@ public class Plan {
 		}
 		return max;
 	}
-
+	
+	
+	public Troncon getTroncon(Noeud origine, Noeud destination) 
+	{
+		Troncon troncon = new Troncon();
+		return troncon;
+	}
 }
