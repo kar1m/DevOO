@@ -105,14 +105,6 @@ public class Plan {
 	public Troncon getTroncon(Noeud origine, Noeud destination) 
 	{
 		Troncon troncon = new Troncon();
-		Vector<Troncon> tronconsSortants = origine.getTronconSortant();
-		for(int i=0; i<tronconsSortants.size();i++) {
-			if(tronconsSortants.get(i).getArrivee().getIdNoeud()==destination.getIdNoeud())
-			{
-				troncon = listeTroncons.get(i);
-				break;
-			}
-		}
 		return troncon;
 	}
 }

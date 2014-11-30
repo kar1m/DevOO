@@ -85,9 +85,6 @@ public class Troncon {
 		return temps;
 	}
 	
-	public String getNomRue() {
-		return nomRue;
-	}
 	
 
 }
