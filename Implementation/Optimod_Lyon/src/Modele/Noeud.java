@@ -98,6 +98,9 @@ public class Noeud {
 		return y;
 	}
     
-    
+    public static boolean egaux(Noeud noeud1, Noeud noeud2)
+    {
+    	return (noeud1.getIdNoeud()==noeud2.getIdNoeud());
+    }
 
 }
