@@ -81,7 +81,6 @@ public class Fenetre extends JFrame {
 		table = new VueTable();
 		contentPane.add(table, BorderLayout.EAST);
 		
-		setVisible(true);
 		setResizable(false);
 		
 	}

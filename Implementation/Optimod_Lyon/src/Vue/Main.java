@@ -22,6 +22,7 @@ public class Main {
 		
 		DataWareHouse modele = new DataWareHouse();
 		Fenetre vue = new Fenetre();
+		vue.setVisible(true);
 		Application controlleur = new Application(vue, modele);
 				
 		vue.getBtnChargerPlan().addActionListener(controlleur);
