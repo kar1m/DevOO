@@ -1,10 +1,6 @@
-package Outils;
-
-
-import java.util.LinkedList;
+package dijkstra;
 import java.util.Vector;
 
-import Modele.*;
 
 
 public class Dijkstra {
@@ -101,7 +97,7 @@ public class Dijkstra {
 	  // avec destination 
 	  
 	  
-	  public static int[] calculer_cours_chemins(Plan plan, int Source){
+	  public static int [] djikstra (Plan plan, int Source, int destination){
 	         
           final double [] distancecc = new double [plan.getListeNoeuds().size()];
           final int [] pred = new int [plan.getListeNoeuds().size()];
@@ -131,54 +127,12 @@ public class Dijkstra {
               }
    
            }
-          
-          
-          //return Cour_chemin;
-          
-         return pred;
+   
+          return pred;
    
       }
 	
 	
-	  
-	  public static LinkedList Get_Short_Path(Plan plan,int idsource , int iddestination )
-	  { 
-		  
-            int [] Pred = calculer_cours_chemins(plan , idsource);
-	  
-	        for (int n = 0; n < plan.getListeNoeuds().size(); n++) 
-	  
-	      {                          
-                int x=n;
-                if(x==iddestination)
-                {
-                 LinkedList cheminpc =new LinkedList();
-                while (x!=idsource){
-                    cheminpc.add(0,x);
-                    x=Pred[x];    
-                   //System.out.println("hahowa chemin" +cheminpc +" hahiya valeur de " + x);
-                }
-                cheminpc.add(0,idsource);
-                System.out.println(cheminpc);
-              return cheminpc;
-                }
-                
-                LinkedList cheminpc =new LinkedList();
-                return cheminpc;
-                
-                //for (int i = 0; i < pred.length ; i++)
-                	// System.out.println("la valeur de pred " + pred[i]);
-            }
-			return null;
-	 
-	        	
-	       
-	  }
-	   
-		  
-	
-	  
-	  
 	public Dijkstra(Plan plan, Noeud origine, Noeud destination)
 	{
 		this.plan = plan;
