@@ -266,7 +266,8 @@ public class Application implements MouseListener, ActionListener{
 				a.selected = false;
 		}else
 		{
-			vue.getTable().getT().removeRowSelectionInterval(0, vue.getPlan().getListeVueNoeudLivraisons().size()-1);
+			if(vue.getPlan().getListeVueNoeudLivraisons().size() > 0 ) 
+				vue.getTable().getT().removeRowSelectionInterval(0, vue.getPlan().getListeVueNoeudLivraisons().size()-1);
 		}
 		
 		return livraisonSelected; 
