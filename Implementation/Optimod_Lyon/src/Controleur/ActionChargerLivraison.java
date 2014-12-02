@@ -40,6 +40,7 @@ public class ActionChargerLivraison extends Action {
                Element racine = document.getDocumentElement();
                
                // Initialiser les donn�es
+               	 modele.initEntrepot((Element)racine.getElementsByTagName("Entrepot"));
                  modele.initLivraison(racine);
 
            // todo : traiter les erreurs

@@ -11,6 +11,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import Modele.Chemin;
 import Modele.Livraison;
 import Modele.Noeud;
 import Modele.PlageHoraire;
@@ -22,7 +23,8 @@ public class VuePlan extends JPanel{
 	private Vector<VueNoeud> listeVueNoeuds = null;
 	private Vector<VueTroncon> listeVueTroncons = null;
 	private Vector<VueNoeudLivraison> listeVueNoeudLivraisons = null;
-
+	private Vector<VueTronconTournee> listeTournee = null; 
+	
 	private int maxX = 0; 
 	private int maxY = 0; 
 	
@@ -72,6 +74,24 @@ public class VuePlan extends JPanel{
 			}
 		}
 		
+	}
+	
+	public void chargerTournee(Vector<Chemin> listeChemin)
+	{
+		listeTournee = new Vector<VueTronconTournee>(); 
+		for(Chemin chemin : listeChemin)
+		{
+			for(Troncon t : chemin.getListeTroncons())
+			{
+				Noeud depart = t.getDepart();
+				Noeud arrivee = t.getArrivee();
+				
+				VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), 10, depart);
+				VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 10, arrivee); 
+				
+				VueTroncon b = new VueTroncon(vuedepart, vuearrivee);
+			}
+		}
 	}
 	public void paintComponent(Graphics g)
 	{	    
