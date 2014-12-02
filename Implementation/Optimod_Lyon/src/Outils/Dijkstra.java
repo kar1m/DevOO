@@ -1,6 +1,7 @@
 package Outils;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Vector;
 
@@ -168,45 +169,35 @@ public class Dijkstra {
 	
 	
 	  
-	  public static void Get_Short_Path(Plan plan,int idsource , int iddestination )
+	  public static ArrayList Get_Short_Path(Plan plan,int idsource , int iddestination )
 	  { 
 		 
             int [] Pred = calculer_cours_chemins(plan , idsource);
+            ArrayList al = new ArrayList();
 	  
 	        for (int n = 0; n < plan.getListeNoeuds().size(); n++) 
 	  
-	      {                  
-	        	
-	        	 
-                int x=n;
-                if(x==iddestination)
-                {
-                 LinkedList cheminpc =new LinkedList();
-                while (x!=idsource){
-                    cheminpc.add(0,x);
-                    x=Pred[x];    
-                    //System.out.println(" hanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ");
-                   //System.out.println("hahowa chemin" +cheminpc +" hahiya valeur de " + x);
-                }
-                cheminpc.add(0,idsource);
+	         {                  
+	        	int x=n;
                 
+                 if(x==iddestination)
+                                     {
+                	
+                                         while (x!=idsource){
+                                                              al.add(0,x);
+                                                              x=Pred[x];    
+                   
+                                                             }
+                                         al.add(0,idsource);
+                
+                                       //  System.out.println(al);
+                
+                                      }
              
-                System.out.println(cheminpc);
-                
-            //  return cheminpc;
-                }
-                
-                LinkedList cheminpc =new LinkedList();
-               // System.out.println(" je suuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuis la ");
-              //  return cheminpc;
-                
-                //for (int i = 0; i < pred.length ; i++)
-                	// System.out.println("la valeur de pred " + pred[i]);
             }
-			//return null;
+			return al;
 	 
 	        	
-	       
 	  }
 	   
 		  
