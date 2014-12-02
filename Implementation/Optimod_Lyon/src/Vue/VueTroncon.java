@@ -4,18 +4,18 @@ import java.awt.Graphics;
 
 
 public class VueTroncon {
-	private VueNoeud noeud1;
-	private VueNoeud noeud2;
+	protected VueNoeud noeudDepart;
+	protected VueNoeud noeudArrivee;
 
 	
 	public VueTroncon(VueNoeud noeud1, VueNoeud noeud2)
 	{
-		this.noeud1 = noeud1; 
-		this.noeud2 = noeud2; 
+		this.noeudDepart = noeud1; 
+		this.noeudArrivee = noeud2; 
 	}
 	public void dessiner(Graphics g)
 	{
-		g.drawLine(noeud1.getX()+noeud1.getRayon()/2, noeud1.getY()+noeud1.getRayon()/2, noeud2.getX()+noeud2.getRayon()/2, noeud2.getY()+noeud2.getRayon()/2);
+		g.drawLine(noeudDepart.getX()+noeudDepart.getRayon()/2, noeudDepart.getY()+noeudDepart.getRayon()/2, noeudArrivee.getX()+noeudArrivee.getRayon()/2, noeudArrivee.getY()+noeudArrivee.getRayon()/2);
 	}
 	
 	public boolean clickDessus(int xclick, int yclick)
