@@ -9,11 +9,20 @@ public class DataWareHouse {
 	
 	private Plan planApp;
     private Vector<PlageHoraire> livraisonData;
+    private Noeud entrepot;
 	
 
 	public DataWareHouse() {
 		this.planApp = new Plan();
 		this.livraisonData = new Vector<PlageHoraire>();
+	}
+	
+	public void initEntrepot(Element racine)
+	{
+		int idadresse = Integer.parseInt(racine.getAttribute("adresse"));
+		this.entrepot = new Noeud();
+		
+		entrepot = this.planApp.getListeNoeuds().elementAt(idadresse);
 	}
 	
 	public boolean initLivraison(Element racine) {
@@ -84,6 +93,10 @@ public class DataWareHouse {
 
 	public Vector<PlageHoraire> getLivraisonData() {
 		return livraisonData;
+	}
+
+	public Noeud getEntrepot() {
+		return entrepot;
 	}
     
 }
