@@ -46,21 +46,6 @@ public class RegularGraph implements Graph {
 		}
 	}
 	
-	public int convertToChoco(Livraison livraison)
-	{
-		int compteur = 0;
-		for (int i = 0; i < plagesHoraires.size(); i++) {
-			
-		}
-		return 1;
-	}
-	
-	public Livraison convertFromChoco(int identifier)
-	{
-		return null;
-	}
-
-	
 	public RegularGraph(Noeud entrepot, Vector<PlageHoraire> plagesHoraires, Plan plan)
 	{
 		// Verification des parametres
@@ -77,7 +62,7 @@ public class RegularGraph implements Graph {
 		
 		for (int i = 0; i < plagesHoraires.get(0).getLivraisons().size(); i++)
 		{
-			succEntrepot.add(i+1);
+			succEntrepot.add(plagesHoraires.get(0).getLivraisons().get(i).getIdLivraison());
 		}
 		
 		succ.add(succEntrepot);
@@ -101,23 +86,30 @@ public class RegularGraph implements Graph {
 						continue;
 					}
 					
-					succLivraison.add(sum+k);
+					succLivraison.add(plagesHoraires.get(i).getLivraisons().get(k).getIdLivraison());
 				}
 				
 				// Liens entre livraisons d'une plage horaire i et i+1
 				for (int k = 0; k < plagesHoraires.get(i+1).getLivraisons().size(); k++)
 				{	
-					succLivraison.add(sum+nbLivraisons+k);
+					succLivraison.add(plagesHoraires.get(i+1).getLivraisons().get(k).getIdLivraison());
 				}
 				
 				// Successeurs entre livraisons de la derniere plage horaire et l'entrepot
 				if (i == plagesHoraires.size()-1) {
-					succLivraison.add(0);
+					succLivraison.add(entrepot.getIdNoeud());
 				}
 				
 				succ.add(succLivraison);
 			}
 			
+		}
+		
+		for (int i = 0; i < succ.size(); i++) {
+			for (int j = 0; j < succ.get(i).size(); j++) {
+				System.out.print(succ.get(i).get(j) + " ");
+			}
+			System.out.println("");
 		}
 		
 		
