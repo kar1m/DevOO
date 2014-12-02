@@ -90,16 +90,21 @@ public class Application implements MouseListener, ActionListener{
 					{
 						String path = (String) args.get(0);
 						ActionChargerPlan action2 = new ActionChargerPlan(modele, path);
-						action2.Executer();
-						
-						vue.chargerPlan(modele.getPlanApp());
-						vue.chargerLivraison(modele.getLivraisonData());
-						vue.repaint();
-						vue.logText("Plan chargé");
-						vue.getBtnChargerDemandeLivraison().setEnabled(true);
-						this.listeAnnulation.clear();
-						this.listeExecution.clear();
-						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						if(action2.Executer())
+						{
+							vue.chargerPlan(modele.getPlanApp());
+							vue.chargerLivraison(modele.getLivraisonData());
+							vue.repaint();
+							vue.logText("Plan chargé");
+							vue.getBtnChargerDemandeLivraison().setEnabled(true);
+							this.listeAnnulation.clear();
+							this.listeExecution.clear();
+							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						}else{
+							vue.logText("Erreur lors du chargement du plan.");
+							JOptionPane.showMessageDialog(vue, "Erreur lors du chargement du plan.");
+
+						}
 					}
 					break;
 				case Proprietes.CHARGER_LIVRAISON :
@@ -107,15 +112,20 @@ public class Application implements MouseListener, ActionListener{
 					{
 						String path = (String) args.get(0);
 						ActionChargerLivraison action3 = new ActionChargerLivraison(modele, path);
-						action3.Executer();
-						
-						vue.chargerLivraison(modele.getLivraisonData());
-						vue.repaint();
-						vue.logText("Demande de livraison chargée");
-						vue.getBtnCalcul().setEnabled(true);
-						this.listeAnnulation.clear();
-						this.listeExecution.clear();
-						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						if(action3.Executer())
+						{
+							vue.chargerLivraison(modele.getLivraisonData());
+							vue.repaint();
+							vue.logText("Demande de livraison chargée");
+							vue.getBtnCalcul().setEnabled(true);
+							this.listeAnnulation.clear();
+							this.listeExecution.clear();
+							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						}else
+						{
+							vue.logText("Erreur lors du chargement de la demande de livraison.");
+							JOptionPane.showMessageDialog(vue, "Erreur lors du chargement de la demande de livraison.");
+						}
 					}
 					break;
 				case Proprietes.UNDO :

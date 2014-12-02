@@ -32,7 +32,10 @@ public class ActionChargerLivraison extends Action {
 		File fichierData = new File(pathFichier);
         if (fichierData != null) {
             try {
-            	XMLhandler.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_DL);
+            	if(!XMLhandler.checkXML(fichierData.getAbsolutePath(), Proprietes.PATH_XSD_DL))
+            		return false; 
+            	
+            	
                 // creation d'un constructeur de documents a l'aide d'une fabrique
                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
                // lecture du contenu d'un fichier XML avec DOM
