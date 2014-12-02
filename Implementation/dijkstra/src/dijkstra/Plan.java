@@ -1,4 +1,6 @@
-package Modele;
+package dijkstra;
+
+
 
 import java.util.*;
 

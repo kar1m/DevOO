@@ -2,34 +2,53 @@ package Tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Vector;
+
 import org.junit.Test;
+
 import Controleur.*;
 import Modele.*;
 import Outils.Proprietes;
+import Outils.XMLhandler;
 import Vue.Fenetre;
 
 public class ControlTest {
 
+	@Test 
+	public void testCharger()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+		args.clear();
+		args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/livraison10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+		
+		
+		assertTrue(commandCenter.getModele().getLivraisonData().size() > 0 );
+		
+	}
 	@Test
 	public void testChargerDemandeLivraison() {
 		try {
 			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
-			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON);;
-			//Pour tester
-			for (PlageHoraire entry : commandCenter.getModele()
-					.getLivraisonData()) {
-				PlageHoraire value = entry;
-				System.out.println(value.getHeureDebut() + " "
-						+ value.getHeureFin());
-				Vector<Livraison> vect = entry.getLivraisons();
-				for (Livraison valu : vect) {
-					System.out.println(valu.getIdLivraison() + " "
-							+ valu.getDestinataire().getIdClient() + " "
-							+ valu.getDestinataire().getIdNoeudAdresse());
-				}
-			}
-			assertTrue(true);
+			
+			
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+			args.clear();
+			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/livraison10x10-1.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+			
+			
+			assertTrue(commandCenter.getModele().getLivraisonData().size() > 0 );
 		} 
 		catch (Exception e) {
 			// TODO: handle exception
@@ -43,21 +62,22 @@ public class ControlTest {
 		try {
 
 			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
-			commandCenter.gererCommande(Proprietes.CHARGER_PLAN);
-			//Pour tester
-			Plan ned = commandCenter.getModele().getPlanApp();
-			Vector<Troncon> ts = ned.getListeTroncons();
-			for (Troncon tr : ts)
-				{
-					System.out.println(tr.toString());
-				}
-			}
-			catch (Exception e)
-			{
-				fail("Error Occured");
-			}
+			
+			
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+			
+			assertFalse(commandCenter.getModele().getPlanApp().getListeNoeuds().size() == 0);
+		}
+		catch (Exception e)
+		{
+			fail("Error Occured");
+		}
 		
 	}
+	
+	
 	
 	/*
 	 * TESTS UNDO/REDO
@@ -65,7 +85,7 @@ public class ControlTest {
 	public void testUndoRedo() {
 		try {
 			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
-			commandCenter.gererCommande(Proprietes.CHARGER_PLAN);
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, null);
 			
 			testUR1(commandCenter);
 			testUR2(commandCenter);
@@ -90,13 +110,13 @@ public class ControlTest {
 	 * Test UNDO REDO 1	
 	 * PILES VIDES & UNDO
 	 * Action : Pile undo & redo vide, demande de Undo
-	 * Resultat : Rien, un message doit signaler à l'utilisateur que c'est impossible
+	 * Resultat : Rien, un message doit signaler ï¿½ l'utilisateur que c'est impossible
 	 */
 	
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.UNDO);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
 		
 		/*
 		 * VERIFS
@@ -115,7 +135,7 @@ public class ControlTest {
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.REDO);
+		commandCenter.gererCommande(Proprietes.REDO, null);
 		
 		/*
 		 * VERIFS
@@ -128,14 +148,14 @@ public class ControlTest {
 	/*
 	 * Test UNDO REDO 3
 	 * UNDO SUR ACTION NON ANNULABLE
-	 * Action : On effectue une action non annulable, la pile était vide
+	 * Action : On effectue une action non annulable, la pile ï¿½tait vide
 	 * 			On effectue un undo
 	 * Resultat : Rien, la pile est toujours vide
 	 */
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.SAVE);
+		commandCenter.gererCommande(Proprietes.SAVE, null);
 		
 		/*
 		 * VERIFS
@@ -148,18 +168,23 @@ public class ControlTest {
 	/*
 	 * Test UNDO REDO 4
 	 * UNDO SUR UNE ACTION ANNULABLE
-	 * Action : On effectue une action annulable, la pile était vide
+	 * Action : On effectue une action annulable, la pile ï¿½tait vide
 	 * 			On effectue un undo
-	 * Resultat : 	L'action a été annulée, 
+	 * Resultat : 	L'action a ï¿½tï¿½ annulï¿½e, 
 	 * 				la pile listeExecution est desormais vide, 
-	 * 				la pile listeAnnulation contient l'action annulée 
+	 * 				la pile listeAnnulation contient l'action annulï¿½e 
 	 */
 		
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON);
-		commandCenter.gererCommande(Proprietes.UNDO);
+		PlageHoraire a = new PlageHoraire(5); 
+		Livraison l = new Livraison(); 
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(a);
+		args.add(l);
+		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
 		
 		
 		/*
@@ -176,27 +201,32 @@ public class ControlTest {
 	/*
 	 * Test UNDO REDO 5
 	 * REDO SUR UNE ACTION ANNULABLE ET ANNULEE
-	 * Action : On effectue une action annulable, la pile était vide
+	 * Action : On effectue une action annulable, la pile ï¿½tait vide
 	 * 			On effectue un undo
 	 * 			On effectue un redo
-	 * Resultat : 	L'action a été annulée, 
-	 * 				l'action a été refaite
+	 * Resultat : 	L'action a ï¿½tï¿½ annulï¿½e, 
+	 * 				l'action a ï¿½tï¿½ refaite
 	 * 				la pile listeAnnulation est desormais vide, 
-	 * 				la pile listeExecution contient l'action annulée 
+	 * 				la pile listeExecution contient l'action annulï¿½e 
 	 */
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON);
-		commandCenter.gererCommande(Proprietes.UNDO);
-		commandCenter.gererCommande(Proprietes.REDO);
+		PlageHoraire a = new PlageHoraire(5); 
+		Livraison l = new Livraison(); 
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(a);
+		args.add(l);
+		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
+		commandCenter.gererCommande(Proprietes.REDO, null);
 		
 		/*
 		 * VERIFS
 		 */
 		assertEquals(commandCenter.getListeAnnulation().size(),0);
 		assertEquals(commandCenter.getListeExecution().size(),1);
-		//On verifie que la liste des livraisons contient 1 élément
+		//On verifie que la liste des livraisons contient 1 ï¿½lï¿½ment
 		assertEquals(commandCenter.getModele().getLivraisonData().size(),1);
 	}
 
@@ -204,24 +234,29 @@ public class ControlTest {
 	/*
 	 * Test UNDO REDO 6
 	 * DOUBLE UNDO / REDO SUR UNE ACTION ANNULABLE
-	 * Action : On effectue une action annulable, la pile était vide
+	 * Action : On effectue une action annulable, la pile ï¿½tait vide
 	 * 			On effectue un undo
 	 * 			On effectue un redo
 	 * 			On effectue un undo
-	 * Resultat : 	L'action a été annulée, 
-	 * 				l'action a été refaite
-	 * 				l'action a été annulée
+	 * Resultat : 	L'action a ï¿½tï¿½ annulï¿½e, 
+	 * 				l'action a ï¿½tï¿½ refaite
+	 * 				l'action a ï¿½tï¿½ annulï¿½e
 	 * 				la pile listeExecution est desormais vide, 
-	 * 				la pile listeAnnulation contient l'action annulée 
+	 * 				la pile listeAnnulation contient l'action annulï¿½e 
 	 */
 		
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON);
-		commandCenter.gererCommande(Proprietes.UNDO);
-		commandCenter.gererCommande(Proprietes.REDO);
-		commandCenter.gererCommande(Proprietes.UNDO);
+		PlageHoraire a = new PlageHoraire(5); 
+		Livraison l = new Livraison(); 
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(a);
+		args.add(l);
+		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
+		commandCenter.gererCommande(Proprietes.REDO, null);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
 		
 		/*
 		 * VERIFS
@@ -237,31 +272,39 @@ public class ControlTest {
 	/*
 	 * Test UNDO REDO 7
 	 * VERIFICATION BONNE ACTION REDO
-	 * Action : On effectue une action1 annulable, la pile était vide
+	 * Action : On effectue une action1 annulable, la pile ï¿½tait vide
 	 * 			On effectue une autre action2 annulable
 	 * 			On effectue un undo
 	 * 			On effectue un undo
 	 * 			On effectue un redo
-	 * Resultat : 	L'action1 a été annulée, 
-	 * 				l'action2 a été annulée
-	 * 				l'action2 a été refaite
+	 * Resultat : 	L'action1 a ï¿½tï¿½ annulï¿½e, 
+	 * 				l'action2 a ï¿½tï¿½ annulï¿½e
+	 * 				l'action2 a ï¿½tï¿½ refaite
 	 */
 		
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON);
-		commandCenter.gererCommande(Proprietes.SUPP_LIVRAISON);
-		commandCenter.gererCommande(Proprietes.UNDO);
-		commandCenter.gererCommande(Proprietes.UNDO);
-		commandCenter.gererCommande(Proprietes.REDO);
+		PlageHoraire a = new PlageHoraire(5); 
+		Livraison l = new Livraison(); 
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(a);
+		args.add(l);
+		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
+		
+		ArrayList<Object> args2 = new ArrayList<Object>();
+		args2.add(new Livraison());
+		commandCenter.gererCommande(Proprietes.SUPP_LIVRAISON, args2);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
+		commandCenter.gererCommande(Proprietes.REDO, null);
 		
 		/*
 		 * VERIFS
 		 */
 		assertEquals(commandCenter.getListeAnnulation().size(),1);
 		assertEquals(commandCenter.getListeExecution().size(),1);
-		//On verifie que la liste des livraisons contient 1 élément
+		//On verifie que la liste des livraisons contient 1 ï¿½lï¿½ment
 		assertEquals(commandCenter.getModele().getLivraisonData().size(),0);
 		
 	}
@@ -270,12 +313,12 @@ public class ControlTest {
 	/*
 	 * Test UNDO REDO 8
 	 * VERIFICATION CLEAR SUR NOUVELLE ACTION
-	 * Action : On effectue une action1 annulable, la pile était vide
+	 * Action : On effectue une action1 annulable, la pile ï¿½tait vide
 	 * 			On effectue un undo
 	 * 			On effectue une action2 annulable
 	 * 			On effectue un redo
 	 * Resultat : 	Il ne se passe rien
-	 * 				L'action1 a été annulée,
+	 * 				L'action1 a ï¿½tï¿½ annulï¿½e,
 	 * 				la pile listeExecution contient l'action, 
 	 * 				la pile listeAnnulation est desormais vide
 	 */
@@ -283,17 +326,22 @@ public class ControlTest {
 		/*
 		 * ACTIONS
 		 */
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON);
-		commandCenter.gererCommande(Proprietes.UNDO);
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON);
-		commandCenter.gererCommande(Proprietes.REDO);
+		PlageHoraire a = new PlageHoraire(5); 
+		Livraison l = new Livraison(); 
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(a);
+		args.add(l);
+		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
+		commandCenter.gererCommande(Proprietes.UNDO, null);
+		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
+		commandCenter.gererCommande(Proprietes.REDO, null);
 		
 		/*
 		 * VERIFS
 		 */
 		assertEquals(commandCenter.getListeAnnulation().size(),0);
 		assertEquals(commandCenter.getListeExecution().size(),1);
-		//On verifie que la liste des livraisons contient 1 élément
+		//On verifie que la liste des livraisons contient 1 ï¿½lï¿½ment
 		assertEquals(commandCenter.getModele().getLivraisonData().size(),1);
 	}	
 	

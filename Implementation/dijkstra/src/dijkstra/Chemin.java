@@ -1,20 +1,19 @@
+package dijkstra;
+
 package Modele;
 
-import java.util.Vector;
-/**
- * 
- */
+
 public class Chemin {
 
+	private Livraison origine;
+    private Livraison destination;
     private Vector<Troncon> listeTroncons;
+    private Graph graph;
     /**
      * 
      */
     public Chemin() {
     }
-	public Vector<Troncon> getListeTroncons() {
-		return listeTroncons;
-	}
 
 
 }
