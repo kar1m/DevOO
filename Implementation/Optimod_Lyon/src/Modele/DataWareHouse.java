@@ -19,10 +19,17 @@ public class DataWareHouse {
 	
 	public void initEntrepot(Element racine)
 	{
-		int idadresse = Integer.parseInt(racine.getAttribute("adresse"));
-		this.entrepot = new Noeud();
-		
-		entrepot = this.planApp.getListeNoeuds().elementAt(idadresse);
+		try {
+			int idadresse = Integer.parseInt(racine.getAttribute("adresse"));
+			this.entrepot = new Noeud();
+			entrepot = this.planApp.getListeNoeuds().elementAt(idadresse);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean initLivraison(Element racine) {
