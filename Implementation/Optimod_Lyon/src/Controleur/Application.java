@@ -194,7 +194,10 @@ public class Application implements MouseListener, ActionListener{
 		// Print succ and cost
 		chocoGraph.printCostAndSucc();
 		
-		chocoGraph.calculerChoco();
+		//chocoGraph.calculerChoco();
+		chocoGraph.calculerChocoNouveau();
+		
+		chocoGraph.getChemins();
 	}
 	
 
