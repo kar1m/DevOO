@@ -66,13 +66,8 @@ public class Application implements MouseListener, ActionListener{
 					}
 					break;
 				case Proprietes.CALC_TOURNEE :
-						calculerTournee();
-						
-						Map<Integer, Vector<Chemin>> mapChemin = new HashMap<Integer,Vector<Chemin>>();
-						Vector<Chemin> v = new Vector<Chemin>();
-						v.add(new Chemin());
-						mapChemin.put(0, v);
-						vue.getPlan().chargerTournee(mapChemin);
+						vue.getPlan().chargerTournee(calculerTournee());
+						vue.getPlan().repaint();
 					break;
 				case Proprietes.SUPP_LIVRAISON :
 					if(args.size() == 1)
@@ -188,7 +183,7 @@ public class Application implements MouseListener, ActionListener{
 	
 	//--- CALCUL
 	
-	public void calculerTournee()
+	public HashMap<Integer, Vector<Chemin>> calculerTournee()
 	{
 		Graph chocoGraph = new RegularGraph(modele.getEntrepot(), modele.getLivraisonData(), modele.getPlanApp());
 		
@@ -204,7 +199,7 @@ public class Application implements MouseListener, ActionListener{
 		//chocoGraph.calculerChoco();
 		chocoGraph.calculerChocoNouveau();
 		
-		chocoGraph.getChemins();
+		return chocoGraph.getChemins();
 	}
 	
 
@@ -249,17 +244,20 @@ public class Application implements MouseListener, ActionListener{
 						
 						if(md1.isBtnOkSelected())
 						{
-							Livraison l = new Livraison(); 
-					        Client c = new Client();
-					        c.initClient( noeud.getNoeudAssocie() , md1.getIdClientSelectionne());
-					        l.setDestinataire(c);
-					        l.generateIdLivraison();
-					        
-					        ArrayList<Object> args = new ArrayList<Object>(); 
-					        args.add(md1.getPlageSelectionnee());
-					        args.add(l);
+							if(md1.getIdClientSelectionne() != -1 )
+							{
+								Livraison l = new Livraison(); 
+						        Client c = new Client();
+						        c.initClient( noeud.getNoeudAssocie() , md1.getIdClientSelectionne());
+						        l.setDestinataire(c);
+						        l.generateIdLivraison();
+						        
+						        ArrayList<Object> args = new ArrayList<Object>(); 
+						        args.add(md1.getPlageSelectionnee());
+						        args.add(l);
 
-					        gererCommande(Proprietes.AJOUTER_LIVRAISON, args);			
+						        gererCommande(Proprietes.AJOUTER_LIVRAISON, args);				
+							}
 						}
 										 
 					}					

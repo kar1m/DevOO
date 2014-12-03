@@ -98,6 +98,7 @@ public class VuePlan extends JPanel{
 					VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 10, arrivee); 
 					
 					VueTronconTournee b = new VueTronconTournee(vuedepart, vuearrivee, plageHoraire);
+					this.listeTournee.add(b);
 				}
 			}
 			
@@ -121,6 +122,14 @@ public class VuePlan extends JPanel{
 	    if(listeVueNoeudLivraisons != null)
 	    {
 	    	for(VueNoeudLivraison a : listeVueNoeudLivraisons)
+	    	{
+	    		a.dessiner(g);
+	    	}
+	    }
+	    
+	    if(listeTournee != null)
+	    {
+	    	for(VueTronconTournee a : listeTournee)
 	    	{
 	    		a.dessiner(g);
 	    	}
