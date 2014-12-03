@@ -52,7 +52,7 @@ public class AjoutLivraison extends JDialog {
 		clientField.setPreferredSize(new Dimension(100, 25));
 
 		panNom.setBorder(BorderFactory.createTitledBorder("Client"));
-		JLabel clientLabel = new JLabel("Saisir un nom :");
+		JLabel clientLabel = new JLabel("Saisir un id :");
 		panNom.add(clientLabel);
 		panNom.add(clientField);
 

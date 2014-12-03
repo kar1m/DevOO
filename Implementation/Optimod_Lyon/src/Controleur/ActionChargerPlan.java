@@ -63,6 +63,7 @@ public class ActionChargerPlan extends Action {
            } catch (SAXException se) {
         	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur lors du parsing du document");
                System.out.println(Proprietes.ERREUR_XML);
+               return false;
            } catch (IOException ioe) {
         	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur d'entree/sortie");
                System.out.println("lors de l'appel a construteur.parse(xml)");
