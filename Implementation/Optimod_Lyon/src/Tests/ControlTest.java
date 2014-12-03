@@ -86,29 +86,30 @@ public class ControlTest {
 		
 	}
 	
-	/*@Test
+	@Test
 	public void testNotEnoughInPlan() {
 		try {
 			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
 			
 			
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add(path + "/Ressources/plan10x10.xml");
+			args.add(path + "/Ressources/plan10x10-copie.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 			args.clear();
-			args.add(path + "/Ressources/livraison10x10-1-wrong.xml");
+			args.add(path + "/Ressources/livraison10x10-1.xml");
 
 			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 		} 
 		catch (Exception e) {
 			// TODO: handle exception
-			assertTrue(true);
+			assertTrue(false);
 			return;
 		}
-		assertTrue(false);
+		assertTrue(true);
 		
-	}*/
+	}
+	
 	@Test
 	public void testChargerPlan() {
 		try {

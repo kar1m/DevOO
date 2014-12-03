@@ -44,10 +44,10 @@ public class ActionChargerLivraison extends Action {
                Document document = constructeur.parse(fichierData);
                Element racine = document.getDocumentElement();
                
-               // Initialiser les donn�es	
-               	 modele.initEntrepot((Element)racine.getElementsByTagName("Entrepot").item(0));
-                 modele.initLivraison(racine);
-
+               // Initialiser les donn�es
+               	modele.initLivraison(racine);
+               	modele.initEntrepot((Element)racine.getElementsByTagName("Entrepot").item(0));
+               	
            // todo : traiter les erreurs
             } catch (ParserConfigurationException pce) {
          	   pce.printStackTrace();

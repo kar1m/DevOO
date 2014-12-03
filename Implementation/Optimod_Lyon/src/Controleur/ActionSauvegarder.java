@@ -35,10 +35,10 @@ public class ActionSauvegarder extends Action {
 		}
 
 		catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Erreur lors de la sauvegarde du fichier. Séléctionnez un nouvel emplacement");
+			JOptionPane.showMessageDialog(null, "Erreur lors de la sauvegarde du fichier. Sï¿½lï¿½ctionnez un nouvel emplacement");
     		return false; 
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Erreur lors de l'opération de sauvegarde");
+			JOptionPane.showMessageDialog(null, "Erreur lors de l'opï¿½ration de sauvegarde");
     		return false; 
 		}
 		return true;
@@ -46,7 +46,11 @@ public class ActionSauvegarder extends Action {
 
 	private String GenerateSaveString(DataWareHouse modele,
 			Tournee tourneeCalculee) {
-		return null;
+		String save = "";
+		
+		
+		
+		return save;
 	}
 
 	@Override

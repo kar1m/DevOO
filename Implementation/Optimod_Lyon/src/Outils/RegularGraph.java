@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+import solver.ResolutionPolicy;
+import solver.Solver;
+import solver.constraints.IntConstraintFactory;
+import solver.search.strategy.IntStrategyFactory;
+import solver.variables.IntVar;
+import solver.variables.VariableFactory;
 import Modele.*;
 import Controleur.*;
 
@@ -19,7 +25,8 @@ public class RegularGraph implements Graph {
 	private int[][] cost; 
 	private ArrayList<ArrayList<Integer>> succ;
 	private ArrayList<ArrayList<Chemin>> chemins;
-	//private Vector<PlageHoraire> plagesHoraires;
+	private Vector<PlageHoraire> plagesHoraires;
+	private int nbLivraisonsTotal;
 	
 	private Map<Integer, Integer> nodeToChoco;
 	private Map<Integer, Integer> chocoToNode;
@@ -59,6 +66,8 @@ public class RegularGraph implements Graph {
 			return;
 		}
 		
+		this.plagesHoraires = plagesHoraires;
+		
 		convertNodeIds(plagesHoraires, entrepot);
 		
 		succ = new ArrayList<ArrayList<Integer>>();
@@ -76,13 +85,16 @@ public class RegularGraph implements Graph {
 		succ.add(succEntrepot);
 		
 		// Calcul de la matrice des successeurs
-		int nbLivraisonsTotal = 0;
+		this.nbLivraisonsTotal = 0;
 		
 		for (int i = 0; i < plagesHoraires.size(); i++)
 		{
+			//System.out.print("PLAGE " + i);
 			for (int j = 0; j < plagesHoraires.get(i).getLivraisons().size(); j++)
 			{
-				nbLivraisonsTotal+=1;
+				//System.out.print(nodeToChoco.get(plagesHoraires.get(i).getLivraisons().get(j)) + " ");
+				
+				this.nbLivraisonsTotal+=1;
 				
 				ArrayList<Integer> succLivraison = new ArrayList<Integer>();
 				int nbLivraisons = plagesHoraires.get(i).getLivraisons().size(); // nb de livraisons de la plage horaire actuelle
@@ -112,7 +124,7 @@ public class RegularGraph implements Graph {
 				
 				succ.add(succLivraison);
 			}
-			
+			//System.out.println("");
 		}
 		
 		for (int i = 0; i < succ.size(); i++) {
@@ -130,6 +142,7 @@ public class RegularGraph implements Graph {
 		
 		
 		// Création de la matrice de couts et calcul des chemins
+		nbVertices = nbLivraisonsTotal+1;
 		
 		cost = new int[nbLivraisonsTotal+1][nbLivraisonsTotal+1]; // +1 car l'entrepot
 		calculerChemins(plan);
@@ -143,12 +156,14 @@ public class RegularGraph implements Graph {
 		nodeToChoco.put(entrepot.getIdNoeud(), 0);
 		chocoToNode.put(0, entrepot.getIdNoeud());
 		
+		int sum = 1;
 		for (int i = 0; i < plagesHoraires.size(); i++)
 		{
 			for (int j = 0; j < plagesHoraires.get(i).getLivraisons().size(); j++)
 			{
-				nodeToChoco.put(plagesHoraires.get(i).getLivraisons().get(j).getDestinataire().getNoeudAdresse().getIdNoeud(), j+1);
-				chocoToNode.put(j+1, plagesHoraires.get(i).getLivraisons().get(j).getDestinataire().getNoeudAdresse().getIdNoeud());
+				nodeToChoco.put(plagesHoraires.get(i).getLivraisons().get(j).getDestinataire().getNoeudAdresse().getIdNoeud(), sum);
+				chocoToNode.put(sum, plagesHoraires.get(i).getLivraisons().get(j).getDestinataire().getNoeudAdresse().getIdNoeud());
+				sum++;
 			}
 		}
 		
@@ -160,6 +175,9 @@ public class RegularGraph implements Graph {
 	private void calculerChemins(Plan plan)
 	{
 		chemins = new ArrayList<ArrayList<Chemin>>();
+
+		minArcCost = -1;
+		maxArcCost = 0;
 		
 		for (int i = 0; i < succ.size(); i++)
 		{
@@ -186,7 +204,15 @@ public class RegularGraph implements Graph {
 				al.add(chemin);
 				
 				// On rempli la matrice des couts
-				cost[i][j] = chemin.getTemps();
+				int cout = chemin.getTemps();
+				cost[i][succ.get(i).get(j)] = cout;
+				
+				if (cout > maxArcCost) {
+					maxArcCost = cout;
+				}
+				if (cout < minArcCost || minArcCost == -1) {
+					minArcCost = cout;
+				}
 			}
 			
 			chemins.add(al);
@@ -205,6 +231,81 @@ public class RegularGraph implements Graph {
 		}
 		
 		return null;
+	}
+	
+	public boolean calculerChoco()
+	{
+		TSP tsp = new TSP(this);
+		System.out.println("CHOCO BEGIN");
+		SolutionState s = tsp.solve(200000, this.getNbVertices()*this.getMaxArcCost()+1);
+		
+		if (s == SolutionState.OPTIMAL_SOLUTION_FOUND || s == SolutionState.SOLUTION_FOUND) {
+			System.out.println("Solution trouvée");
+			int[] next = tsp.getNext();
+			for (int i = 0; i < next.length; i++) {
+				System.out.println(chocoToNode.get(next[i]));
+			}
+			return true;
+        }
+		else {
+			System.out.println("Pas de solution trouvée");
+		} 
+		
+		return false;
+	}
+	
+	public void calculerChocoNouveau()
+	{
+        System.out.println("CHOCO");
+
+        int minCost = getMinArcCost(); // Ajout mï¿½ï¿½thode pour trouver  minCost
+        int maxCost = getMaxArcCost();// Ajout mï¿½ï¿½thode pour trouver     maxCost
+        int bound = maxCost * this.nbLivraisonsTotal; 
+        int[][] cost = getCost();                                                             
+        int[][] succ = getSucc();
+                                                                                
+        System.out.println("matrice cost");
+        for (int i = 0; i < cost.length; i++) {
+            for (int j = 0; j < cost[i].length; j++) {
+                System.out.print(cost[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("matrice succ");
+        for (int i = 0; i < succ.length; i++) {
+            for (int j = 0; j < succ[i].length; j++) {
+                System.out.print(succ[i][j] + " ");
+            }
+            System.out.println();
+        }
+        // Crï¿½ï¿½ation du solveur
+        System.out.println("Choco Solver !");
+        Solver solver = new Solver();
+        // Dï¿½ï¿½claration des variables
+        IntVar[] xNext = xNext = new IntVar[this.nbLivraisonsTotal];
+        for (int i = 0; i < this.nbLivraisonsTotal; i++)
+            xNext[i] = VariableFactory.enumerated("Next " + i, succ[i], solver);
+        IntVar[] xCost = VariableFactory.boundedArray("Cost ", this.nbLivraisonsTotal,
+                minCost, maxCost, solver);
+        IntVar xTotalCost = VariableFactory.bounded("Total cost ", this.nbLivraisonsTotal
+                * minCost, bound - 1, solver);
+        // Dï¿½ï¿½claration des contraintes
+        for (int i = 0; i < this.nbLivraisonsTotal; i++)
+            solver.post(IntConstraintFactory.element(xCost[i], cost[i],
+                    xNext[i], 0, "none"));
+        solver.post(IntConstraintFactory.circuit(xNext, 0));
+        solver.post(IntConstraintFactory.sum(xCost, xTotalCost));
+        // Rï¿½ï¿½solution
+        solver.set(IntStrategyFactory.firstFail_InDomainMin(xNext));
+        solver.findOptimalSolution(ResolutionPolicy.MINIMIZE, xTotalCost);
+        System.out.println("HADA HADA HADA HADA");
+        for (int k = 0; k < xNext.length; k++) {
+            System.out.println(xNext[k]);
+        }
+        //to do
+        //List<Livraison> listLivraisonOrdonne = getListLivraisonOrdonne(xNext, ListLivraisons);
+        //System.out.println("List Ordonnee : " + listLivraisonOrdonne);
+        //return listLivraisonOrdonne;
 	}
 
 	public int getMaxArcCost() {
@@ -250,6 +351,20 @@ public class RegularGraph implements Graph {
 		return succ.get(i).size();
 	}
 
+
+	public HashMap<Integer, Vector<Chemin>> getChemins()
+	{
+		HashMap<Integer, Vector<Chemin>> map = new HashMap<Integer, Vector<Chemin>>();
+		
+		for (int i = 0; i < 3; i++)
+		{
+			Vector<Chemin> v = new Vector<Chemin>(this.chemins.get(i));
+			map.put(i, v);
+		}
+		
+		return map;
+	}
+	
 	public void printCostAndSucc()
 	{
 		System.out.println("------------- SUCC -------------");
