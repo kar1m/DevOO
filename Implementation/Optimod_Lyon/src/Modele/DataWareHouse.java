@@ -113,6 +113,7 @@ public class DataWareHouse {
 			// Si heure fin est inférieure à heure debut
 			if(lower.after(upper))
 			{
+				target.clear();
 				throw new Exception("Heure de Livraison invalide");
 			}
 			for (PlageHoraire interdit : target)
@@ -121,6 +122,7 @@ public class DataWareHouse {
 				Time upperInterdit = interdit.getHeureFin_H();
 				if (lowerInterdit.after(lower) && lower.before(upperInterdit))
 				{
+					target.clear();
 					throw new Exception("Heure de Livraison invalide : Deux plages se chevauchent");
 				}
 			}

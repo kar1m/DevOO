@@ -53,16 +53,19 @@ public class ActionChargerLivraison extends Action {
          	   pce.printStackTrace();
          	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur de configuration du parseur DOM");
                 System.out.println("lors de l'appel a fabrique.newDocumentBuilder();");
+                return false;
             } catch (SAXException se) {
          	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur lors du parsing du document");
                 System.out.println(Proprietes.ERREUR_XML);
+                return false;
             } catch (IOException ioe) {
          	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur d'entree/sortie");
                 System.out.println("lors de l'appel a construteur.parse(xml)");
+                return false;
             } catch (Exception e) {
- 			// TODO Auto-generated catch block
  				System.out.println(e.getMessage());
  				javax.swing.JOptionPane.showMessageDialog(null,e.getMessage()); 
+ 				return false;
             }
        } 
 		return true;
