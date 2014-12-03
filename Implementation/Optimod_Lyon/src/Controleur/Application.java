@@ -160,12 +160,6 @@ public class Application implements MouseListener, ActionListener{
 		}
     }
 
-    /**
-     * 
-     */
-    public void initApplication() {
-        // TODO implement here
-    }
     
 	/**
 	 * @return the listeAnnulation

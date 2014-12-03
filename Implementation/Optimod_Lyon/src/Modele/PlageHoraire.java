@@ -1,5 +1,6 @@
 package Modele;
 
+import java.sql.Time;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -16,11 +17,11 @@ public class PlageHoraire {
     	this.idPlageHoraire = ID;
     }
 
-    private int idPlageHoraire; 
+    private int idPlageHoraire;
+    private Time heureDebut_H;
+    private Time heureFin_H;
     private String heureDebut;
-
     private String heureFin;
-    
     private Vector<Livraison> livraisons;
 
 
@@ -30,9 +31,9 @@ public class PlageHoraire {
      */
     public void initPlage(Element XMLnode, Vector<Noeud> l ) throws Exception {
         this.heureDebut = XMLnode.getAttribute("heureDebut");
-        checkerHeure(this.heureDebut);
+        checkerHeure(this.heureDebut,this.heureDebut_H);
         this.heureFin = XMLnode.getAttribute("heureFin");
-        checkerHeure(this.heureDebut);
+        checkerHeure(this.heureFin,this.heureFin_H);
         
         	//Initialisation du vecteur de livraisons
 		   Vector<Livraison> livraisonPH = new Vector<Livraison>();
@@ -47,7 +48,8 @@ public class PlageHoraire {
 		   this.livraisons =  livraisonPH;
     }
 
-    private void checkerHeure(String target) throws Exception
+    @SuppressWarnings("deprecation")
+	private void checkerHeure(String target,Time output) throws Exception
     {
         String pattern = "[\\s]*:[\\s]*";
         
@@ -76,10 +78,11 @@ public class PlageHoraire {
 			// TODO Auto-generated catch block
 			throw new Exception("Format Heure invalide");
 		}
-        if (heure<0 || heure>24 || min<0 || min>60 || sec<0 || sec>60)
+        if (heure<0 || heure>23 || min<0 || min>60 || sec<0 || sec>60)
         {
         	throw new Exception("Format Heure non respecté");
         }
+        output = new Time(heure, min, sec);
     }
 
 	/**
