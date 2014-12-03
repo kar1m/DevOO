@@ -22,11 +22,11 @@ public class ControlTest {
 		
 		
 		ArrayList<Object> args = new ArrayList<Object>();
-		args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+		args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/plan10x10.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 		args.clear();
-		args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/livraison10.xml");
+		args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/livraison10x10-1.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 		
 		
@@ -40,11 +40,11 @@ public class ControlTest {
 			
 			
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+			args.add("./Ressources/plan10x10.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 			args.clear();
-			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/livraison10x10-1.xml");
+			args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/livraison10x10-1.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 			
 			
@@ -65,7 +65,7 @@ public class ControlTest {
 			
 			
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+			args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/plan10x10.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 			
 			assertFalse(commandCenter.getModele().getPlanApp().getListeNoeuds().size() == 0);

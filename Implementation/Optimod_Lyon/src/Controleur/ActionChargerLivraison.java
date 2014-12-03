@@ -40,20 +40,26 @@ public class ActionChargerLivraison extends Action {
                Element racine = document.getDocumentElement();
                
                // Initialiser les donn�es
-               	 modele.initEntrepot((Element)racine.getElementsByTagName("Entrepot"));
+               	
+               	 modele.initEntrepot((Element)racine.getElementsByTagName("Entrepot").item(0));
                  modele.initLivraison(racine);
 
            // todo : traiter les erreurs
-           } catch (ParserConfigurationException pce) {
-               System.out.println("Erreur de configuration du parseur DOM");
-               System.out.println("lors de l'appel a fabrique.newDocumentBuilder();");
-           } catch (SAXException se) {
-               System.out.println("Erreur lors du parsing du document");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           } catch (IOException ioe) {
-               System.out.println("Erreur d'entree/sortie");
-               System.out.println("lors de l'appel a construteur.parse(xml)");
-           }
+            } catch (ParserConfigurationException pce) {
+         	   pce.printStackTrace();
+         	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur de configuration du parseur DOM");
+                System.out.println("lors de l'appel a fabrique.newDocumentBuilder();");
+            } catch (SAXException se) {
+         	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur lors du parsing du document");
+                System.out.println(Proprietes.ERREUR_XML);
+            } catch (IOException ioe) {
+         	   javax.swing.JOptionPane.showMessageDialog(null,"Erreur d'entree/sortie");
+                System.out.println("lors de l'appel a construteur.parse(xml)");
+            } catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 				System.out.println(e.getMessage());
+ 				javax.swing.JOptionPane.showMessageDialog(null,e.getMessage()); 
+            }
        } 
 		return false;
 	}

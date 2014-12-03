@@ -17,7 +17,7 @@ public class Plan {
     	this.listeTroncons = new Vector<Troncon>();
     }
     
-    public void initPlan(Element xmlChunk)
+    public void initPlan(Element xmlChunk) throws Exception
     {
     	NodeList listeXMLNoeuds = xmlChunk.getElementsByTagName("Noeud");
     	for (int i = 0; i<listeXMLNoeuds.getLength(); i++)

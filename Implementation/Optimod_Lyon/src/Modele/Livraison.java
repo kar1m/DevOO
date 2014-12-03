@@ -27,12 +27,18 @@ public class Livraison {
 
     /**
      * @param Element XMLnode
+     * @throws Exception 
      */
-    public void initLivraison(Element XMLnode, Vector<Noeud> l) {
+    public void initLivraison(Element XMLnode, Vector<Noeud> l) throws Exception {
         this.idLivraison = Integer.parseInt(XMLnode.getAttribute("id"));
-        Noeud noeudClient = l.get(Integer.parseInt(XMLnode.getAttribute("adresse")));
-        this.destinataire = new Client();
-        destinataire.initClient( noeudClient , Integer.parseInt(XMLnode.getAttribute("client")));
+        try {
+			Noeud noeudClient = l.get(Integer.parseInt(XMLnode.getAttribute("adresse")));
+			this.destinataire = new Client();
+			destinataire.initClient( noeudClient , Integer.parseInt(XMLnode.getAttribute("client")));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new Exception("Client Inconnu");
+		}
     }
 
 	/**

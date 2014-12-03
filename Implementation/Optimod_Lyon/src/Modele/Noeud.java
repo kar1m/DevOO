@@ -17,11 +17,16 @@ public class Noeud {
     	this.tronconSortant = new Vector<Troncon>();
     }
     
-    public void initNoeud (Element xmlChunk)
+    public void initNoeud (Element xmlChunk) throws Exception
     {
-    	this.idNoeud = Integer.parseInt(xmlChunk.getAttribute("id"));
-    	this.x = Integer.parseInt(xmlChunk.getAttribute("x"));
-    	this.y = Integer.parseInt(xmlChunk.getAttribute("y"));
+    	try {
+			this.idNoeud = Integer.parseInt(xmlChunk.getAttribute("id"));
+			this.x = Integer.parseInt(xmlChunk.getAttribute("x"));
+			this.y = Integer.parseInt(xmlChunk.getAttribute("y"));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			throw new Exception("Format numérique Noeud non respecté");
+		}
     }
 
     /**

@@ -18,23 +18,34 @@ public class Troncon {
     }
 
     
-    public void initTrancon (Element xmlChunk,Noeud entree, Noeud sortie)
+    public void initTrancon (Element xmlChunk,Noeud entree, Noeud sortie) throws Exception
     {
     	NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
 
     	try {
 			this.vitesse = format.parse(xmlChunk.getAttribute("vitesse")).doubleValue();
+			positifChecker(this.vitesse);
 			this.longueur = format.parse(xmlChunk.getAttribute("longueur")).doubleValue();
+			positifChecker(this.longueur);
+			this.nomRue = xmlChunk.getAttribute("nomRue");
+	    	this.depart = entree;
+	    	this.arrivee = sortie;
+	    	this.temps = longueur/vitesse;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new Exception("Erreur dans les Tronçons déclarés");
 		}
-    	
-    	this.nomRue = xmlChunk.getAttribute("nomRue");
-    	this.depart = entree;
-    	this.arrivee = sortie;
-    	this.temps = longueur/vitesse;
     }
+    
+    private void positifChecker(double target) throws Exception
+    {
+    	if (target < 0)
+    	{
+    		throw new Exception();
+    	}
+    }
+    
     /**
      * Vitesse de circulation moyenne du tranÃ§on
      */
