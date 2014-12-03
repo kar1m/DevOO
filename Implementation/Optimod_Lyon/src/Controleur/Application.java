@@ -8,6 +8,7 @@ import java.util.*;
 
 import javax.swing.JTable;
 
+import Modele.Chemin;
 import Modele.Client;
 import Modele.DataWareHouse;
 import Modele.Livraison;
@@ -66,6 +67,12 @@ public class Application implements MouseListener, ActionListener{
 					break;
 				case Proprietes.CALC_TOURNEE :
 						calculerTournee();
+						
+						Map<Integer, Vector<Chemin>> mapChemin = new HashMap<Integer,Vector<Chemin>>();
+						Vector<Chemin> v = new Vector<Chemin>();
+						v.add(new Chemin());
+						mapChemin.put(0, v);
+						vue.getPlan().chargerTournee(mapChemin);
 					break;
 				case Proprietes.SUPP_LIVRAISON :
 					if(args.size() == 1)
