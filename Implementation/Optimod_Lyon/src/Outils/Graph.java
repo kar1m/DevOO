@@ -27,6 +27,8 @@ public interface Graph {
 	 * otherwise <code>cost[i][j] = this.getMaxArcCost()+1</code>
 	 */
 	public abstract int[][] getCost();
+	
+	public abstract int[][] getSucc();
 
 	/**
 	 * @param i a vertex such that <code>0 <= i < this.getNbVertices()</code>

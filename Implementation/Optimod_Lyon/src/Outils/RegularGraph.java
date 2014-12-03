@@ -15,8 +15,10 @@ public class RegularGraph implements Graph {
 	private int maxArcCost;
 	private int minArcCost;
 	private int[][] cost; 
-	private ArrayList<ArrayList<Integer>> succ; 
-
+	private ArrayList<ArrayList<Integer>> succ;
+	private Vector<PlageHoraire> plagesHoraires;
+	
+	
 	/**
 	 * Creates a graph such that each vertex is connected to the next <code>d</code> vertices (modulo <code>n</code>) and
 	 * such that the cost of each arc is a randomly chosen integer ranging between <code>min</code> and <code>max</code>
@@ -46,7 +48,70 @@ public class RegularGraph implements Graph {
 	
 	public RegularGraph(Noeud entrepot, Vector<PlageHoraire> plagesHoraires, Plan plan)
 	{
+		// Verification des parametres
+		if (plagesHoraires.isEmpty()) {
+			return;
+		}
+		
+		succ = new ArrayList<ArrayList<Integer>>();
+		
 		Vector<Chemin> chemins = calculerTousLesChemins(entrepot, plagesHoraires, plan);
+		
+		// Successeurs de l'entrepot
+		ArrayList<Integer> succEntrepot = new ArrayList<Integer>();
+		
+		for (int i = 0; i < plagesHoraires.get(0).getLivraisons().size(); i++)
+		{
+			succEntrepot.add(plagesHoraires.get(0).getLivraisons().get(i).getIdLivraison());
+		}
+		
+		succ.add(succEntrepot);
+		
+		// Successeurs entre plages horaires
+		int sum = 1;
+		
+		for (int i = 0; i < plagesHoraires.size(); i++)
+		{
+			for (int j = 0; j < plagesHoraires.get(i).getLivraisons().size(); j++)
+			{
+				sum+=1;
+				
+				ArrayList<Integer> succLivraison = new ArrayList<Integer>();
+				int nbLivraisons = plagesHoraires.get(i).getLivraisons().size(); // nb de livraisons de la plage horaire actuelle
+				
+				// Liens entre livraisons d'une meme plage horaire
+				for (int k = 0; k < nbLivraisons; k++)
+				{	
+					if(j == k) {
+						continue;
+					}
+					
+					succLivraison.add(plagesHoraires.get(i).getLivraisons().get(k).getIdLivraison());
+				}
+				
+				// Liens entre livraisons d'une plage horaire i et i+1
+				for (int k = 0; k < plagesHoraires.get(i+1).getLivraisons().size(); k++)
+				{	
+					succLivraison.add(plagesHoraires.get(i+1).getLivraisons().get(k).getIdLivraison());
+				}
+				
+				// Successeurs entre livraisons de la derniere plage horaire et l'entrepot
+				if (i == plagesHoraires.size()-1) {
+					succLivraison.add(entrepot.getIdNoeud());
+				}
+				
+				succ.add(succLivraison);
+			}
+			
+		}
+		
+		for (int i = 0; i < succ.size(); i++) {
+			for (int j = 0; j < succ.get(i).size(); j++) {
+				System.out.print(succ.get(i).get(j) + " ");
+			}
+			System.out.println("");
+		}
+		
 		
 		// Création de la matrice de couts
 		
@@ -81,6 +146,16 @@ public class RegularGraph implements Graph {
 
 	public int[][] getCost(){
 		return cost;
+	}
+	
+	public int[][] getSucc() {
+		int[][] succTab = new int[succ.size()][succ.size()];
+		
+		for (int i = 0; i < succ.size(); i++) {
+			succTab[i] = getSucc(i);
+		}
+		
+		return succTab;
 	}
 
 	public int[] getSucc(int i) throws ArrayIndexOutOfBoundsException{

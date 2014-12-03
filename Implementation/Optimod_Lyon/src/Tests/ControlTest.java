@@ -45,6 +45,7 @@ public class ControlTest {
 
 			args.clear();
 			args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/livraison10x10-1.xml");
+
 			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 			
 			

@@ -12,7 +12,9 @@ import javax.swing.JTable;
 import Modele.Client;
 import Modele.DataWareHouse;
 import Modele.Livraison;
+import Modele.Noeud;
 import Modele.PlageHoraire;
+import Modele.Plan;
 import Outils.*;
 import Vue.AjoutLivraison;
 import Vue.Fenetre;
@@ -66,6 +68,7 @@ public class Application implements MouseListener, ActionListener{
 					}
 					break;
 				case Proprietes.CALC_TOURNEE :
+						calculerTournee();
 					break;
 				case Proprietes.SUPP_LIVRAISON :
 					if(args.size() == 1)
@@ -87,16 +90,19 @@ public class Application implements MouseListener, ActionListener{
 					{
 						String path = (String) args.get(0);
 						ActionChargerPlan action2 = new ActionChargerPlan(modele, path);
-						action2.Executer();
-						
-						vue.chargerPlan(modele.getPlanApp());
-						vue.chargerLivraison(modele.getLivraisonData());
-						vue.repaint();
-						vue.logText("Plan chargé");
-						vue.getBtnChargerDemandeLivraison().setEnabled(true);
-						this.listeAnnulation.clear();
-						this.listeExecution.clear();
-						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						if(action2.Executer())
+						{
+							vue.chargerPlan(modele.getPlanApp());
+							vue.chargerLivraison(modele.getLivraisonData());
+							vue.repaint();
+							vue.logText("Plan chargé");
+							vue.getBtnChargerDemandeLivraison().setEnabled(true);
+							this.listeAnnulation.clear();
+							this.listeExecution.clear();
+							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						}else{
+							vue.logText("Erreur lors du chargement du plan.");
+						}
 					}
 					break;
 				case Proprietes.CHARGER_LIVRAISON :
@@ -104,15 +110,19 @@ public class Application implements MouseListener, ActionListener{
 					{
 						String path = (String) args.get(0);
 						ActionChargerLivraison action3 = new ActionChargerLivraison(modele, path);
-						action3.Executer();
-						
-						vue.chargerLivraison(modele.getLivraisonData());
-						vue.repaint();
-						vue.logText("Demande de livraison chargée");
-						vue.getBtnCalcul().setEnabled(true);
-						this.listeAnnulation.clear();
-						this.listeExecution.clear();
-						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						if(action3.Executer())
+						{
+							vue.chargerLivraison(modele.getLivraisonData());
+							vue.repaint();
+							vue.logText("Demande de livraison chargée");
+							vue.getBtnCalcul().setEnabled(true);
+							this.listeAnnulation.clear();
+							this.listeExecution.clear();
+							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						}else
+						{
+							vue.logText("Erreur lors du chargement de la demande de livraison.");
+						}
 					}
 					break;
 				case Proprietes.UNDO :
@@ -176,6 +186,27 @@ public class Application implements MouseListener, ActionListener{
 	 */
 	public DataWareHouse getModele() {
 		return modele;
+	}
+	
+	//--- CALCUL
+	
+	public void calculerTournee()
+	{
+		Graph chocoGraph = new RegularGraph(modele.getEntrepot(), modele.getLivraisonData(), modele.getPlanApp());
+		/*
+		TSP tsp = new TSP(chocoGraph);
+		SolutionState s = tsp.solve(100000, 100000);
+		
+		if (s == SolutionState.OPTIMAL_SOLUTION_FOUND || s == SolutionState.SOLUTION_FOUND) {
+			System.out.println("Solution trouvée");
+			int[] next = tsp.getNext();
+			for (int i = 0; i < next.length; i++) {
+				System.out.println(next[i]);
+			}
+        }
+		else {
+			System.out.println("Pas de solution trouvée");
+		} */
 	}
 	
 
