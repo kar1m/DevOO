@@ -130,6 +130,7 @@ public class RegularGraph implements Graph {
 		
 		
 		// Création de la matrice de couts et calcul des chemins
+		nbVertices = nbLivraisonsTotal+1;
 		
 		cost = new int[nbLivraisonsTotal+1][nbLivraisonsTotal+1]; // +1 car l'entrepot
 		calculerChemins(plan);
@@ -160,6 +161,9 @@ public class RegularGraph implements Graph {
 	private void calculerChemins(Plan plan)
 	{
 		chemins = new ArrayList<ArrayList<Chemin>>();
+
+		minArcCost = -1;
+		maxArcCost = 0;
 		
 		for (int i = 0; i < succ.size(); i++)
 		{
@@ -186,7 +190,15 @@ public class RegularGraph implements Graph {
 				al.add(chemin);
 				
 				// On rempli la matrice des couts
-				cost[i][j] = chemin.getTemps();
+				int cout = chemin.getTemps();
+				cost[i][succ.get(i).get(j)] = cout;
+				
+				if (cout > maxArcCost) {
+					maxArcCost = cout;
+				}
+				if (cout < minArcCost || minArcCost == -1) {
+					minArcCost = cout;
+				}
 			}
 			
 			chemins.add(al);

@@ -197,7 +197,7 @@ public class Application implements MouseListener, ActionListener{
 		chocoGraph.printCostAndSucc();
 		
 		
-		/* TSP tsp = new TSP(g);
+		TSP tsp = new TSP(chocoGraph);
 		System.out.println("CHOCO BEGIN");
 		SolutionState s = tsp.solve(100000, 100000);
 		
@@ -210,7 +210,7 @@ public class Application implements MouseListener, ActionListener{
         }
 		else {
 			System.out.println("Pas de solution trouvée");
-		} */
+		} 
 	}
 	
 
