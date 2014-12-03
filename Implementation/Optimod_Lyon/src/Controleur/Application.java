@@ -186,8 +186,19 @@ public class Application implements MouseListener, ActionListener{
 	public void calculerTournee()
 	{
 		Graph chocoGraph = new RegularGraph(modele.getEntrepot(), modele.getLivraisonData(), modele.getPlanApp());
-		/*
-		TSP tsp = new TSP(chocoGraph);
+		
+		int nbVertices = 9;
+		int degree = 8;
+		int minCost = 40;
+		int maxCost = 120;
+		//Graph chocoGraph = new RegularGraph(nbVertices, degree, minCost, maxCost);
+		
+		// Print succ and cost
+		chocoGraph.printCostAndSucc();
+		
+		
+		/* TSP tsp = new TSP(g);
+		System.out.println("CHOCO BEGIN");
 		SolutionState s = tsp.solve(100000, 100000);
 		
 		if (s == SolutionState.OPTIMAL_SOLUTION_FOUND || s == SolutionState.SOLUTION_FOUND) {
