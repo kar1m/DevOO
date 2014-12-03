@@ -15,21 +15,24 @@
       <xs:attribute name="id" use="required">
       	<xs:simpleType>
       		<xs:restriction base="xs:int">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
       <xs:attribute name="x" use="required">
       	<xs:simpleType>
       		<xs:restriction base="xs:int">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
       <xs:attribute name="y" use="required">
       	<xs:simpleType>
       		<xs:restriction base="xs:int">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
@@ -45,23 +48,26 @@
       	</xs:simpleType>
       </xs:attribute>
       <xs:attribute name="vitesse" use="required">
+
       	<xs:simpleType>
-      		<xs:restriction base="xs:float">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+      		<xs:restriction base="xs:string">
+      			<xs:minLength value="1"></xs:minLength>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
       <xs:attribute name="longueur" use="required">
+
       	<xs:simpleType>
-      		<xs:restriction base="xs:float">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+      		<xs:restriction base="xs:string">
+      			<xs:minLength value="1"></xs:minLength>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
       <xs:attribute name="idNoeudDestination" use="required">
       	<xs:simpleType>
       		<xs:restriction base="xs:int">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>

@@ -102,8 +102,6 @@ public class Application implements MouseListener, ActionListener{
 							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 						}else{
 							vue.logText("Erreur lors du chargement du plan.");
-							JOptionPane.showMessageDialog(vue, "Erreur lors du chargement du plan.");
-
 						}
 					}
 					break;
@@ -124,7 +122,6 @@ public class Application implements MouseListener, ActionListener{
 						}else
 						{
 							vue.logText("Erreur lors du chargement de la demande de livraison.");
-							JOptionPane.showMessageDialog(vue, "Erreur lors du chargement de la demande de livraison.");
 						}
 					}
 					break;

@@ -10,7 +10,14 @@
   </xs:element>
   <xs:element name="Entrepot">
     <xs:complexType>
-      <xs:attribute name="adresse" type="xs:int" use="required"/>
+      <xs:attribute name="adresse" use="required">
+      	<xs:simpleType>
+      		<xs:restriction base="xs:int">
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
+      		</xs:restriction>
+      	</xs:simpleType>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="PlagesHoraires">
@@ -23,7 +30,7 @@
   <xs:element name="Plage">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="Livraisons"/>
+        <xs:element ref="Livraisons" maxOccurs="unbounded" minOccurs="0"/>
       </xs:sequence>
       <xs:attribute name="heureDebut" type="xs:string" use="required"/>
       <xs:attribute name="heureFin" type="xs:string" use="required"/>
@@ -42,7 +49,8 @@
 
       	<xs:simpleType>
       		<xs:restriction base="xs:int">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
@@ -50,7 +58,8 @@
 
       	<xs:simpleType>
       		<xs:restriction base="xs:int">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
@@ -58,7 +67,8 @@
 
       	<xs:simpleType>
       		<xs:restriction base="xs:int">
-      			<xs:minExclusive value="0"></xs:minExclusive>
+
+      			<xs:minInclusive value="0"></xs:minInclusive>
       		</xs:restriction>
       	</xs:simpleType>
       </xs:attribute>
