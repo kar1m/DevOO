@@ -14,7 +14,8 @@ import Outils.XMLhandler;
 import Vue.Fenetre;
 
 public class ControlTest {
-
+	private String path = "/Users/Meryem/Desktop/4IF/DevOO";
+	
 	@Test 
 	public void testCharger()
 	{
@@ -22,17 +23,44 @@ public class ControlTest {
 		
 		
 		ArrayList<Object> args = new ArrayList<Object>();
-		args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+		args.add(path + "/Ressources/plan10x10.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 		args.clear();
-		args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/livraison10.xml");
+		args.add(path + "/Ressources/livraison10x10-1.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 		
 		
 		assertTrue(commandCenter.getModele().getLivraisonData().size() > 0 );
 		
 	}
+	
+	@Test
+	public void testDataWareHouseListeNoeud()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(path + "/Ressources/plan10x10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+		
+		assertTrue(commandCenter.getModele().getPlanApp().getListeNoeuds().size() > 0);
+	}
+	
+	@Test
+	public void testDataWareHouseListeTroncons()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(path + "/Ressources/plan10x10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+		
+		assertTrue(commandCenter.getModele().getPlanApp().getListeTroncons().size() > 0);
+	}
+	
 	@Test
 	public void testChargerDemandeLivraison() {
 		try {
@@ -40,11 +68,12 @@ public class ControlTest {
 			
 			
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+			args.add(path + "/Ressources/plan10x10.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 			args.clear();
-			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/livraison10x10-1.xml");
+			args.add(path + "/Ressources/livraison10x10-1.xml");
+
 			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 			
 			
@@ -56,7 +85,31 @@ public class ControlTest {
 		}
 		
 	}
+	
+	@Test
+	public void testNotEnoughInPlan() {
+		try {
+			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+			
+			
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add(path + "/Ressources/plan10x10-copie.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
+			args.clear();
+			args.add(path + "/Ressources/livraison10x10-1.xml");
+
+			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+		} 
+		catch (Exception e) {
+			// TODO: handle exception
+			assertTrue(false);
+			return;
+		}
+		assertTrue(true);
+		
+	}
+	
 	@Test
 	public void testChargerPlan() {
 		try {
@@ -65,7 +118,7 @@ public class ControlTest {
 			
 			
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add("/Users/Mehdi/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
+			args.add(path + "/Ressources/plan10x10.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 			
 			assertFalse(commandCenter.getModele().getPlanApp().getListeNoeuds().size() == 0);
@@ -76,6 +129,91 @@ public class ControlTest {
 		}
 		
 	}
+	
+	@Test
+	public void testChargerNoeud() {
+		try {
+
+			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+			
+			
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add(path + "/Ressources/plan10x10.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+			Vector<Noeud>tester = commandCenter.getModele().getPlanApp().getListeNoeuds();
+			assertTrue(tester.elementAt(3).getIdNoeud() == 3);
+			assertTrue(tester.elementAt(3).getX() == 65);
+			assertTrue(tester.elementAt(3).getY() == 310);
+			assertTrue(tester.elementAt(3).getTronconSortant().size() == 2);
+		}
+		catch (Exception e)
+		{
+			fail("Error Occured");
+		}
+		
+	}
+	
+	@Test
+	public void testTsortantTentrant() {
+		try {
+
+			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+			
+			
+			ArrayList<Object> args = new ArrayList<Object>();
+			args.add(path + "/Ressources/plan10x10.xml");
+			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+			Vector<Noeud>tester = commandCenter.getModele().getPlanApp().getListeNoeuds();
+			for (Troncon tr : tester.elementAt(3).getTronconSortant())
+			{
+				assertTrue(tester.elementAt(3) == tr.getDepart());
+				assertTrue(tr.getArrivee().getTronconEntrant().contains(tr));
+			}
+		}
+		catch (Exception e)
+		{
+			fail("Error Occured");
+		}
+		
+	}
+	
+	@Test
+	public void testCharger_unexisting_file_plan()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(path + "/Ressources/plan10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+		args.clear();
+		args.add(path + "/Ressources/livraison10x10-1.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+		
+		
+		assertFalse(commandCenter.getModele().getLivraisonData().size() > 0 );
+		
+	}
+	@Test
+	public void testCharger_unvalid_file_plan()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add(path + "/Ressources/plan10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+		args.clear();
+		args.add(path + "/Implementation/Optimod_Lyon/src/Tests/plageHFinVide.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+		
+		
+		assertFalse(commandCenter.getModele().getLivraisonData().size() > 0 );
+		
+	}
+	
 	
 	
 	

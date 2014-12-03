@@ -17,23 +17,31 @@ public class DataWareHouse {
 		this.livraisonData = new Vector<PlageHoraire>();
 	}
 	
-	public void initEntrepot(Element racine)
+	public void initEntrepot(Element racine) throws Exception
 	{
-		try {
-			int idadresse = Integer.parseInt(racine.getAttribute("adresse"));
-			this.entrepot = new Noeud();
-			entrepot = this.planApp.getListeNoeuds().elementAt(idadresse);
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+			try {
+				int idadresse = Integer.parseInt(racine.getAttribute("adresse"));
+				this.entrepot = new Noeud();
+				entrepot = this.planApp.getListeNoeuds().elementAt(idadresse);
+				
+				for (PlageHoraire pl : this.livraisonData)
+				{
+					for (Livraison liv : pl.getLivraisons())
+					{
+						if (liv.getDestinataire().getNoeudAdresse() == entrepot)
+						{
+							throw new Exception("Entrepot Affecté à une livraison");
+						}
+					}
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				throw new Exception("Entrepot non declare");
+			}
 	}
 	
-	public boolean initLivraison(Element racine) {
-		 try {
+	public void initLivraison(Element racine) throws Exception {
 			// appel des initialiseurs
 	   livraisonData = new Vector<PlageHoraire>();
 	   NodeList plagesXML = racine.getElementsByTagName("Plage");
@@ -46,22 +54,11 @@ public class DataWareHouse {
 
 			   livraisonData.add(nouvellePlage);
 	   }
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
 	}
     
-	public boolean initDataPlan(Element racine) {
-		
-		try {
+	public void initDataPlan(Element racine) throws Exception {
 			this.planApp = new Plan();
 			this.planApp.initPlan(racine);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-		
 	}
 
 	public PlageHoraire supprimerLivraison(Livraison l)
