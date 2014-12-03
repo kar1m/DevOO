@@ -15,13 +15,13 @@ public class VueTronconTournee extends VueTroncon {
 	public void dessiner(Graphics g)
 	{
         g.setColor( Proprietes.cols[couleur]);
-		g.drawLine(noeudDepart.getX()+noeudDepart.getRayon()/2, noeudDepart.getY()+noeudDepart.getRayon()/2, noeudArrivee.getX()+noeudArrivee.getRayon()/2, noeudArrivee.getY()+noeudArrivee.getRayon()/2);
+		g.drawLine(noeudDepart.getX(), noeudDepart.getY(), noeudArrivee.getX(), noeudArrivee.getY());
 	
-		float x1 = this.noeudArrivee.x + noeudDepart.getRayon()/2;
-		float y1 = this.noeudArrivee.y + noeudDepart.getRayon()/2;
+		float x1 = this.noeudArrivee.x;
+		float y1 = this.noeudArrivee.y;
 		
-		float x2 = this.noeudDepart.x + noeudArrivee.getRayon()/2;
-		float y2 = this.noeudDepart.y + noeudArrivee.getRayon()/2;
+		float x2 = this.noeudDepart.x;
+		float y2 = this.noeudDepart.y;
 		
 		
 		

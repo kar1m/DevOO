@@ -11,11 +11,12 @@ public class DataWareHouse {
 	private Plan planApp;
     private Vector<PlageHoraire> livraisonData;
     private Noeud entrepot;
-	
+	private Tournee tournee; 
 
 	public DataWareHouse() {
 		this.planApp = new Plan();
 		this.livraisonData = new Vector<PlageHoraire>();
+		this.tournee = null; 
 	}
 	
 	public void initEntrepot(Element racine) throws Exception
@@ -127,6 +128,14 @@ public class DataWareHouse {
 				}
 			}
 		}
+	}
+
+	public Tournee getTournee() {
+		return tournee;
+	}
+
+	public void setTournee(Tournee tournee) {
+		this.tournee = tournee;
 	}
 }
 

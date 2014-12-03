@@ -352,14 +352,15 @@ public class RegularGraph implements Graph {
 	}
 
 
-	public HashMap<Integer, Vector<Chemin>> getChemins()
+	public HashMap<PlageHoraire, Vector<Chemin>> getChemins()
 	{
-		HashMap<Integer, Vector<Chemin>> map = new HashMap<Integer, Vector<Chemin>>();
+		HashMap<PlageHoraire, Vector<Chemin>> map = new HashMap<PlageHoraire, Vector<Chemin>>();
 		
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			Vector<Chemin> v = new Vector<Chemin>(this.chemins.get(i));
-			map.put(i, v);
+			PlageHoraire p = plagesHoraires.elementAt(i);
+			map.put(p, v);
 		}
 		
 		return map;

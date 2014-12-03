@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import Modele.Chemin;
+import Modele.PlageHoraire;
 
 /**
  * @author Christine Solnon
@@ -54,6 +55,6 @@ public interface Graph {
 	public abstract void printCostAndSucc();
 	public abstract boolean calculerChoco();
 	public abstract void calculerChocoNouveau();
-	public abstract HashMap<Integer, Vector<Chemin>> getChemins();
+	public abstract HashMap<PlageHoraire, Vector<Chemin>> getChemins();
 
 }

@@ -10,17 +10,18 @@ public class Tournee {
     /**
      * 
      */
-    public Tournee() {
+    public Tournee(Map<PlageHoraire,Vector<Chemin>> map) {
+    	this.listeChemins = map; 
     }
 
     /**
      * 
      */
-    private Livreur livreurAssigne;
+    private Map<PlageHoraire,Vector<Chemin>> listeChemins;
 
-    /**
-     * 
-     */
-    private Vector<Chemin> listeChemins;
-
+	public Map<PlageHoraire, Vector<Chemin>> getListeChemins() {
+		return listeChemins;
+	}
+    
+    
 }
