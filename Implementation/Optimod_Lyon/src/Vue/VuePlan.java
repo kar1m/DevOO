@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Double;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -75,22 +76,31 @@ public class VuePlan extends JPanel{
 		}
 		
 	}
-	
-	public void chargerTournee(Vector<Chemin> listeChemin)
+	/**
+	 * Charge la tournée dans la vue, et l'affiche
+	 * @param mapChemin : Map contenant les differents chemin en fonction de la plage horaire(Integer)
+	 */
+	public void chargerTournee(Map<Integer, Vector<Chemin>> mapChemin)
 	{
 		listeTournee = new Vector<VueTronconTournee>(); 
-		for(Chemin chemin : listeChemin)
+		for(Integer plageHoraire : mapChemin.keySet())
 		{
-			for(Troncon t : chemin.getListeTroncons())
+			Vector<Chemin> listeChemin = mapChemin.get(plageHoraire);
+			
+			for(Chemin chemin : listeChemin)
 			{
-				Noeud depart = t.getDepart();
-				Noeud arrivee = t.getArrivee();
-				
-				VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), 10, depart);
-				VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 10, arrivee); 
-				
-				VueTroncon b = new VueTroncon(vuedepart, vuearrivee);
+				for(Troncon t : chemin.getListeTroncons())
+				{
+					Noeud depart = t.getDepart();
+					Noeud arrivee = t.getArrivee();
+					
+					VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), 10, depart);
+					VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 10, arrivee); 
+					
+					VueTronconTournee b = new VueTronconTournee(vuedepart, vuearrivee, plageHoraire);
+				}
 			}
+			
 		}
 	}
 	public void paintComponent(Graphics g)

@@ -57,8 +57,6 @@ public class AjoutLivraison extends JDialog {
 		panNom.add(clientField);
 
 
-
-		//La couleur des cheveux
 		JPanel panHoraire = new JPanel();
 		panHoraire.setPreferredSize(new Dimension(220, 80));
 		panHoraire.setBorder(BorderFactory.createTitledBorder("Plage Horaire"));
