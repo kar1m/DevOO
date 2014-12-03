@@ -15,6 +15,8 @@ public class PlageHoraire {
     public PlageHoraire(int ID) {
     	this.livraisons = new Vector<Livraison>();
     	this.idPlageHoraire = ID;
+    	this.heureDebut_H = new Time(0);
+    	this.heureFin_H = new Time(0);
     }
 
     private int idPlageHoraire;
@@ -31,9 +33,9 @@ public class PlageHoraire {
      */
     public void initPlage(Element XMLnode, Vector<Noeud> l ) throws Exception {
         this.heureDebut = XMLnode.getAttribute("heureDebut");
-        checkerHeure(this.heureDebut,this.heureDebut_H);
+        checkerHeure(this.heureDebut,"Debut");
         this.heureFin = XMLnode.getAttribute("heureFin");
-        checkerHeure(this.heureFin,this.heureFin_H);
+        checkerHeure(this.heureFin,"Fin");
         
         	//Initialisation du vecteur de livraisons
 		   Vector<Livraison> livraisonPH = new Vector<Livraison>();
@@ -49,7 +51,7 @@ public class PlageHoraire {
     }
 
     @SuppressWarnings("deprecation")
-	private void checkerHeure(String target,Time output) throws Exception
+	private void checkerHeure(String target,String type) throws Exception
     {
         String pattern = "[\\s]*:[\\s]*";
         
@@ -80,9 +82,20 @@ public class PlageHoraire {
 		}
         if (heure<0 || heure>23 || min<0 || min>60 || sec<0 || sec>60)
         {
-        	throw new Exception("Format Heure non respecté");
+        	throw new Exception("Format Heure non respectï¿½");
         }
-        output = new Time(heure, min, sec);
+        switch (type)
+        {
+        case "Debut" :
+        	long format = (((heure*60 + min)*60) + sec)*1000;
+            this.heureDebut_H = new Time(format);
+            break;
+        case "Fin" :
+        	long formatFin = (((heure*60 + min)*60) + sec)*1000;
+            this.heureFin_H = new Time(formatFin);
+            break;
+        }
+        
     }
 
 	/**
@@ -105,8 +118,13 @@ public class PlageHoraire {
 	{
 		return idPlageHoraire;
 	}
-	
-    
 
+	public Time getHeureDebut_H() {
+		return heureDebut_H;
+	}
+
+	public Time getHeureFin_H() {
+		return heureFin_H;
+	}
 
 }
