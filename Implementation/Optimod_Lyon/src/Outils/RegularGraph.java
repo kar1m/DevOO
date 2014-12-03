@@ -1,5 +1,7 @@
 package Outils;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import Modele.*;
@@ -16,7 +18,11 @@ public class RegularGraph implements Graph {
 	private int minArcCost;
 	private int[][] cost; 
 	private ArrayList<ArrayList<Integer>> succ;
-	private Vector<PlageHoraire> plagesHoraires;
+	private ArrayList<ArrayList<Chemin>> chemins;
+	//private Vector<PlageHoraire> plagesHoraires;
+	
+	private Map<Integer, Integer> nodeToChoco;
+	private Map<Integer, Integer> chocoToNode;
 	
 	
 	/**
@@ -53,6 +59,8 @@ public class RegularGraph implements Graph {
 			return;
 		}
 		
+		convertNodeIds(plagesHoraires, entrepot);
+		
 		succ = new ArrayList<ArrayList<Integer>>();
 		
 		Vector<Chemin> chemins = calculerTousLesChemins(entrepot, plagesHoraires, plan);
@@ -62,19 +70,19 @@ public class RegularGraph implements Graph {
 		
 		for (int i = 0; i < plagesHoraires.get(0).getLivraisons().size(); i++)
 		{
-			succEntrepot.add(plagesHoraires.get(0).getLivraisons().get(i).getIdLivraison());
+			succEntrepot.add(nodeToChoco.get(plagesHoraires.get(0).getLivraisons().get(i).getDestinataire().getNoeudAdresse().getIdNoeud()));
 		}
 		
 		succ.add(succEntrepot);
 		
-		// Successeurs entre plages horaires
-		int sum = 1;
+		// Calcul de la matrice des successeurs
+		int nbLivraisonsTotal = 0;
 		
 		for (int i = 0; i < plagesHoraires.size(); i++)
 		{
 			for (int j = 0; j < plagesHoraires.get(i).getLivraisons().size(); j++)
 			{
-				sum+=1;
+				nbLivraisonsTotal+=1;
 				
 				ArrayList<Integer> succLivraison = new ArrayList<Integer>();
 				int nbLivraisons = plagesHoraires.get(i).getLivraisons().size(); // nb de livraisons de la plage horaire actuelle
@@ -86,18 +94,20 @@ public class RegularGraph implements Graph {
 						continue;
 					}
 					
-					succLivraison.add(plagesHoraires.get(i).getLivraisons().get(k).getIdLivraison());
+					succLivraison.add(nodeToChoco.get(plagesHoraires.get(i).getLivraisons().get(k).getDestinataire().getNoeudAdresse().getIdNoeud()));
 				}
 				
 				// Liens entre livraisons d'une plage horaire i et i+1
-				for (int k = 0; k < plagesHoraires.get(i+1).getLivraisons().size(); k++)
-				{	
-					succLivraison.add(plagesHoraires.get(i+1).getLivraisons().get(k).getIdLivraison());
+				if (i < plagesHoraires.size()-1) {
+					for (int k = 0; k < plagesHoraires.get(i+1).getLivraisons().size(); k++)
+					{	
+						succLivraison.add(nodeToChoco.get(plagesHoraires.get(i+1).getLivraisons().get(k).getDestinataire().getNoeudAdresse().getIdNoeud()));
+					}
 				}
 				
 				// Successeurs entre livraisons de la derniere plage horaire et l'entrepot
 				if (i == plagesHoraires.size()-1) {
-					succLivraison.add(entrepot.getIdNoeud());
+					succLivraison.add(nodeToChoco.get(entrepot.getIdNoeud()));
 				}
 				
 				succ.add(succLivraison);
@@ -106,16 +116,81 @@ public class RegularGraph implements Graph {
 		}
 		
 		for (int i = 0; i < succ.size(); i++) {
+			System.out.print("["+i+"] : ");
 			for (int j = 0; j < succ.get(i).size(); j++) {
-				System.out.print(succ.get(i).get(j) + " ");
+				//System.out.println("BETWEEN : " + succ.get(i).get(j) + " AND "+ succ.get(i).get(j+1));
+				//ArrayList al = Dijkstra.Get_Short_Path(plan,succ.get(i).get(j),succ.get(i).get(j+1));
+				//System.out.println(al);
+				//System.out.println("");
+				System.out.print(succ.get(i).get(j)+ " ");
 			}
+			//break;
 			System.out.println("");
 		}
 		
 		
-		// Création de la matrice de couts
+		// Création de la matrice de couts et calcul des chemins
 		
-		cost = new int[nbVertices][nbVertices];
+		cost = new int[nbLivraisonsTotal+1][nbLivraisonsTotal+1]; // +1 car l'entrepot
+		calculerChemins(plan);
+	}
+	
+	private void convertNodeIds(Vector<PlageHoraire> plagesHoraires, Noeud entrepot)
+	{
+		nodeToChoco = new HashMap<Integer, Integer>();
+		chocoToNode = new HashMap<Integer, Integer>();  
+		
+		nodeToChoco.put(entrepot.getIdNoeud(), 0);
+		chocoToNode.put(0, entrepot.getIdNoeud());
+		
+		for (int i = 0; i < plagesHoraires.size(); i++)
+		{
+			for (int j = 0; j < plagesHoraires.get(i).getLivraisons().size(); j++)
+			{
+				nodeToChoco.put(plagesHoraires.get(i).getLivraisons().get(j).getDestinataire().getNoeudAdresse().getIdNoeud(), j+1);
+				chocoToNode.put(j+1, plagesHoraires.get(i).getLivraisons().get(j).getDestinataire().getNoeudAdresse().getIdNoeud());
+			}
+		}
+		
+		for(Integer key: nodeToChoco.keySet()) {
+			System.out.println(key + " - " + nodeToChoco.get(key));
+		}
+	}
+	
+	private void calculerChemins(Plan plan)
+	{
+		chemins = new ArrayList<ArrayList<Chemin>>();
+		
+		for (int i = 0; i < succ.size(); i++)
+		{
+			ArrayList<Chemin> al = new ArrayList<Chemin>();
+			
+			for (int j = 0; j < succ.get(i).size(); j++)
+			{				
+				Chemin chemin = new Chemin();
+				
+				// Calcul du chemin avec Dijkstraa
+				ArrayList path = Dijkstra.Get_Short_Path(plan, chocoToNode.get(i), chocoToNode.get(succ.get(i).get(j)));
+				
+				//System.out.println("");
+				//System.out.println("PATH FOR ["+ chocoToNode.get(i) +","+ chocoToNode.get(succ.get(i).get(j)) +"] : "+ path);
+				//System.out.println("");
+				
+				for (int k = 0; k < path.size()-1; k++)
+				{
+					Troncon troncon = plan.getTroncon((Integer)path.get(k), (Integer)path.get(k+1));
+					chemin.addTroncon(troncon);
+					
+				}
+				
+				al.add(chemin);
+				
+				// On rempli la matrice des couts
+				cost[i][j] = chemin.getTemps();
+			}
+			
+			chemins.add(al);
+		}
 	}
 	
 	public Vector<Chemin> calculerTousLesChemins(Noeud entrepot, Vector<PlageHoraire> plagesHoraires, Plan plan)
@@ -175,5 +250,28 @@ public class RegularGraph implements Graph {
 		return succ.get(i).size();
 	}
 
+	public void printCostAndSucc()
+	{
+		System.out.println("------------- SUCC -------------");
+		for (int i = 0; i < succ.size(); i++)
+		{
+			for (int j = 0; j < succ.get(i).size(); j++)
+			{
+				System.out.print(succ.get(i).get(j) + " ");
+			}
+			System.out.println("");
+		}
+		System.out.println("");
+		
+		System.out.println("------------- COST -------------");
+		for (int i = 0; i < cost.length; i++)
+		{
+			for (int j = 0; j < cost[i].length; j++)
+			{
+				System.out.print(cost[i][j] + " ");
+			}
+			System.out.println("");
+		}
+	}
 
 }
