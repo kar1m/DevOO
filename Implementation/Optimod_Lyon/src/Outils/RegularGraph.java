@@ -195,7 +195,7 @@ public class RegularGraph implements Graph {
 				al.add(chemin);
 				
 				// On rempli la matrice des couts
-				int cout = chemin.getTemps()/60;
+				int cout = chemin.getTemps();
 				cost[i][succ.get(i).get(j)] = cout;
 				
 				if (cout > maxArcCost) {
@@ -228,7 +228,7 @@ public class RegularGraph implements Graph {
 	{
 		TSP tsp = new TSP(this);
 		System.out.println("CHOCO BEGIN");
-		SolutionState s = tsp.solve(100000, 100000);
+		SolutionState s = tsp.solve(200000, this.getNbVertices()*this.getMaxArcCost()+1);
 		
 		if (s == SolutionState.OPTIMAL_SOLUTION_FOUND || s == SolutionState.SOLUTION_FOUND) {
 			System.out.println("Solution trouvée");
