@@ -62,7 +62,7 @@ public class RegularGraph implements Graph {
 		
 		for (int i = 0; i < plagesHoraires.get(0).getLivraisons().size(); i++)
 		{
-			succEntrepot.add(plagesHoraires.get(0).getLivraisons().get(i).getIdLivraison());
+			succEntrepot.add(plagesHoraires.get(0).getLivraisons().get(i).getDestinataire().getNoeudAdresse().getIdNoeud());
 		}
 		
 		succ.add(succEntrepot);
@@ -86,13 +86,15 @@ public class RegularGraph implements Graph {
 						continue;
 					}
 					
-					succLivraison.add(plagesHoraires.get(i).getLivraisons().get(k).getIdLivraison());
+					succLivraison.add(plagesHoraires.get(i).getLivraisons().get(k).getDestinataire().getNoeudAdresse().getIdNoeud());
 				}
 				
 				// Liens entre livraisons d'une plage horaire i et i+1
-				for (int k = 0; k < plagesHoraires.get(i+1).getLivraisons().size(); k++)
-				{	
-					succLivraison.add(plagesHoraires.get(i+1).getLivraisons().get(k).getIdLivraison());
+				if (i < plagesHoraires.size()-1) {
+					for (int k = 0; k < plagesHoraires.get(i+1).getLivraisons().size(); k++)
+					{	
+						succLivraison.add(plagesHoraires.get(i+1).getLivraisons().get(k).getDestinataire().getNoeudAdresse().getIdNoeud());
+					}
 				}
 				
 				// Successeurs entre livraisons de la derniere plage horaire et l'entrepot
@@ -106,10 +108,14 @@ public class RegularGraph implements Graph {
 		}
 		
 		for (int i = 0; i < succ.size(); i++) {
-			for (int j = 0; j < succ.get(i).size(); j++) {
-				System.out.print(succ.get(i).get(j) + " ");
+			for (int j = 0; j < succ.get(i).size()-1; j++) {
+				System.out.println("BETWEEN : " + succ.get(i).get(j) + " AND "+ succ.get(i).get(j+1));
+				ArrayList al = Dijkstra.Get_Short_Path(plan,succ.get(i).get(j),succ.get(i).get(j+1));
+				System.out.println(al);
+				System.out.println("");
 			}
-			System.out.println("");
+			break;
+			//System.out.println("");
 		}
 		
 		

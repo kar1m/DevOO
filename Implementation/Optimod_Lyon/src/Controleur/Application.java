@@ -308,7 +308,7 @@ public class Application implements MouseListener, ActionListener{
 				a.selected = true;
 				selected = true; 
 				gererClickDroit(e,false, a);		
-				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
+				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY() + " id:" + a.getNoeudAssocie().getIdNoeud());
 			}else{
 				a.selected = false;
 			}
