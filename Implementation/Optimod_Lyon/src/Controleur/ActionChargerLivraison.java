@@ -38,8 +38,6 @@ public class ActionChargerLivraison extends Action {
 					JOptionPane.showMessageDialog(null, "Erreur lors du chargement de la demande de livraison.");
             		return false; 
             	}
-            	
-            	
                 // creation d'un constructeur de documents a l'aide d'une fabrique
                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
                // lecture du contenu d'un fichier XML avec DOM
