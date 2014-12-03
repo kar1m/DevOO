@@ -196,21 +196,7 @@ public class Application implements MouseListener, ActionListener{
 		// Print succ and cost
 		chocoGraph.printCostAndSucc();
 		
-		
-		TSP tsp = new TSP(chocoGraph);
-		System.out.println("CHOCO BEGIN");
-		SolutionState s = tsp.solve(100000, 100000);
-		
-		if (s == SolutionState.OPTIMAL_SOLUTION_FOUND || s == SolutionState.SOLUTION_FOUND) {
-			System.out.println("Solution trouvée");
-			int[] next = tsp.getNext();
-			for (int i = 0; i < next.length; i++) {
-				System.out.println(next[i]);
-			}
-        }
-		else {
-			System.out.println("Pas de solution trouvée");
-		} 
+		chocoGraph.calculerChoco();
 	}
 	
 

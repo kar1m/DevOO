@@ -47,5 +47,6 @@ public interface Graph {
 			throws ArrayIndexOutOfBoundsException;
 	
 	public abstract void printCostAndSucc();
+	public abstract boolean calculerChoco();
 
 }
