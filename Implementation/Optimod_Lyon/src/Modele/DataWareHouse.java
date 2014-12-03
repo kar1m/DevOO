@@ -23,9 +23,21 @@ public class DataWareHouse {
 				int idadresse = Integer.parseInt(racine.getAttribute("adresse"));
 				this.entrepot = new Noeud();
 				entrepot = this.planApp.getListeNoeuds().elementAt(idadresse);
+				
+				for (PlageHoraire pl : this.livraisonData)
+				{
+					for (Livraison liv : pl.getLivraisons())
+					{
+						if (liv.getDestinataire().getNoeudAdresse() == entrepot)
+						{
+							throw new Exception("Entrepot Affecté à une livraison");
+						}
+					}
+				}
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				throw new Exception("Entrepot non declar�");
+				throw new Exception("Entrepot non declare");
 			}
 	}
 	

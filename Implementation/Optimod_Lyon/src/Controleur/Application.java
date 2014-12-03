@@ -6,15 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import Modele.Client;
 import Modele.DataWareHouse;
 import Modele.Livraison;
-import Modele.Noeud;
 import Modele.PlageHoraire;
-import Modele.Plan;
 import Outils.*;
 import Vue.AjoutLivraison;
 import Vue.Fenetre;
@@ -160,12 +157,6 @@ public class Application implements MouseListener, ActionListener{
 		}
     }
 
-    /**
-     * 
-     */
-    public void initApplication() {
-        // TODO implement here
-    }
     
 	/**
 	 * @return the listeAnnulation
@@ -193,20 +184,17 @@ public class Application implements MouseListener, ActionListener{
 	public void calculerTournee()
 	{
 		Graph chocoGraph = new RegularGraph(modele.getEntrepot(), modele.getLivraisonData(), modele.getPlanApp());
-		/*
-		TSP tsp = new TSP(chocoGraph);
-		SolutionState s = tsp.solve(100000, 100000);
 		
-		if (s == SolutionState.OPTIMAL_SOLUTION_FOUND || s == SolutionState.SOLUTION_FOUND) {
-			System.out.println("Solution trouvée");
-			int[] next = tsp.getNext();
-			for (int i = 0; i < next.length; i++) {
-				System.out.println(next[i]);
-			}
-        }
-		else {
-			System.out.println("Pas de solution trouvée");
-		} */
+		int nbVertices = 9;
+		int degree = 8;
+		int minCost = 40;
+		int maxCost = 120;
+		//Graph chocoGraph = new RegularGraph(nbVertices, degree, minCost, maxCost);
+		
+		// Print succ and cost
+		chocoGraph.printCostAndSucc();
+		
+		chocoGraph.calculerChoco();
 	}
 	
 
@@ -315,7 +303,7 @@ public class Application implements MouseListener, ActionListener{
 				a.selected = true;
 				selected = true; 
 				gererClickDroit(e,false, a);		
-				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY());
+				vue.logText("Clique sur X : " + a.getNoeudAssocie().getX() + " Y : " + a.getNoeudAssocie().getY() + " id:" + a.getNoeudAssocie().getIdNoeud());
 			}else{
 				a.selected = false;
 			}

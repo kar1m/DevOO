@@ -9,6 +9,9 @@ import org.w3c.dom.*;
  */
 public class Plan {
 
+	private Vector<Noeud> listeNoeuds;
+    private Vector<Troncon> listeTroncons;
+	
     /**
      * 
      */
@@ -69,11 +72,6 @@ public class Plan {
 	public Vector<Troncon> getListeTroncons() {
 		return listeTroncons;
 	}
-
-
-	private Vector<Noeud> listeNoeuds;
-    
-    private Vector<Troncon> listeTroncons;
     
     
     public int getMaxX(Vector<Noeud> liste)
@@ -102,9 +100,19 @@ public class Plan {
 	}
 	
 	
-	public Troncon getTroncon(Noeud origine, Noeud destination) 
+	public Troncon getTroncon(Integer idOrigine, Integer idDestination) 
 	{
 		Troncon troncon = new Troncon();
+		
+		for (int i = 0; i < listeTroncons.size(); i++)
+		{
+			if (listeTroncons.get(i).getDepart().getIdNoeud() == idOrigine && listeTroncons.get(i).getArrivee().getIdNoeud() == idDestination)
+			{
+				troncon = listeTroncons.get(i);
+				break;
+			}
+		}
+		
 		return troncon;
 	}
 }

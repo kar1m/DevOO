@@ -45,5 +45,8 @@ public interface Graph {
 	 */
 	public abstract int getNbSucc(int i)
 			throws ArrayIndexOutOfBoundsException;
+	
+	public abstract void printCostAndSucc();
+	public abstract boolean calculerChoco();
 
 }
