@@ -6,15 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import Modele.Client;
 import Modele.DataWareHouse;
 import Modele.Livraison;
-import Modele.Noeud;
 import Modele.PlageHoraire;
-import Modele.Plan;
 import Outils.*;
 import Vue.AjoutLivraison;
 import Vue.Fenetre;
