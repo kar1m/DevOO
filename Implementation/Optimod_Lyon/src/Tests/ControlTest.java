@@ -22,11 +22,11 @@ public class ControlTest {
 		
 		
 		ArrayList<Object> args = new ArrayList<Object>();
-		args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/plan10x10.xml");
+		args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 		args.clear();
-		args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/livraison10x10-1.xml");
+		args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/livraison10x10-1.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 		
 		
@@ -40,11 +40,12 @@ public class ControlTest {
 			
 			
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add("./Ressources/plan10x10.xml");
+			args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 			args.clear();
-			args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/livraison10x10-1.xml");
+			args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/livraison10x10-1.xml");
+
 			commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
 			
 			
@@ -56,7 +57,6 @@ public class ControlTest {
 		}
 		
 	}
-
 	@Test
 	public void testChargerPlan() {
 		try {
@@ -65,7 +65,7 @@ public class ControlTest {
 			
 			
 			ArrayList<Object> args = new ArrayList<Object>();
-			args.add("C:/Users/Slifer/Documents/GitHub/Workspace/DevOO/Ressources/plan10x10.xml");
+			args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/plan10x10.xml");
 			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 			
 			assertFalse(commandCenter.getModele().getPlanApp().getListeNoeuds().size() == 0);
@@ -77,6 +77,42 @@ public class ControlTest {
 		
 	}
 	
+	@Test
+	public void testCharger_unexisting_file_plan()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/plan10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+		args.clear();
+		args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/livraison10x10-1.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+		
+		
+		assertFalse(commandCenter.getModele().getLivraisonData().size() > 0 );
+		
+	}
+	@Test
+	public void testCharger_unvalid_file_plan()
+	{
+		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
+		
+		
+		ArrayList<Object> args = new ArrayList<Object>();
+		args.add("/Users/Meryem/Desktop/4IF/DevOO/Ressources/plan10.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
+
+		args.clear();
+		args.add("/Users/Meryem/Desktop/4IF/DevOO/Implementation/Optimod_Lyon/src/Tests/plageHFinVide.xml");
+		commandCenter.gererCommande(Proprietes.CHARGER_LIVRAISON, args);
+		
+		
+		assertFalse(commandCenter.getModele().getLivraisonData().size() > 0 );
+		
+	}
 	
 	
 	/*
