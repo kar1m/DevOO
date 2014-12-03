@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import Controleur.*;
@@ -15,8 +16,13 @@ import Vue.Fenetre;
 
 public class ControlTest {
 	private String path = "/Users/Meryem/Desktop/4IF/DevOO";
-	
+
 	@Test 
+	/**
+	 * On teste le chargement du plan et de la livraison : dans le cas ou le chargement s'est bien déroulé, il faut que la taille des données de livraisons soit supérieure à 0.
+	 * On utilise un fichier XML valide.
+	 */
+	
 	public void testCharger()
 	{
 		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
@@ -36,6 +42,11 @@ public class ControlTest {
 	}
 	
 	@Test
+	/**
+	 * Lorsqu'on charge un plan, on vérifie que les noeuds se sont bien chargés dans l'entrepôt.
+	 * On utilise un fichier XML valide.
+	 */
+	
 	public void testDataWareHouseListeNoeud()
 	{
 		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
@@ -49,6 +60,9 @@ public class ControlTest {
 	}
 	
 	@Test
+	/**
+	 * Lorsqu'on charge un plan, on vérifie que les troncons se sont bien chargés dans l'entrepôt
+	 */
 	public void testDataWareHouseListeTroncons()
 	{
 		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
@@ -62,6 +76,10 @@ public class ControlTest {
 	}
 	
 	@Test
+	/**
+	 * On teste le chargement de la demande de livraison : dans le cas ou le chargement s'est bien déroulé, il faut que la taille des données de livraisons soit supérieure à 0.
+	 * On utilise un fichier XML valide.
+	 */
 	public void testChargerDemandeLivraison() {
 		try {
 			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
@@ -87,6 +105,9 @@ public class ControlTest {
 	}
 	
 	@Test
+	/**
+	 * Un noeud destination a pour ID celui d'un noeud inexistant. L'application nous signale que l'ID renseigné ne correspond pas aux IDs existants.
+	 */
 	public void testNotEnoughInPlan() {
 		try {
 			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
@@ -109,8 +130,14 @@ public class ControlTest {
 		assertTrue(true);
 		
 	}
+
 	
 	@Test
+	/**
+	 * On teste le chargement de la demande de livraison : dans le cas ou le chargement s'est bien déroulé, il faut que la taille des données de livraisons soit supérieure à 0.
+	 * Ici, on s'assure que la taille de la liste des noeuds n'est pas nulle.
+	 * On utilise un fichier XML valide.
+	 */
 	public void testChargerPlan() {
 		try {
 
@@ -131,6 +158,11 @@ public class ControlTest {
 	}
 	
 	@Test
+	/**
+	 * On vérifie les données d'un noeud donné, à partir d'un fichier XML bien précis. 
+	 * Pour le noeud dont l'ID est 3, on vérifie que x=65, y=310 et qu'il possède 2 troncons sortants.
+	 * Il s'agit d'un test spécifique par rapport à un fichier XML, permettant de vérifier la cohérence des données.
+	 */
 	public void testChargerNoeud() {
 		try {
 
@@ -154,6 +186,9 @@ public class ControlTest {
 	}
 	
 	@Test
+	/**
+	 * 
+	 */
 	public void testTsortantTentrant() {
 		try {
 
@@ -178,6 +213,9 @@ public class ControlTest {
 	}
 	
 	@Test
+	/**
+	 * On teste le chargement du plan à partir d'un fichier inexistant. L'application renvoie une erreur.
+	 */
 	public void testCharger_unexisting_file_plan()
 	{
 		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
@@ -196,13 +234,16 @@ public class ControlTest {
 		
 	}
 	@Test
+	/**
+	 * On teste le chargement des livraisons à partir d'un fichier XML mal formé, où l'heure de fin de la plage horaire n'est pas renseignée.
+	 */
 	public void testCharger_unvalid_file_plan()
 	{
 		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
 		
 		
 		ArrayList<Object> args = new ArrayList<Object>();
-		args.add(path + "/Ressources/plan10.xml");
+		args.add(path + "/Ressources/plan10x10.xml");
 		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 
 		args.clear();
@@ -213,274 +254,4 @@ public class ControlTest {
 		assertFalse(commandCenter.getModele().getLivraisonData().size() > 0 );
 		
 	}
-	
-	
-	
-	
-	/*
-	 * TESTS UNDO/REDO
-	 */
-	public void testUndoRedo() {
-		try {
-			Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
-			commandCenter.gererCommande(Proprietes.CHARGER_PLAN, null);
-			
-			testUR1(commandCenter);
-			testUR2(commandCenter);
-			testUR3(commandCenter);
-			testUR4(commandCenter);
-			testUR5(commandCenter);
-			testUR6(commandCenter);
-			testUR7(commandCenter);
-			testUR8(commandCenter);
-			
-			
-		}
-		catch (Exception e)
-		{
-			fail("Une erreur est survenue "+ e.getMessage());
-		}
-		
-	}
-	
-	public void testUR1(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 1	
-	 * PILES VIDES & UNDO
-	 * Action : Pile undo & redo vide, demande de Undo
-	 * Resultat : Rien, un message doit signaler � l'utilisateur que c'est impossible
-	 */
-	
-		/*
-		 * ACTIONS
-		 */
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),0);
-		assertEquals(commandCenter.getListeExecution().size(),0);
-	}
-	
-	public void testUR2(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 2
-	 * PILE VIDES & REDO
-	 * Action : Pile undo & redo vide, demande de Redo
-	 * Resultat : Rien
-	 */
-		/*
-		 * ACTIONS
-		 */
-		commandCenter.gererCommande(Proprietes.REDO, null);
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),0);
-		assertEquals(commandCenter.getListeExecution().size(),0);
-	}
-	
-	public void testUR3(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 3
-	 * UNDO SUR ACTION NON ANNULABLE
-	 * Action : On effectue une action non annulable, la pile �tait vide
-	 * 			On effectue un undo
-	 * Resultat : Rien, la pile est toujours vide
-	 */
-		/*
-		 * ACTIONS
-		 */
-		commandCenter.gererCommande(Proprietes.SAVE, null);
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),0);
-		assertEquals(commandCenter.getListeExecution().size(),0);
-	}
-	
-	public void testUR4(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 4
-	 * UNDO SUR UNE ACTION ANNULABLE
-	 * Action : On effectue une action annulable, la pile �tait vide
-	 * 			On effectue un undo
-	 * Resultat : 	L'action a �t� annul�e, 
-	 * 				la pile listeExecution est desormais vide, 
-	 * 				la pile listeAnnulation contient l'action annul�e 
-	 */
-		
-		/*
-		 * ACTIONS
-		 */
-		PlageHoraire a = new PlageHoraire(5); 
-		Livraison l = new Livraison(); 
-		ArrayList<Object> args = new ArrayList<Object>();
-		args.add(a);
-		args.add(l);
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),1);
-		assertEquals(commandCenter.getListeExecution().size(),0);
-		//On verifie que la liste des livraisons est vide
-		assertEquals(commandCenter.getModele().getLivraisonData().size(),0);
-		
-	}
-
-	public void testUR5(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 5
-	 * REDO SUR UNE ACTION ANNULABLE ET ANNULEE
-	 * Action : On effectue une action annulable, la pile �tait vide
-	 * 			On effectue un undo
-	 * 			On effectue un redo
-	 * Resultat : 	L'action a �t� annul�e, 
-	 * 				l'action a �t� refaite
-	 * 				la pile listeAnnulation est desormais vide, 
-	 * 				la pile listeExecution contient l'action annul�e 
-	 */
-		/*
-		 * ACTIONS
-		 */
-		PlageHoraire a = new PlageHoraire(5); 
-		Livraison l = new Livraison(); 
-		ArrayList<Object> args = new ArrayList<Object>();
-		args.add(a);
-		args.add(l);
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		commandCenter.gererCommande(Proprietes.REDO, null);
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),0);
-		assertEquals(commandCenter.getListeExecution().size(),1);
-		//On verifie que la liste des livraisons contient 1 �l�ment
-		assertEquals(commandCenter.getModele().getLivraisonData().size(),1);
-	}
-
-	public void testUR6(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 6
-	 * DOUBLE UNDO / REDO SUR UNE ACTION ANNULABLE
-	 * Action : On effectue une action annulable, la pile �tait vide
-	 * 			On effectue un undo
-	 * 			On effectue un redo
-	 * 			On effectue un undo
-	 * Resultat : 	L'action a �t� annul�e, 
-	 * 				l'action a �t� refaite
-	 * 				l'action a �t� annul�e
-	 * 				la pile listeExecution est desormais vide, 
-	 * 				la pile listeAnnulation contient l'action annul�e 
-	 */
-		
-		/*
-		 * ACTIONS
-		 */
-		PlageHoraire a = new PlageHoraire(5); 
-		Livraison l = new Livraison(); 
-		ArrayList<Object> args = new ArrayList<Object>();
-		args.add(a);
-		args.add(l);
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		commandCenter.gererCommande(Proprietes.REDO, null);
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),1);
-		assertEquals(commandCenter.getListeExecution().size(),0);
-		//On verifie que la liste des livraisons est vide
-		assertEquals(commandCenter.getModele().getLivraisonData().size(),0);		
-		
-	}
-	
-	public void testUR7(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 7
-	 * VERIFICATION BONNE ACTION REDO
-	 * Action : On effectue une action1 annulable, la pile �tait vide
-	 * 			On effectue une autre action2 annulable
-	 * 			On effectue un undo
-	 * 			On effectue un undo
-	 * 			On effectue un redo
-	 * Resultat : 	L'action1 a �t� annul�e, 
-	 * 				l'action2 a �t� annul�e
-	 * 				l'action2 a �t� refaite
-	 */
-		
-		/*
-		 * ACTIONS
-		 */
-		PlageHoraire a = new PlageHoraire(5); 
-		Livraison l = new Livraison(); 
-		ArrayList<Object> args = new ArrayList<Object>();
-		args.add(a);
-		args.add(l);
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
-		
-		ArrayList<Object> args2 = new ArrayList<Object>();
-		args2.add(new Livraison());
-		commandCenter.gererCommande(Proprietes.SUPP_LIVRAISON, args2);
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		commandCenter.gererCommande(Proprietes.REDO, null);
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),1);
-		assertEquals(commandCenter.getListeExecution().size(),1);
-		//On verifie que la liste des livraisons contient 1 �l�ment
-		assertEquals(commandCenter.getModele().getLivraisonData().size(),0);
-		
-	}
-	
-	public void testUR8(Application commandCenter) {
-	/*
-	 * Test UNDO REDO 8
-	 * VERIFICATION CLEAR SUR NOUVELLE ACTION
-	 * Action : On effectue une action1 annulable, la pile �tait vide
-	 * 			On effectue un undo
-	 * 			On effectue une action2 annulable
-	 * 			On effectue un redo
-	 * Resultat : 	Il ne se passe rien
-	 * 				L'action1 a �t� annul�e,
-	 * 				la pile listeExecution contient l'action, 
-	 * 				la pile listeAnnulation est desormais vide
-	 */
-		
-		/*
-		 * ACTIONS
-		 */
-		PlageHoraire a = new PlageHoraire(5); 
-		Livraison l = new Livraison(); 
-		ArrayList<Object> args = new ArrayList<Object>();
-		args.add(a);
-		args.add(l);
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
-		commandCenter.gererCommande(Proprietes.UNDO, null);
-		commandCenter.gererCommande(Proprietes.AJOUTER_LIVRAISON, args);
-		commandCenter.gererCommande(Proprietes.REDO, null);
-		
-		/*
-		 * VERIFS
-		 */
-		assertEquals(commandCenter.getListeAnnulation().size(),0);
-		assertEquals(commandCenter.getListeExecution().size(),1);
-		//On verifie que la liste des livraisons contient 1 �l�ment
-		assertEquals(commandCenter.getModele().getLivraisonData().size(),1);
-	}	
-	
 }
