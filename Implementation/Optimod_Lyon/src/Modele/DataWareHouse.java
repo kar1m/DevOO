@@ -121,10 +121,13 @@ public class DataWareHouse {
 			{
 				Time lowerInterdit = interdit.getHeureDebut_H();
 				Time upperInterdit = interdit.getHeureFin_H();
-				if (lowerInterdit.after(lower) && lower.before(upperInterdit))
+				if (!upper.equals(lowerInterdit))
 				{
-					target.clear();
-					throw new Exception("Heure de Livraison invalide : Deux plages se chevauchent");
+					if (lowerInterdit.after(lower) && lowerInterdit.before(upper))
+					{
+						target.clear();
+						throw new Exception("Heure de Livraison invalide : Deux plages se chevauchent");
+					}
 				}
 			}
 		}
