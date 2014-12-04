@@ -34,6 +34,9 @@ public interface Graph {
 	 */
 	public abstract int[][] getCost();
 	
+	/**
+	 * @return La matrice de successeurs
+	 */
 	public abstract int[][] getSucc();
 
 	/**
@@ -52,7 +55,6 @@ public interface Graph {
 	public abstract int getNbSucc(int i)
 			throws ArrayIndexOutOfBoundsException;
 	
-	public abstract void printCostAndSucc();
 	public Vector<Vector<Chemin>> calculerChoco();
 
 }

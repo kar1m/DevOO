@@ -2,7 +2,7 @@ package Outils;
 
 import java.awt.Color;
 /**
- * Classe contenant toutes les propriétés statiques et partagées du projet
+ * Classe contenant toutes les propriï¿½tï¿½s statiques et partagï¿½es du projet
  * @author Yassine Moreno
  *
  */
@@ -26,6 +26,9 @@ public class Proprietes {
 	public static final String SAVE = "Save";
 	// DÃ©lai d'attente du livreur
 	public static final int ATTENTE = 600;
+	
+	// Calcul (choco)
+	public static final int CHOCO_TIMEOUT = 200000;
 
 	public static Color[] cols ;
 	
