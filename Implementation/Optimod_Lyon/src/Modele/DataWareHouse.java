@@ -143,6 +143,21 @@ public class DataWareHouse {
 	{
 		this.entrepot = null;
 	}
+	
+	public Livraison getLivraisonById(int ID)
+	{
+		for(PlageHoraire a : livraisonData)
+		{
+			for(Livraison b : a.getLivraisons())
+			{
+				if(ID == b.getIdLivraison())
+				{
+					return b;
+				}
+			}
+		}
+		return null;
+	}
 }
 
 

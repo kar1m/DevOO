@@ -1,4 +1,5 @@
 package Outils;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -153,6 +154,7 @@ public class RegularGraph implements Graph {
 		}
 		calculerChemins(plan);
 	}
+
 	
 	private void convertNodeIds(Vector<PlageHoraire> plagesHoraires, Noeud entrepot)
 	{
@@ -325,16 +327,12 @@ public class RegularGraph implements Graph {
 		}
 		
 		
-	
-		//Calcul Temps de passage : 
 
-		
-	
 		
 		return cheminsClasses;
 	}
-	
 
+	
 	public int getMaxArcCost() {
 		return maxArcCost;
 	}
