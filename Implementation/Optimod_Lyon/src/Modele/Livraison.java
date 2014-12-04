@@ -1,5 +1,6 @@
 package Modele;
 
+import java.sql.Time;
 import java.util.Vector;
 
 import org.w3c.dom.Element;
@@ -15,7 +16,16 @@ public class Livraison {
     public Livraison() {
     }
 
-    /**
+    public Time tempsPassage;
+    public Time getTempsPassage() {
+		return tempsPassage;
+	}
+
+	public void setTempsPassage(Time tempsPassage) {
+		this.tempsPassage = tempsPassage;
+	}
+
+	/**
      * 
      */
     private int idLivraison;

@@ -15,7 +15,7 @@ public class VueTroncon {
 	}
 	public void dessiner(Graphics g)
 	{
-		g.drawLine(noeudDepart.getX()+noeudDepart.getRayon()/2, noeudDepart.getY()+noeudDepart.getRayon()/2, noeudArrivee.getX()+noeudArrivee.getRayon()/2, noeudArrivee.getY()+noeudArrivee.getRayon()/2);
+		g.drawLine(noeudDepart.getX(), noeudDepart.getY(), noeudArrivee.getX(), noeudArrivee.getY());
 	}
 	
 	public boolean clickDessus(int xclick, int yclick)
