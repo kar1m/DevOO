@@ -46,8 +46,8 @@ public class Application implements MouseListener, ActionListener{
     }
 
     /**
-	 * point d'entrée du controleur, dispatch des commandes a executer. gestion des undo/redo
-	 * @param nom de code de la commande à executer
+	 * point d'entrï¿½e du controleur, dispatch des commandes a executer. gestion des undo/redo
+	 * @param nom de code de la commande ï¿½ executer
 	 * @param liste d'arguments necessaires pour la commande
 	 */
     public void gererCommande(String commande, ArrayList<Object> args) {
@@ -211,17 +211,12 @@ public class Application implements MouseListener, ActionListener{
 	
 	//--- CALCUL
     /**
-	 * méthode de calcul de la tournée, utilise chocoGraph
-	 * @return la tournée calculée subdivisée par plages horaires
+	 * mï¿½thode de calcul de la tournï¿½e, utilise chocoGraph
+	 * @return la tournï¿½e calculï¿½e subdivisï¿½e par plages horaires
 	 */
 	public Vector<Vector<Chemin>> calculerTournee()
 	{
 		Graph chocoGraph = new RegularGraph(modele.getEntrepot(), modele.getLivraisonData(), modele.getPlanApp());	
-		int nbVertices = 9;
-		int degree = 5;
-		int minCost = 80;
-		int maxCost = 1200;		
-		chocoGraph.calculerChoco();
 		return chocoGraph.calculerChoco();
 	}
 	
