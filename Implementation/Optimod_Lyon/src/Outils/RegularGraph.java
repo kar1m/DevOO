@@ -29,8 +29,6 @@ public class RegularGraph implements Graph {
 	private ArrayList<ArrayList<Chemin>> chemins;
 	private Vector<PlageHoraire> plagesHoraires;
 	private int nbLivraisonsTotal;
-	private DataWareHouse modele; 
-	
 	
 	private Map<Integer, Integer> nodeToChoco;
 	private Map<Integer, Integer> chocoToNode;
@@ -63,17 +61,16 @@ public class RegularGraph implements Graph {
 		}
 	}
 	
-	public RegularGraph(DataWareHouse modele)
+	public RegularGraph(Noeud entrepot, Vector<PlageHoraire> plagesHoraires, Plan plan)
 	{
 		// Verification des parametres
 		if (plagesHoraires.isEmpty()) {
 			return;
 		}
 		
-		this.modele = modele;
-		this.plagesHoraires = modele.getLivraisonData();
+		this.plagesHoraires = plagesHoraires;
 		
-		convertNodeIds(plagesHoraires, modele.getEntrepot());
+		convertNodeIds(plagesHoraires, entrepot);
 		
 		succ = new ArrayList<ArrayList<Integer>>();
 		
@@ -122,7 +119,7 @@ public class RegularGraph implements Graph {
 				
 				// Successeurs entre livraisons de la derniere plage horaire et l'entrepot
 				if (i == plagesHoraires.size()-1) {
-					succLivraison.add(nodeToChoco.get(modele.getEntrepot().getIdNoeud()));
+					succLivraison.add(nodeToChoco.get(entrepot.getIdNoeud()));
 				}
 				
 				succ.add(succLivraison);
@@ -155,8 +152,9 @@ public class RegularGraph implements Graph {
 				cost[i][j] = Integer.MAX_VALUE;
 			}
 		}
-		calculerChemins(modele.getPlanApp());
+		calculerChemins(plan);
 	}
+
 	
 	private void convertNodeIds(Vector<PlageHoraire> plagesHoraires, Noeud entrepot)
 	{
@@ -329,32 +327,11 @@ public class RegularGraph implements Graph {
 		}
 		
 		
-	
-		//Calcul Temps de passage : 
-		Time departGlobal = plagesHoraires.firstElement().getHeureDebut_H();
-		
-		int i=0;
-		for(Vector<Chemin> listeChemin : cheminsClasses)
-		{
-			for(Chemin trancon : listeChemin)
-			{
-				departGlobal = CalculerTempsAdditionnel(departGlobal,trancon.getTemps());
-			}
-			modele.getLivraisonById(livraisonsOrdonnees[i]).setTempsPassage(departGlobal);
-			i++;
-		}
 
-		
-	
 		
 		return cheminsClasses;
 	}
-	
 
-	private Time CalculerTempsAdditionnel(Time top,int delta){
-		long heuresOutput = top.getTime()+(delta*1000);
-		return new Time (heuresOutput);
-	}
 	
 	public int getMaxArcCost() {
 		return maxArcCost;
