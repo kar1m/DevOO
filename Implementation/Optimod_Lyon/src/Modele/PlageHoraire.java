@@ -50,8 +50,7 @@ public class PlageHoraire {
 		   this.livraisons =  livraisonPH;
     }
 
-    @SuppressWarnings("deprecation")
-	private void checkerHeure(String target,String type) throws Exception
+    private void checkerHeure(String target,String type) throws Exception
     {
         String pattern = "[\\s]*:[\\s]*";
         
@@ -87,11 +86,11 @@ public class PlageHoraire {
         switch (type)
         {
         case "Debut" :
-        	long format = (((heure*60 + min)*60) + sec)*1000;
+        	long format = ((((heure-1)*60 + min)*60) + sec)*1000;
             this.heureDebut_H = new Time(format);
             break;
         case "Fin" :
-        	long formatFin = (((heure*60 + min)*60) + sec)*1000;
+        	long formatFin = ((((heure-1)*60 + min)*60) + sec)*1000;
             this.heureFin_H = new Time(formatFin);
             break;
         }

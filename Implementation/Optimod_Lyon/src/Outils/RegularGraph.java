@@ -493,7 +493,7 @@ public class RegularGraph implements Graph {
 	{
 		HashMap<PlageHoraire, Vector<Chemin>> map = new HashMap<PlageHoraire, Vector<Chemin>>();
 		
-		for (int i = 0; i < 1; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			Vector<Chemin> v = new Vector<Chemin>(this.chemins.get(i));
 			PlageHoraire p = plagesHoraires.elementAt(i);

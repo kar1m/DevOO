@@ -34,7 +34,7 @@ public class Troncon {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new Exception("Erreur dans les Tronçons déclarés");
+			throw new Exception("Erreur dans les Tronï¿½ons dï¿½clarï¿½s");
 		}
     }
     
@@ -94,6 +94,21 @@ public class Troncon {
 	
 	public double getTemps() {
 		return temps;
+	}
+
+
+	public double getVitesse() {
+		return vitesse;
+	}
+
+
+	public double getLongueur() {
+		return longueur;
+	}
+
+
+	public String getNomRue() {
+		return nomRue;
 	}
 	
 	

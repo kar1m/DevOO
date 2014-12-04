@@ -1,22 +1,24 @@
 package Controleur;
 
 import java.io.*;
+import java.sql.Time;
+import java.util.*;
+import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
 import Modele.*;
+import Outils.Proprietes;
 
 public class ActionSauvegarder extends Action {
 
 	
 	private DataWareHouse modele;
-	private Tournee tourneeCalculee;
 	private String pathFichier;
 	
-	public ActionSauvegarder(DataWareHouse modele, Tournee tourneeCalculee, String pathFichier) {
+	public ActionSauvegarder(DataWareHouse modele, String pathFichier) {
 		super();
 		this.modele = modele;
-		this.tourneeCalculee = tourneeCalculee;
 		this.pathFichier = pathFichier;
 	}
 
@@ -30,10 +32,9 @@ public class ActionSauvegarder extends Action {
 	        Writer w = new BufferedWriter(osw);
 	        
 	        // Ecriture dans le flux
-	        w.write(this.GenerateSaveString(modele,tourneeCalculee));
+	        w.write(this.GenerateSaveString(modele));
 	        w.close();
 		}
-
 		catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "Erreur lors de la sauvegarde du fichier. S�l�ctionnez un nouvel emplacement");
     		return false; 
@@ -44,13 +45,43 @@ public class ActionSauvegarder extends Action {
 		return true;
 	}
 
-	private String GenerateSaveString(DataWareHouse modele,
-			Tournee tourneeCalculee) {
-		String save = "";
-		
-		
-		
+	private String GenerateSaveString(DataWareHouse modele) {
+		String save = "TOURNEE CALCULEE \r\n";
+		Map<PlageHoraire,Vector<Chemin>> tourChemins = modele.getTournee().getListeChemins();
+		Time departGlobal = tourChemins.keySet().iterator().next().getHeureDebut_H();
+		save += "\r\n";
+		save += "Départ de l'entrepot à : " + departGlobal.toString();
+		save += "\r\n";
+		for (Entry<PlageHoraire, Vector<Chemin>> chemin : tourChemins.entrySet())
+		{
+			for (Chemin tranc : chemin.getValue())
+			{
+				Noeud depart = tranc.getListeTroncons().get(0).getDepart();
+				save += "Départ de l'adresse : " + depart.getIdNoeud() +" à "+departGlobal+ "\r\n";
+				for (Troncon rue : tranc.getListeTroncons())
+				{
+					save += "Passez par la rue : "+rue.getNomRue() +" Vitesse préconnisée : "+rue.getVitesse()+ "\r\n";
+				}
+				Noeud arrivee = tranc.getListeTroncons().get(tranc.getListeTroncons().size()-1).getArrivee();
+				departGlobal = CalculerTempsAdditionnel(departGlobal,tranc.getTemps());
+				save += "Arrivée à l'adresse : " + arrivee.getIdNoeud() +" à "+departGlobal+"\r\n";
+				if (chemin.getValue().iterator().hasNext()) 
+				{
+					save += "En attente du client : 10 min";
+					departGlobal = CalculerTempsAdditionnel(departGlobal,
+							Proprietes.ATTENTE);
+					save += "\r\n";
+					save += "\r\n";
+				}
+			}
+		}
+		save += "Arrivée à l'entrepot à : " + departGlobal.toString();
+		save += "\r\n";
 		return save;
+	}
+	private Time CalculerTempsAdditionnel(Time top,int delta){
+		long heuresOutput = top.getTime()+(delta*1000);
+		return new Time (heuresOutput);
 	}
 
 	@Override
