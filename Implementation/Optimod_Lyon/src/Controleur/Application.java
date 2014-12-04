@@ -192,12 +192,12 @@ public class Application implements MouseListener, ActionListener{
 		//Graph chocoGraph = new RegularGraph(nbVertices, degree, minCost, maxCost);
 		
 		// Print succ and cost
-		chocoGraph.printCostAndSucc();
+		//chocoGraph.printCostAndSucc();
 		
 		chocoGraph.calculerChoco();
 		//chocoGraph.calculerChocoNouveau();
 		
-		chocoGraph.getChemins();
+		//chocoGraph.getChemins();
 	}
 	
 

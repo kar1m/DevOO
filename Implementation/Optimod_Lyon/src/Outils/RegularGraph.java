@@ -236,7 +236,7 @@ public class RegularGraph implements Graph {
 		}
 	}
 	
-	public boolean calculerChoco()
+	public HashMap<PlageHoraire, Vector<Chemin>> calculerChoco()
 	{
 		TSP tsp = new TSP(this);
 		
@@ -246,17 +246,16 @@ public class RegularGraph implements Graph {
 		if (s == SolutionState.OPTIMAL_SOLUTION_FOUND || s == SolutionState.SOLUTION_FOUND) {
 			System.out.println("Solution trouvée");
 			int[] next = tsp.getNext();
-			traitementChoco(next);
-			return true;
+			return traitementChoco(next);
         }
 		else {
 			System.out.println("Pas de solution trouvée");
 		} 
 		
-		return false;
+		return null;
 	}
 	
-	private void traitementChoco(int[] next)
+	private HashMap<PlageHoraire, Vector<Chemin>> traitementChoco(int[] next)
 	{
 		int[] livraisonsOrdonnees = new int[next.length+1];
 		livraisonsOrdonnees[0] = chocoToNode.get(0);
@@ -274,7 +273,7 @@ public class RegularGraph implements Graph {
 			System.out.println(livraisonsOrdonnees[i]);
 		}
 		
-		HashMap<Integer, Vector<Chemin>> cheminsClasses = new HashMap<Integer, Vector<Chemin>>();
+		HashMap<PlageHoraire, Vector<Chemin>> cheminsClasses = new HashMap<PlageHoraire, Vector<Chemin>>();
 		
 		Vector<Chemin> allChemins = new Vector<Chemin>();
 		
@@ -316,7 +315,7 @@ public class RegularGraph implements Graph {
 			}
 			System.out.println("");
 			
-			cheminsClasses.put(i, cheminsParPlageHoraire);
+			cheminsClasses.put(plagesHoraires.get(i), cheminsParPlageHoraire);
 		}
 		
 		// On boucle la tournee
@@ -328,7 +327,7 @@ public class RegularGraph implements Graph {
 			int idLastCheminArrivee = lastChemin.getListeTroncons().get(lastChemin.getListeTroncons().size()-1).getArrivee().getIdNoeud();
 			
 			if (idArriveeEnCours == livraisonsOrdonnees[livraisonsOrdonnees.length-1] && idDepartEnCours == idLastCheminArrivee) {
-				cheminsClasses.get(cheminsClasses.keySet().size()-1).add(allChemins.get(i));
+				cheminsClasses.get(plagesHoraires.get(cheminsClasses.keySet().size()-1)).add(allChemins.get(i));
 			}
 		}
 		
@@ -364,7 +363,7 @@ public class RegularGraph implements Graph {
 		}
 		
 		System.out.println(""); */
-		
+		return cheminsClasses;
 	}
 	
 
