@@ -1,7 +1,11 @@
 package Outils;
 
 import java.awt.Color;
-
+/**
+ * Classe contenant toutes les propriétés statiques et partagées du projet
+ * @author Yassine Moreno
+ *
+ */
 public class Proprietes {
 	
 	public static final String ERREUR_XML = "Fichier Non Valide";

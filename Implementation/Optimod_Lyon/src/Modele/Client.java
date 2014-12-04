@@ -1,7 +1,7 @@
 package Modele;
 
 /**
- * 
+ * Demandeur de livraison
  */
 public class Client {
 
@@ -12,18 +12,19 @@ public class Client {
     }
 
     /**
-     * 
+     * Identifiant du client
      */
     private int idClient;
 
     /**
-     * 
+     * Noeud de l'adresse du client
      */
     private Noeud noeudAdresse;
 
     /**
-     * @param Noeud adresse 
-     * @param int IdClient
+     * methode d'initialisation du client
+     * @param Noeud adresse du client
+     * @param int IdClient identifiant affecté au client
      */
     public void initClient(Noeud adresse, int id_Client) {
         this.noeudAdresse = adresse;

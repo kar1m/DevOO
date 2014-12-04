@@ -2,14 +2,14 @@ package Modele;
 
 import java.util.Vector;
 /**
- * 
+ * Itinéraire entre 2 noeuds
  */
 public class Chemin {
-
-    private Vector<Troncon> listeTroncons;
-    /**
-     * 
+	/**
+     * Troncons composant le chemin
      */
+    private Vector<Troncon> listeTroncons;
+    
     public Chemin() {
     	this.listeTroncons = new Vector<Troncon>();
     }
@@ -17,7 +17,10 @@ public class Chemin {
 	public Vector<Troncon> getListeTroncons() {
 		return listeTroncons;
 	}
-	
+	/**
+	 * Ajout de troncon au chemin actuel
+	 * @param troncon à ajouter
+	 */
 	public void addTroncon(Troncon troncon) {
 		listeTroncons.add(troncon);
 	}

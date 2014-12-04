@@ -42,7 +42,10 @@ public class ActionSauvegarder extends Action {
 		}
 		return true;
 	}
-
+	/**
+	 * @param modele contenant la tournée à sauvegarder
+	 * @return string parsé et formaté contenant les éléments de la sauvegarde
+	 */
 	private String GenerateSaveString(DataWareHouse modele) {
 		String save = "TOURNEE CALCULEE \r\n";
 		Vector<Vector<Chemin>> tourChemins = modele.getTournee().getListeChemins();
@@ -77,6 +80,12 @@ public class ActionSauvegarder extends Action {
 		save += "\r\n";
 		return save;
 	}
+	/**
+	 * méthode de calcul de temps
+	 * @param top temps initial
+	 * @param delta délai d'attente à ajouter
+	 * @return nouveau temps calculé
+	 */
 	private Time CalculerTempsAdditionnel(Time top,int delta){
 		long heuresOutput = top.getTime()+(delta*1000);
 		return new Time (heuresOutput);

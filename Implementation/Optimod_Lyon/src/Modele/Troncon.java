@@ -7,17 +7,23 @@ import java.util.*;
 import org.w3c.dom.*;
 
 /**
- * Arc orientÃ© reliant exactement deux noeuds, avec un nom, une vitesse et une longueur, un noeud d'origine et un noeud de destination
+ * Arc oriente reliant exactement deux noeuds, avec un nom, une vitesse et une longueur, un noeud d'origine et un noeud de destination
  */
 public class Troncon {
 
     /**
-     * Arc orientÃ© reliant exactement deux noeuds, avec un nom, une vitesse et une longueur, un noeud d'origine et un noeud de destination
+     * Arc orientereliant exactement deux noeuds, avec un nom, une vitesse et une longueur, un noeud d'origine et un noeud de destination
      */
     public Troncon() {
     }
 
-    
+    /**
+     * methode d'initialisation du troncon
+	 * @param xmlChunck Element XML contenant les informations pour l'initialisation
+	 * @param entree noeud de départ du troncon
+	 * @param sortie noeud d'arrivée du troncon
+	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+     */
     public void initTrancon (Element xmlChunk,Noeud entree, Noeud sortie) throws Exception
     {
     	NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);

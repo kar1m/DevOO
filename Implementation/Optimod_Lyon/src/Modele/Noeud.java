@@ -5,18 +5,22 @@ import java.util.*;
 import org.w3c.dom.*;
 
 /**
- * Point repéré par ses coordonnées
+ * Point repere par ses coordonnees cartesiennes
  */
 public class Noeud {
 
     /**
-     * Point repéré par ses coordonnées
+     * Point repere par ses coordonnees cartesiennes
      */
     public Noeud() {
     	this.tronconEntrant = new Vector<Troncon>();
     	this.tronconSortant = new Vector<Troncon>();
     }
-    
+	/**
+	 * methode d'initialisation du noeud
+	 * @param xmlChunk Element XML contenant les informations pour l'initialisation
+	 * @throws Exception li�e aux malformations s�mantiques et syntaxiques des fichiers
+	 */
     public void initNoeud (Element xmlChunk) throws Exception
     {
     	try {
@@ -73,12 +77,12 @@ public class Noeud {
     private int y;
 
     /**
-     * 
+     * Liste de troncons sortants du noeud
      */
     private Vector<Troncon> tronconSortant;
 
     /**
-     * 
+     * Liste de troncons entrants du noeud
      */
     private Vector<Troncon> tronconEntrant;
 

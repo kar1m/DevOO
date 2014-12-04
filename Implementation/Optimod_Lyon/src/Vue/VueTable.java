@@ -9,7 +9,11 @@ import javax.swing.JTable;
 
 import Modele.Livraison;
 import Modele.PlageHoraire;
-
+/**
+ * 
+ * @author Mehdi Kitane
+ *
+ */
 public class VueTable extends JPanel {
 	private JTable t; 
 	public VueTable()

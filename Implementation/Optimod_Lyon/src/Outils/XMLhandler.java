@@ -13,11 +13,15 @@ import javax.xml.validation.*;
 import org.xml.sax.SAXException;
 
 /**
- * @author Slifer
+ * Classe utilitaire de gestion de fichiers XML
+ * @author Yassine Moreno
  *
  */
 public class XMLhandler {
-	
+	/**
+	 * Selection de fichier XML avec JfileChooser
+	 * @return path du fichier selectionné
+	 */
 	public static String selectXML()
 	{
     	JFileChooser jFileChooserXML = new JFileChooser();
@@ -35,7 +39,14 @@ public class XMLhandler {
         return null;
 	}
 	
-		
+		/**
+		 * methode de vérification syntaxique et sémantique des fichiers XML
+		 * @param input fichier à vérifier
+		 * @param modeleXSD modèle XSD
+		 * @return vrai si fichier conforme, faux sinon
+		 * @throws SAXException
+		 * @throws IOException
+		 */
 		public static boolean  checkXML (String input, String modeleXSD) throws SAXException, IOException {
 	        SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
 	        File schemaLocation = new File(modeleXSD);

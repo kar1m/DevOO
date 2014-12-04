@@ -2,7 +2,11 @@ package Vue;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-
+/**
+ * 
+ * @author Mehdi Kitane
+ *
+ */
 public class VuePopup extends JPopupMenu {
 
 	private JMenuItem a; 

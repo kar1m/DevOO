@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import Outils.Proprietes;
-
+/**
+ * 
+ * @author Mehdi Kitane
+ *
+ */
 public class VueTronconTournee extends VueTroncon {
 	private int couleur;
 
