@@ -183,7 +183,7 @@ public class RegularGraph implements Graph {
 
 				// Calcul du chemin avec Dijkstraa
 				ArrayList path = Dijkstra
-						.Get_Short_Path(plan, chocoToNode.get(i),
+						.getShortPath(plan, chocoToNode.get(i),
 								chocoToNode.get(succ.get(i).get(j)));
 
 				for (int k = 0; k < path.size() - 1; k++) {

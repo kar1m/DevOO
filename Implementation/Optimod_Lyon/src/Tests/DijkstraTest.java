@@ -31,7 +31,7 @@ public class DijkstraTest {
 		//MatAdjacence= Dijkstra.calculeMatriceAdjacence(p);
 	
 		
-		ArrayList al = Dijkstra.Get_Short_Path(p,45,54);
+		ArrayList al = Dijkstra.getShortPath(p,45,54);
 		System.out.println(al);
 	//System.out.println(chemin);
 		/*int[] k  =	Dijkstra.calculer_cours_chemins(p,0);

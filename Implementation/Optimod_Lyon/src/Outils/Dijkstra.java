@@ -27,8 +27,8 @@ public class Dijkstra {
 	 */
 	public static double [][] calculeMatriceAdjacence(Plan plan)
 	{ 
-		 int Size_Matrice = plan.getListeNoeuds().size();
-		 double [][] MatAdjacence = new double [Size_Matrice][Size_Matrice] ; 
+    	int Size_Matrice = plan.getListeNoeuds().size();
+	    double [][] MatAdjacence = new double [Size_Matrice][Size_Matrice] ; 
 		  
 		  for (int i = 0; i <Size_Matrice; i++) 
 	        {
@@ -38,39 +38,13 @@ public class Dijkstra {
 
 		 int Nb_Troncon = plan.getListeTroncons().size();
 		 Vector<Troncon> liste_Troncons = plan.getListeTroncons();
-		 
-		// System.out.println(" le nombre de troncons "+liste_Troncons.size());
-		 
+
 		 for( int k =0; k<liste_Troncons.size();k++)
-			{//System.out.println("depart "+liste_Troncons.get(k).getDepart().getIdNoeud());
-		 //System.out.println("Arrivé "+liste_Troncons.get(k).getArrivee().getIdNoeud());
-		 //System.out.println(" valeur  duration "+ liste_Troncons.get(k).getTemps());
-		 MatAdjacence[liste_Troncons.get(k).getDepart().getIdNoeud()][liste_Troncons.get(k).getArrivee().getIdNoeud()]=liste_Troncons.get(k).getTemps();
+			{
+		         MatAdjacence[liste_Troncons.get(k).getDepart().getIdNoeud()][liste_Troncons.get(k).getArrivee().getIdNoeud()]=liste_Troncons.get(k).getTemps();
 			
 			}
-		 // remplissage de la matrice par la valeur des durées des troncons ;
-		// int f= 0;
-		 
-		 //for( f =0; f<liste_Troncons.size();f++)
-		 //{
-			// MatAdjacence[liste_Troncons.get(f).getDepart().getIdNoeud()][liste_Troncons.get(f).getArrivee().getIdNoeud()]=liste_Troncons.get(f).getTemps(); 
-			/* for(  j=0; i<liste_Troncons.size();i++)
-			 { System.out.println(" id noeud de départ"+liste_Troncons.get(i).getDepart().getIdNoeud());
-			    System.out.println(" id noeud de arrivé"+liste_Troncons.get(i).getArrivee().getIdNoeud());}
-			 
-				 if(liste_Troncons.get(i).getDepart().getIdNoeud()== i && liste_Troncons.get(j).getDepart().getIdNoeud() == j)
-				 { MatAdjacence[i][j]=liste_Troncons.get(i).getTemps(); }
-					 */
-			 //MatAdjacence[liste_Troncons.get(i).getDepart().getIdNoeud()][liste_Troncons.get(i).getArrivee().getIdNoeud()]=liste_Troncons.get(i).getTemps(); ;
-			
-			
-		// System.out.println("Benhmida"+MatAdjacence[43][44]);
-		 
-		/*for(int i=0; i<100 ; i++){
-			for(int j=0; j<100 ; j++){
-				System.out.print("hadi i : "+ i +"w hadi j :"+ j  + "w hadi sa valeur"+  MatAdjacence[i][j] );}
-			System.out.println(" YOO");
-		}*/
+	
 	return MatAdjacence;
 	}
 	
@@ -85,14 +59,14 @@ public class Dijkstra {
         int y=0;
  
         for (int i = 0; i < distancecc.length; i++) {
-             if (!marque[i] && distancecc[i]< x) {
+                                                        if (!marque[i] && distancecc[i]< x) {
  
-                y=i;
-                x=distancecc[i];
+                                                       y=i;
+                                                       x=distancecc[i];
  
-            }
- 
-        }      
+                                                                                             }
+  
+                                                     }      
  
         return y;
     }
@@ -155,7 +129,7 @@ public class Dijkstra {
            }
           
           
-          //return Cour_chemin;
+     
           
          return pred;
    
@@ -163,7 +137,7 @@ public class Dijkstra {
 	
 	
 	  
-	  public static ArrayList Get_Short_Path(Plan plan,int idsource , int iddestination )
+	  public static ArrayList getShortPath(Plan plan,int idsource , int iddestination )
 	  { 
 		 
             int [] Pred = calculer_cours_chemins(plan , idsource);
@@ -184,7 +158,7 @@ public class Dijkstra {
                                                              }
                                          al.add(0,idsource);
                 
-                                       //  System.out.println(al);
+                                      
                 
                                       }
              
