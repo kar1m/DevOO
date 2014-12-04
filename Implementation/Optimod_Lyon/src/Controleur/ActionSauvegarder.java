@@ -64,7 +64,7 @@ public class ActionSauvegarder extends Action {
 				Noeud arrivee = tranc.getListeTroncons().get(tranc.getListeTroncons().size()-1).getArrivee();
 				departGlobal = CalculerTempsAdditionnel(departGlobal,tranc.getTemps());
 				save += "Arrivée à l'adresse : " + arrivee.getIdNoeud() +" à "+departGlobal+"\r\n";
-					if (chemin != tourChemins.lastElement()) {
+					if (chemin != tourChemins.lastElement() || tranc != chemin.lastElement()) {
 						save += "En attente du client : 10 min";
 						departGlobal = CalculerTempsAdditionnel(departGlobal,
 								Proprietes.ATTENTE);
