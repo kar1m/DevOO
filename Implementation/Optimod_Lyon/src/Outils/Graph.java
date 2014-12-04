@@ -54,7 +54,6 @@ public interface Graph {
 	
 	public abstract void printCostAndSucc();
 	public abstract boolean calculerChoco();
-	public abstract void calculerChocoNouveau();
 	public abstract HashMap<PlageHoraire, Vector<Chemin>> getChemins();
 
 }
