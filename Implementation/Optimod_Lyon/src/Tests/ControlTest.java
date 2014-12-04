@@ -15,7 +15,7 @@ import Outils.XMLhandler;
 import Vue.Fenetre;
 
 public class ControlTest {
-	private String path = "/Users/Meryem/Desktop/4IF/DevOO";
+	private String path = "/Users/Mehdi/Desktop/4IF/DevOO";
 
 	@Test 
 	/**

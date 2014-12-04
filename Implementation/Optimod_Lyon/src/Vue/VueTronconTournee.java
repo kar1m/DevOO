@@ -1,6 +1,8 @@
 package Vue;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import Outils.Proprietes;
 
@@ -15,7 +17,9 @@ public class VueTronconTournee extends VueTroncon {
 	public void dessiner(Graphics g)
 	{
         g.setColor( Proprietes.cols[couleur]);
-		g.drawLine(noeudDepart.getX(), noeudDepart.getY(), noeudArrivee.getX(), noeudArrivee.getY());
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(4));
+        g2.drawLine(noeudDepart.getX(), noeudDepart.getY(), noeudArrivee.getX(), noeudArrivee.getY());
 	
 		float x1 = this.noeudArrivee.x;
 		float y1 = this.noeudArrivee.y;
@@ -28,7 +32,7 @@ public class VueTronconTournee extends VueTroncon {
 		int xArrow = (int) (x1 + (x2-x1)/4 );
 		int yArrow = (int) (y1 + (y2-y1)/4 );
 		
-		int size = 10; 
+		int size = 15; 
 		double phi = Math.atan2(y1-y2,x1-x2);
 		double teta = Math.toRadians(30);
 		double alpha = phi + teta; 
