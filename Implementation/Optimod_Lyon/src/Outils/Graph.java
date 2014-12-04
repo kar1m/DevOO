@@ -53,7 +53,7 @@ public interface Graph {
 			throws ArrayIndexOutOfBoundsException;
 	
 	public abstract void printCostAndSucc();
-	public abstract boolean calculerChoco();
+	public abstract HashMap<PlageHoraire, Vector<Chemin>> calculerChoco();
 	public abstract HashMap<PlageHoraire, Vector<Chemin>> getChemins();
 
 }

@@ -273,8 +273,6 @@ public class RegularGraph implements Graph {
 			System.out.println(livraisonsOrdonnees[i]);
 		}
 		
-		HashMap<PlageHoraire, Vector<Chemin>> cheminsClasses = new HashMap<PlageHoraire, Vector<Chemin>>();
-		
 		Vector<Chemin> allChemins = new Vector<Chemin>();
 		
 		// Flatening chemins
@@ -287,6 +285,70 @@ public class RegularGraph implements Graph {
 				System.out.println("DEPART : "+chemins.get(i).get(j).getListeTroncons().get(0).getDepart().getIdNoeud() + " ARRIVEE : "+chemins.get(i).get(j).getListeTroncons().get(chemins.get(i).get(j).getListeTroncons().size()-1).getArrivee().getIdNoeud());
 			}
 		}
+		
+		HashMap<PlageHoraire, Vector<Chemin>> cheminsClasses = new HashMap<PlageHoraire, Vector<Chemin>>();
+		
+		Vector<Chemin> livraisons = new Vector<Chemin>();
+		
+		for(int i=0; i<livraisonsOrdonnees.length -1 ; i++)
+		{
+			int first = livraisonsOrdonnees[i];
+			int second = livraisonsOrdonnees[i+1];
+			
+			for(Chemin a : allChemins)
+			{
+				if(a.getListeTroncons().firstElement().getDepart().getIdNoeud() == first && a.getListeTroncons().lastElement().getArrivee().getIdNoeud() == second)
+				{
+					livraisons.add(a);
+					break;
+				}
+			}
+		}
+		
+		
+		System.out.println();
+		/*
+		int somme = 0; 
+		for(PlageHoraire plage : plagesHoraires)
+		{
+			int nbParPlage = plage.getLivraisons().size();
+			
+			
+			Vector<Chemin> listeCheminPlage = new Vector<Chemin>();
+			for(int i=somme; i<somme + nbParPlage; i++)
+			{
+				Chemin c = livraisons.get(i);
+				listeCheminPlage.add(c);
+			}
+			System.out.println(somme);
+			somme += nbParPlage; 
+			System.out.println(somme);
+			cheminsClasses.put(plage, listeCheminPlage);
+		}
+		
+		*/
+	
+		int somme = 0; 
+		for(int j = 0 ; j <plagesHoraires.size(); j++)
+		{
+			PlageHoraire plage = plagesHoraires.get(j);
+			int nbParPlage = (j+1==plagesHoraires.size()) ? plage.getLivraisons().size()+1 : plage.getLivraisons().size();
+			
+			Vector<Chemin> listeCheminPlage = new Vector<Chemin>();
+			for(int i=somme; i<somme + nbParPlage; i++)
+			{
+				Chemin c = livraisons.get(i);
+				listeCheminPlage.add(c);
+			}
+			
+			System.out.println(somme);
+			somme += nbParPlage; 
+			System.out.println(somme);
+			cheminsClasses.put(plage, listeCheminPlage);
+		}
+		
+		
+		/*
 		
 		int sum = 0;
 		Chemin lastChemin = new Chemin();
@@ -331,7 +393,7 @@ public class RegularGraph implements Graph {
 			}
 		}
 		
-		System.out.println("");
+		System.out.println(""); */
 		
 		/*HashMap<Integer, Vector<Chemin>> cheminsClasses = new HashMap<Integer, Vector<Chemin>>();
 		
@@ -363,6 +425,22 @@ public class RegularGraph implements Graph {
 		}
 		
 		System.out.println(""); */
+		
+		System.out.println("___________________________________________________________________________");
+		for (int i = 0; i < cheminsClasses.size(); i++)
+		{
+			for (int j = 0; j < cheminsClasses.get(plagesHoraires.get(i)).size() ; j++)
+			{
+				System.out.print("[");
+				for (int k = 0; k < cheminsClasses.get(plagesHoraires.get(i)).get(j).getListeTroncons().size(); k++)
+				{
+					System.out.print(cheminsClasses.get(plagesHoraires.get(i)).get(j).getListeTroncons().get(k).getDepart().getIdNoeud()+" / "+cheminsClasses.get(plagesHoraires.get(i)).get(j).getListeTroncons().get(k).getArrivee().getIdNoeud()+", ");
+				}
+				System.out.println("]");
+			}
+			System.out.println("");
+		}
+		
 		return cheminsClasses;
 	}
 	
