@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
 
 import Modele.Chemin;
@@ -62,6 +63,7 @@ public class Application implements MouseListener, ActionListener{
 
 						vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
 						vue.getPlan().chargerTournee(null);
+						vue.getBtnEnregistrer().setEnabled(false);
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 						vue.logText("Livraison Ajoutee");
@@ -72,6 +74,7 @@ public class Application implements MouseListener, ActionListener{
 						modele.setTournee(t);
 						vue.getPlan().chargerTournee(t);
 						vue.getPlan().repaint();
+						vue.getBtnEnregistrer().setEnabled(true);
 					break;
 				case Proprietes.SUPP_LIVRAISON :
 					if(args.size() == 1)
@@ -86,6 +89,7 @@ public class Application implements MouseListener, ActionListener{
 						vue.getPlan().chargerTournee(null);
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
+						vue.getBtnEnregistrer().setEnabled(false);
 						vue.logText("Livraison Supprimee");
 					}
 					break;
@@ -104,6 +108,7 @@ public class Application implements MouseListener, ActionListener{
 							this.listeAnnulation.clear();
 							this.listeExecution.clear();
 							vue.getBtnChargerDemandeLivraison().setEnabled(true);
+							vue.getBtnEnregistrer().setEnabled(false);
 							vue.getBtnCalcul().setEnabled(false);
 							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 						}else{
@@ -123,6 +128,7 @@ public class Application implements MouseListener, ActionListener{
 							vue.repaint();
 							vue.logText("Demande de livraison chargée");
 							vue.getBtnCalcul().setEnabled(true);
+							vue.getBtnEnregistrer().setEnabled(false);
 							this.listeAnnulation.clear();
 							this.listeExecution.clear();
 							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
@@ -143,6 +149,7 @@ public class Application implements MouseListener, ActionListener{
 						vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
 						vue.getPlan().chargerTournee(null);
 						vue.getPlan().repaint();
+						vue.getBtnEnregistrer().setEnabled(false);
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
@@ -157,10 +164,17 @@ public class Application implements MouseListener, ActionListener{
 						vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
 						vue.getPlan().chargerTournee(null);
 						vue.getPlan().repaint();
+						vue.getBtnEnregistrer().setEnabled(false);
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
 					break;
 				case Proprietes.SAVE:
+					if(args.size() == 1)
+					{
+						String path = (String) args.get(0);
+						ActionSauvegarder actionSave = new ActionSauvegarder(modele,path);
+						actionSave.Executer();
+					}
 					break;
 				}
 		} catch (Exception e) {
@@ -394,6 +408,17 @@ public class Application implements MouseListener, ActionListener{
 		if(e.getSource() == vue.getBtnRedo())
 		{
 			gererCommande(Proprietes.REDO,null);
+		}
+		if(e.getSource() == vue.getBtnEnregistrer())
+		{
+	    	JFileChooser jFileChooserSave = new JFileChooser();
+	    	int returnVal = jFileChooserSave.showSaveDialog(null);
+	    	if (returnVal == JFileChooser.APPROVE_OPTION){
+       		 	String path = jFileChooserSave.getSelectedFile().getAbsolutePath();
+       		 	ArrayList<Object> args = new ArrayList<Object>();
+       		 	args.add(path);
+       		 	gererCommande(Proprietes.SAVE, args);
+	    	}
 		}
 	}
 }

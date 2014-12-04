@@ -120,7 +120,6 @@ public class DataWareHouse {
 			for (PlageHoraire interdit : target)
 			{
 				Time lowerInterdit = interdit.getHeureDebut_H();
-				Time upperInterdit = interdit.getHeureFin_H();
 				if (!upper.equals(lowerInterdit))
 				{
 					if (lowerInterdit.after(lower) && lowerInterdit.before(upper))

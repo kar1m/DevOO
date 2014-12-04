@@ -30,6 +30,7 @@ public class Fenetre extends JFrame {
 	private JButton btnCalcul;
 	private JButton btnUndo; 
 	private JButton btnRedo; 
+	private JButton btnEnregistrer; 
 	private JLabel lblChargementFini;
 	private VueTable table; 
 	/**
@@ -71,6 +72,11 @@ public class Fenetre extends JFrame {
 		btnRedo = new JButton("redo");
 		btnRedo.setEnabled(false);
 		panel_1.add(btnRedo);
+		
+		btnEnregistrer = new JButton("Enregistrer Tournee");
+		btnEnregistrer.setEnabled(false);
+		panel_1.add(btnEnregistrer);
+		
 		
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
@@ -132,10 +138,10 @@ public class Fenetre extends JFrame {
 	public VueTable getTable() {
 		return table;
 	}
-
 	public JButton getBtnCalcul() {
 		return btnCalcul;
 	}
-	
-	
+	public JButton getBtnEnregistrer() {
+		return btnEnregistrer;
+	}
 }

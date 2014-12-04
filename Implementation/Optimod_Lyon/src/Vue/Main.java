@@ -30,7 +30,7 @@ public class Main {
 		vue.getBtnCalcul().addActionListener(controlleur);
 		vue.getBtnRedo().addActionListener(controlleur);
 		vue.getBtnUndo().addActionListener(controlleur);
-
+		vue.getBtnEnregistrer().addActionListener(controlleur);
 		
 		vue.getPlan().addMouseListener(controlleur);
 		vue.getTable().getT().addMouseListener(controlleur);
