@@ -6,11 +6,27 @@ import java.util.Vector;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ * classe de gestion/stockage des éléments du modèle
+ * @author Yassine Moreno
+ *
+ */
 public class DataWareHouse {
-	
+	/**
+	 * Plan de l'application (noeuds + troncons)
+	 */
 	private Plan planApp;
+	/**
+	 * Livraisons chargées (plages horaires + livraisons)
+	 */
     private Vector<PlageHoraire> livraisonData;
+    /**
+     * Entrepot associé à la livraison chargée
+     */
     private Noeud entrepot;
+    /**
+     * Tournée calculée
+     */
 	private Tournee tournee; 
 
 	public DataWareHouse() {
@@ -18,7 +34,11 @@ public class DataWareHouse {
 		this.livraisonData = new Vector<PlageHoraire>();
 		this.tournee = null; 
 	}
-	
+	/**
+	 * methode d'initialisation de l'entrepot (attribut)
+	 * @param racine Element XML contenant les informations pour l'initialisation
+	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 */
 	public void initEntrepot(Element racine) throws Exception
 	{
 			try {
@@ -42,7 +62,11 @@ public class DataWareHouse {
 				throw new Exception("Entrepot non declare");
 			}
 	}
-	
+	/**
+	 * methode d'initialisation des livraisons/plages horaires (attribut)
+	 * @param racine Element XML contenant les informations pour l'initialisation
+	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 */
 	public void initLivraison(Element racine) throws Exception {
 			// appel des initialiseurs
 	   livraisonData = new Vector<PlageHoraire>();
@@ -57,12 +81,20 @@ public class DataWareHouse {
 	   }
 	   chevauchementPH(livraisonData);
 	}
-    
+    /**
+     * methode d'initialisation du plan (attribut)
+	 * @param racine Element XML contenant les informations pour l'initialisation
+	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+     */
 	public void initDataPlan(Element racine) throws Exception {
 			this.planApp = new Plan();
 			this.planApp.initPlan(racine);
 	}
-
+	/**
+	 * methode de suppression d'une demande de livraison
+	 * @param l livraison à supprimer
+	 * @return plage horaire mise à jour
+	 */
 	public PlageHoraire supprimerLivraison(Livraison l)
 	{
 		for(PlageHoraire a : livraisonData)
@@ -78,7 +110,11 @@ public class DataWareHouse {
 		}
 		return null;
 	}
-	
+	/**
+	 * méthode d'ajout d'une livraison dans le modèle
+	 * @param a plage horaire contenant la livraison à ajouter
+	 * @param l livraison à ajouter
+	 */
 	public void ajouterLivraison(PlageHoraire a, Livraison l)
 	{
 		int index = livraisonData.indexOf(a);
@@ -104,7 +140,11 @@ public class DataWareHouse {
 	public Noeud getEntrepot() {
 		return entrepot;
 	}
-    
+    /**
+     * methode de verification de chevauchement de plages horaires
+     * @param target cible à vérifier
+     * @throws Exception liée au chevauchement ou incompatibilité des plages horaires
+     */
 	private void chevauchementPH(Vector<PlageHoraire> target) throws Exception
 	{
 		for (PlageHoraire pl : target)

@@ -20,7 +20,11 @@ import Modele.Troncon;
 
 import java.awt.Color;
 import java.util.Vector;
-
+/**
+ * Vue principale de l'application
+ * @author Mehdi Kitane
+ *
+ */
 public class Fenetre extends JFrame {
 
 	private JPanel contentPane;
@@ -34,7 +38,7 @@ public class Fenetre extends JFrame {
 	private JLabel lblChargementFini;
 	private VueTable table; 
 	/**
-	 * Create the frame.
+	 * création de la fenetre
 	 */
 	public Fenetre() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,14 +94,18 @@ public class Fenetre extends JFrame {
 		setResizable(false);
 		
 	}
-
+	/**
+	 * Mis à jour des boutons undo/redo
+	 */
 	public void updateUndoRedo(boolean undo, boolean redo)
 	{
 		btnUndo.setEnabled(undo);
 		btnRedo.setEnabled(redo);
 	}
 	
-
+	/**
+	 * gestion du log dans la fenetre
+	 */
 	public void logText(String t)
 	{
 		lblChargementFini.setText(t);
@@ -111,8 +119,6 @@ public class Fenetre extends JFrame {
 		plan.chargerLivraison(p, entrepot);
 		table.chargerTable(p);
 	}
-
-
 
 	public JPanel getContentPane() {
 		return contentPane;

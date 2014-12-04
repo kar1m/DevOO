@@ -8,7 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- * 
+ * Plage horaire de livraison
+ * @author Yassine Moreno
  */
 public class PlageHoraire {
 
@@ -28,8 +29,9 @@ public class PlageHoraire {
 
 
     /**
-     * @param Element XMLnode
-     * @throws Exception 
+     * methode d'initialisation des plages horaires
+	 * @param Element XMLnode Element XML contenant les informations pour l'initialisation
+	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
      */
     public void initPlage(Element XMLnode, Vector<Noeud> l ) throws Exception {
         this.heureDebut = XMLnode.getAttribute("heureDebut");
@@ -49,7 +51,12 @@ public class PlageHoraire {
 		   }
 		   this.livraisons =  livraisonPH;
     }
-
+    /**
+     * methode de parsing/vérification des heures fournies dans le fichier XML
+     * @param target string contenant l'heure à verifier
+     * @param type heure début ou heure fin
+     * @throws Exception liée aux erreurs de parse
+     */
     private void checkerHeure(String target,String type) throws Exception
     {
         String pattern = "[\\s]*:[\\s]*";

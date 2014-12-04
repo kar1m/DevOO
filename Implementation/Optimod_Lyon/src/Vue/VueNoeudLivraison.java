@@ -8,7 +8,11 @@ import java.awt.Stroke;
 
 import Modele.Livraison;
 import Outils.Proprietes;
-
+/**
+ * 
+ * @author Mehdi Kitane
+ *
+ */
 public class VueNoeudLivraison extends VueNoeud {
 	private int couleur;
 	private Livraison livraison;

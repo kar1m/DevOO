@@ -10,7 +10,11 @@ import Controleur.Application;
 import Modele.DataWareHouse;
 import Outils.Proprietes;
 import Tests.ControlTest;
-
+/**
+ * 
+ * @author Mehdi Kitane
+ *
+ */
 public class Main {
 	/**
 	 * Launch the application.

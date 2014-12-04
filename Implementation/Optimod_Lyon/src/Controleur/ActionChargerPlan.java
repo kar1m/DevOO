@@ -33,8 +33,7 @@ public class ActionChargerPlan extends Action {
 	public boolean Executer() {
 		// TODO Auto-generated method stub
 		modele.getLivraisonData().clear();
-		modele.resetEntrepot();
-		
+		modele.resetEntrepot();	
 		File fichierData = new File(pathFichierData);
         if (fichierData != null) {
             try {
@@ -43,9 +42,6 @@ public class ActionChargerPlan extends Action {
 					JOptionPane.showMessageDialog(null, "Erreur lors du chargement du plan.");
             		return false; 
             	}
-            	
-            	
-            	
                 // creation d'un constructeur de documents a l'aide d'une fabrique
                DocumentBuilder constructeur = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
                // lecture du contenu d'un fichier XML avec DOM

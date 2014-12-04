@@ -7,7 +7,11 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 
 import Modele.Noeud;
-
+/**
+ * 
+ * @author Mehdi Kitane
+ *
+ */
 public class VueNoeud {
 
 	protected Noeud noeudAssocie;

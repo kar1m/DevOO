@@ -1,7 +1,11 @@
 package Vue;
 
 import java.awt.Graphics;
-
+/**
+ * 
+ * @author Mehdi Kitane
+ *
+ */
 
 public class VueTroncon {
 	protected VueNoeud noeudDepart;

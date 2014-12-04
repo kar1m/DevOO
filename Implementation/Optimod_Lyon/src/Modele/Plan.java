@@ -5,21 +5,22 @@ import java.util.*;
 import org.w3c.dom.*;
 
 /**
- * 
+ * Plan contenant noeuds et troncons
  */
 public class Plan {
 
 	private Vector<Noeud> listeNoeuds;
     private Vector<Troncon> listeTroncons;
 	
-    /**
-     * 
-     */
     public Plan() {
     	this.listeNoeuds = new Vector<Noeud>();
     	this.listeTroncons = new Vector<Troncon>();
     }
-    
+    /**
+     * methode d'initialisation du plan (attribut)
+	 * @param xmlChunk Element XML contenant les informations pour l'initialisation
+	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+     */
     public void initPlan(Element xmlChunk) throws Exception
     {
     	NodeList listeXMLNoeuds = xmlChunk.getElementsByTagName("Noeud");
