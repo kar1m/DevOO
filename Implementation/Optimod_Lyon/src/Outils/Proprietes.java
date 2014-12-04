@@ -21,7 +21,7 @@ public class Proprietes {
 	public static final String REDO = "REDO";
 	public static final String SAVE = "Save";
 	// Délai d'attente du livreur
-	public static final int ATTENTE = 600000;
+	public static final int ATTENTE = 600;
 
 	public static Color[] cols ;
 	
