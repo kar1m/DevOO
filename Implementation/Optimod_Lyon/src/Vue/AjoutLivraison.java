@@ -30,7 +30,6 @@ public class AjoutLivraison extends JDialog {
 	private JComboBox plageHoraireComboBox;
 	private JTextField clientField;
 	private Vector<PlageHoraire> listePlage; 
-	private Noeud noeudAdresse;
 	private boolean btnOkSelected = false; 
 
 	public AjoutLivraison(JFrame f, String title, boolean modal, Vector<PlageHoraire> p, Noeud noeudAdresse)
@@ -41,7 +40,6 @@ public class AjoutLivraison extends JDialog {
 		this.setResizable(false);
 
 		this.listePlage=p;
-		this.noeudAdresse = noeudAdresse;
 		this.initComponent(p, noeudAdresse);
 		this.setVisible(true);
 	}
