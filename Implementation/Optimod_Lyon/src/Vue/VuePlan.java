@@ -76,6 +76,7 @@ public class VuePlan extends JPanel{
 	{
 		
 		listeVueNoeudLivraisons = new Vector<VueNoeudLivraison>();
+		vueEntrepot = null; 
 		if(p != null)
 		{
 			for(PlageHoraire a : p)
@@ -96,16 +97,17 @@ public class VuePlan extends JPanel{
 	 * Charge la tournée dans la vue, et l'affiche
 	 * @param mapChemin : Map contenant les differents chemin en fonction de la plage horaire(Integer)
 	 */
-	public void chargerTournee(Tournee tournee)
+	public void chargerTournee(Tournee tournee, Vector<PlageHoraire> listePlageHoraires)
 	{
 		listeTournee = new Vector<VueTronconTournee>(); 
 		
-		if(tournee != null)
+		if(tournee != null && listePlageHoraires != null)
 		{
-			Map<PlageHoraire, Vector<Chemin>> mapChemin = tournee.getListeChemins();
-			for(PlageHoraire plageHoraire : mapChemin.keySet())
+			Vector<Vector<Chemin>> mapChemin = tournee.getListeChemins();
+			for(int i=0; i<mapChemin.size(); i++)
 			{
-				Vector<Chemin> listeChemin = mapChemin.get(plageHoraire);
+				PlageHoraire plageHoraire = listePlageHoraires.get(i);
+				Vector<Chemin> listeChemin = tournee.getListeChemins().get(i);
 				
 				for(Chemin chemin : listeChemin)
 				{

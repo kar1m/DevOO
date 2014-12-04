@@ -33,6 +33,7 @@ public class ActionChargerPlan extends Action {
 	public boolean Executer() {
 		// TODO Auto-generated method stub
 		modele.getLivraisonData().clear();
+		modele.resetEntrepot();
 		
 		File fichierData = new File(pathFichierData);
         if (fichierData != null) {

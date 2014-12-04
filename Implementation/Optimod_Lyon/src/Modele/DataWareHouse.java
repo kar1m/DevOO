@@ -139,6 +139,10 @@ public class DataWareHouse {
 	public void setTournee(Tournee tournee) {
 		this.tournee = tournee;
 	}
+	public void resetEntrepot()
+	{
+		this.entrepot = null;
+	}
 }
 
 

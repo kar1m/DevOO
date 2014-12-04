@@ -2,6 +2,7 @@ package Outils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Vector;
 
 import solver.ResolutionPolicy;
@@ -236,7 +237,7 @@ public class RegularGraph implements Graph {
 		}
 	}
 	
-	public HashMap<PlageHoraire, Vector<Chemin>> calculerChoco()
+	public Vector<Vector<Chemin>> calculerChoco()
 	{
 		TSP tsp = new TSP(this);
 		
@@ -255,7 +256,7 @@ public class RegularGraph implements Graph {
 		return null;
 	}
 	
-	private HashMap<PlageHoraire, Vector<Chemin>> traitementChoco(int[] next)
+	private Vector<Vector<Chemin>> traitementChoco(int[] next)
 	{
 		int[] livraisonsOrdonnees = new int[next.length+1];
 		livraisonsOrdonnees[0] = chocoToNode.get(0);
@@ -286,8 +287,7 @@ public class RegularGraph implements Graph {
 			}
 		}
 		
-		HashMap<PlageHoraire, Vector<Chemin>> cheminsClasses = new HashMap<PlageHoraire, Vector<Chemin>>();
-		
+		Vector<Vector<Chemin>> cheminsClasses = new Vector< Vector<Chemin>>();
 		Vector<Chemin> livraisons = new Vector<Chemin>();
 		
 		for(int i=0; i<livraisonsOrdonnees.length -1 ; i++)
@@ -306,27 +306,6 @@ public class RegularGraph implements Graph {
 		}
 		
 		
-		System.out.println();
-		/*
-		int somme = 0; 
-		for(PlageHoraire plage : plagesHoraires)
-		{
-			int nbParPlage = plage.getLivraisons().size();
-			
-			
-			Vector<Chemin> listeCheminPlage = new Vector<Chemin>();
-			for(int i=somme; i<somme + nbParPlage; i++)
-			{
-				Chemin c = livraisons.get(i);
-				listeCheminPlage.add(c);
-			}
-			System.out.println(somme);
-			somme += nbParPlage; 
-			System.out.println(somme);
-			cheminsClasses.put(plage, listeCheminPlage);
-		}
-		
-		*/
 	
 		int somme = 0; 
 		for(int j = 0 ; j <plagesHoraires.size(); j++)
@@ -340,106 +319,17 @@ public class RegularGraph implements Graph {
 				Chemin c = livraisons.get(i);
 				listeCheminPlage.add(c);
 			}
-			
-			System.out.println(somme);
 			somme += nbParPlage; 
-			System.out.println(somme);
-			cheminsClasses.put(plage, listeCheminPlage);
+			
+			cheminsClasses.add(listeCheminPlage);
 		}
 		
 		
-		/*
+	
+		//Calcul Temps de passage : 
+
 		
-		int sum = 0;
-		Chemin lastChemin = new Chemin();
-		for (int i = 0; i < plagesHoraires.size(); i++)
-		{
-			Vector<Chemin> cheminsParPlageHoraire = new Vector<Chemin>();
-			
-			System.out.println("TOURS : " + plagesHoraires.get(i).getLivraisons().size());
-			for (int j = 0; j < plagesHoraires.get(i).getLivraisons().size(); j++)
-			{
-				for (int k = 0; k < allChemins.size(); k++)
-				{
-					Vector<Troncon> troncons = allChemins.get(k).getListeTroncons();
-					
-					System.out.println("ARRIVEE COURANT : " + troncons.get(troncons.size()-1).getArrivee().getIdNoeud() + " ARRIVEE EXPECTED : "+ livraisonsOrdonnees[sum+1]);
-					
-					if (troncons.get(troncons.size()-1).getArrivee().getIdNoeud() == livraisonsOrdonnees[sum+1]) {
-						cheminsParPlageHoraire.add(allChemins.get(k));
-						lastChemin = allChemins.get(k);
-						break;
-					}
-					
-				}
-				
-				sum++;
-			}
-			System.out.println("");
-			
-			cheminsClasses.put(plagesHoraires.get(i), cheminsParPlageHoraire);
-		}
-		
-		// On boucle la tournee
-		for (int i = 0; i < allChemins.size(); i++)
-		{
-			int idArriveeEnCours = allChemins.get(i).getListeTroncons().get(allChemins.get(i).getListeTroncons().size()-1).getArrivee().getIdNoeud();
-			int idDepartEnCours = allChemins.get(i).getListeTroncons().get(0).getDepart().getIdNoeud();
-			
-			int idLastCheminArrivee = lastChemin.getListeTroncons().get(lastChemin.getListeTroncons().size()-1).getArrivee().getIdNoeud();
-			
-			if (idArriveeEnCours == livraisonsOrdonnees[livraisonsOrdonnees.length-1] && idDepartEnCours == idLastCheminArrivee) {
-				cheminsClasses.get(plagesHoraires.get(cheminsClasses.keySet().size()-1)).add(allChemins.get(i));
-			}
-		}
-		
-		System.out.println(""); */
-		
-		/*HashMap<Integer, Vector<Chemin>> cheminsClasses = new HashMap<Integer, Vector<Chemin>>();
-		
-		int sum = 0;
-		for (int i = 0; i < plagesHoraires.size(); i++)
-		{
-			Vector<Chemin> cheminsParPlageHoraire = new Vector<Chemin>();
-			
-			System.out.println("TOURS : " + plagesHoraires.get(i).getLivraisons().size());
-			for (int j = 0; j < plagesHoraires.get(i).getLivraisons().size(); j++)
-			{
-				System.out.println("MINI TOURS : " + chemins.get(sum+1).size());
-				for (int k = 0; k < chemins.get(sum+1).size(); k++)
-				{
-					Vector<Troncon> troncons = chemins.get(sum+1).get(k).getListeTroncons();
-					
-					System.out.println("ARRIVEE COURANT : " + troncons.get(troncons.size()-1).getArrivee().getIdNoeud() + " ARRIVEE EXPECTED : "+ livraisonsOrdonnees[sum+1]);
-					
-					if (troncons.get(troncons.size()-1).getArrivee().getIdNoeud() == livraisonsOrdonnees[sum+1]) {
-						cheminsParPlageHoraire.add(chemins.get(sum+1).get(k));
-						//break;
-					}
-				}
-				sum++;
-			}
-			System.out.println("");
-			
-			cheminsClasses.put(i, cheminsParPlageHoraire);
-		}
-		
-		System.out.println(""); */
-		
-		System.out.println("___________________________________________________________________________");
-		for (int i = 0; i < cheminsClasses.size(); i++)
-		{
-			for (int j = 0; j < cheminsClasses.get(plagesHoraires.get(i)).size() ; j++)
-			{
-				System.out.print("[");
-				for (int k = 0; k < cheminsClasses.get(plagesHoraires.get(i)).get(j).getListeTroncons().size(); k++)
-				{
-					System.out.print(cheminsClasses.get(plagesHoraires.get(i)).get(j).getListeTroncons().get(k).getDepart().getIdNoeud()+" / "+cheminsClasses.get(plagesHoraires.get(i)).get(j).getListeTroncons().get(k).getArrivee().getIdNoeud()+", ");
-				}
-				System.out.println("]");
-			}
-			System.out.println("");
-		}
+	
 		
 		return cheminsClasses;
 	}
