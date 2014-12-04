@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Double;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ import Modele.Livraison;
 import Modele.Noeud;
 import Modele.PlageHoraire;
 import Modele.Plan;
+import Modele.Tournee;
 import Modele.Troncon;
 
 public class VuePlan extends JPanel{
@@ -24,6 +26,10 @@ public class VuePlan extends JPanel{
 	private Vector<VueTroncon> listeVueTroncons = null;
 	private Vector<VueNoeudLivraison> listeVueNoeudLivraisons = null;
 	private Vector<VueTronconTournee> listeTournee = null; 
+	private VueNoeud vueEntrepot = null; 
+	
+	private int rayonNoeud = 5; 
+	private int rayonEntrepot = 10; 
 	
 	private int maxX = 0; 
 	private int maxY = 0; 
@@ -35,61 +41,86 @@ public class VuePlan extends JPanel{
 	
 	public void chargerPlan(Plan planApp)
 	{
-		Vector<Noeud> listeNoeuds = planApp.getListeNoeuds();
-		Vector<Troncon> listeTroncons = planApp.getListeTroncons();
-		
-		maxX = planApp.getMaxX(listeNoeuds);
-		maxY = planApp.getMaxY(listeNoeuds);
-		
 		listeVueNoeuds = new Vector<VueNoeud>();
 		listeVueTroncons = new Vector<VueTroncon>();
-
-		for(Noeud a : listeNoeuds)
-		{
-			this.listeVueNoeuds.add(new VueNoeud(toScreenX(a.getX()), toScreenY(a.getY()), 10,a));
-		}
 		
-		for(Troncon a : listeTroncons)
+		if(planApp!= null)
 		{
-			Noeud depart = a.getArrivee();
-			Noeud arrivee = a.getDepart();
-			VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), 10, depart);
-			VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 10, arrivee); 
+			Vector<Noeud> listeNoeuds = planApp.getListeNoeuds();
+			Vector<Troncon> listeTroncons = planApp.getListeTroncons();
 			
-			VueTroncon b = new VueTroncon(vuedepart, vuearrivee);
-			this.listeVueTroncons.add(b);
+			maxX = planApp.getMaxX(listeNoeuds);
+			maxY = planApp.getMaxY(listeNoeuds);
+			
+			
+
+			for(Noeud a : listeNoeuds)
+			{
+				this.listeVueNoeuds.add(new VueNoeud(toScreenX(a.getX()), toScreenY(a.getY()), rayonNoeud,a));
+			}
+			
+			for(Troncon a : listeTroncons)
+			{
+				Noeud depart = a.getArrivee();
+				Noeud arrivee = a.getDepart();
+				VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), rayonNoeud, depart);
+				VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), rayonNoeud, arrivee); 
+				
+				VueTroncon b = new VueTroncon(vuedepart, vuearrivee);
+				this.listeVueTroncons.add(b);
+			}
 		}
 	}
 	
-	public void chargerLivraison(Vector<PlageHoraire> p)
+	public void chargerLivraison(Vector<PlageHoraire> p, Noeud entrepot)
 	{
 		
 		listeVueNoeudLivraisons = new Vector<VueNoeudLivraison>();
-		for(PlageHoraire a : p)
+		if(p != null)
 		{
-			for(Livraison l : a.getLivraisons()){
-				Noeud noeud = l.getDestinataire().getNoeudAdresse();
-				VueNoeudLivraison vueNoeud = new VueNoeudLivraison(toScreenX(noeud.getX()), toScreenY(noeud.getY()), 10, l , a.getId());
-				this.listeVueNoeudLivraisons.add(vueNoeud);
-			}
+			for(PlageHoraire a : p)
+			{
+				for(Livraison l : a.getLivraisons()){
+					Noeud noeud = l.getDestinataire().getNoeudAdresse();
+					VueNoeudLivraison vueNoeud = new VueNoeudLivraison(toScreenX(noeud.getX()), toScreenY(noeud.getY()), rayonNoeud, l , a.getId());
+					this.listeVueNoeudLivraisons.add(vueNoeud);
+				}
+			}	
 		}
-		
+		if(entrepot != null)
+		{
+			vueEntrepot = new VueNoeud(toScreenX(entrepot.getX()), toScreenY(entrepot.getY()), rayonEntrepot, entrepot);
+		}
 	}
-	
-	public void chargerTournee(Vector<Chemin> listeChemin)
+	/**
+	 * Charge la tournée dans la vue, et l'affiche
+	 * @param mapChemin : Map contenant les differents chemin en fonction de la plage horaire(Integer)
+	 */
+	public void chargerTournee(Tournee tournee)
 	{
 		listeTournee = new Vector<VueTronconTournee>(); 
-		for(Chemin chemin : listeChemin)
+		
+		if(tournee != null)
 		{
-			for(Troncon t : chemin.getListeTroncons())
+			Map<PlageHoraire, Vector<Chemin>> mapChemin = tournee.getListeChemins();
+			for(PlageHoraire plageHoraire : mapChemin.keySet())
 			{
-				Noeud depart = t.getDepart();
-				Noeud arrivee = t.getArrivee();
+				Vector<Chemin> listeChemin = mapChemin.get(plageHoraire);
 				
-				VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), 10, depart);
-				VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), 10, arrivee); 
-				
-				VueTroncon b = new VueTroncon(vuedepart, vuearrivee);
+				for(Chemin chemin : listeChemin)
+				{
+					for(Troncon t : chemin.getListeTroncons())
+					{
+						Noeud depart = t.getDepart();
+						Noeud arrivee = t.getArrivee();
+						
+						VueNoeud vuedepart = new VueNoeud(toScreenX(depart.getX()), toScreenY(depart.getY()), rayonNoeud, depart);
+						VueNoeud vuearrivee = new VueNoeud(toScreenX(arrivee.getX()), toScreenY(arrivee.getY()), rayonNoeud, arrivee); 
+						
+						VueTronconTournee b = new VueTronconTournee(vuedepart, vuearrivee, plageHoraire.getId());
+						this.listeTournee.add(b);
+					}
+				}
 			}
 		}
 	}
@@ -111,6 +142,18 @@ public class VuePlan extends JPanel{
 	    if(listeVueNoeudLivraisons != null)
 	    {
 	    	for(VueNoeudLivraison a : listeVueNoeudLivraisons)
+	    	{
+	    		a.dessiner(g);
+	    	}
+	    }
+	    
+	    if(vueEntrepot != null)
+	    {
+	    	vueEntrepot.dessiner(g);
+	    }
+	    if(listeTournee != null)
+	    {
+	    	for(VueTronconTournee a : listeTournee)
 	    	{
 	    		a.dessiner(g);
 	    	}

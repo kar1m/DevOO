@@ -1,5 +1,6 @@
 package Modele;
 
+import java.sql.Time;
 import java.util.Vector;
 
 import org.w3c.dom.Element;
@@ -10,11 +11,12 @@ public class DataWareHouse {
 	private Plan planApp;
     private Vector<PlageHoraire> livraisonData;
     private Noeud entrepot;
-	
+	private Tournee tournee; 
 
 	public DataWareHouse() {
 		this.planApp = new Plan();
 		this.livraisonData = new Vector<PlageHoraire>();
+		this.tournee = null; 
 	}
 	
 	public void initEntrepot(Element racine) throws Exception
@@ -51,9 +53,9 @@ public class DataWareHouse {
 			   Element plageXMLinstance = (Element)plagesXML.item(i);
 			   PlageHoraire nouvellePlage = new PlageHoraire(i);
 			   nouvellePlage.initPlage(plageXMLinstance, planApp.getListeNoeuds());
-
 			   livraisonData.add(nouvellePlage);
 	   }
+	   chevauchementPH(livraisonData);
 	}
     
 	public void initDataPlan(Element racine) throws Exception {
@@ -103,6 +105,41 @@ public class DataWareHouse {
 		return entrepot;
 	}
     
+	private void chevauchementPH(Vector<PlageHoraire> target) throws Exception
+	{
+		for (PlageHoraire pl : target)
+		{
+			Time lower = pl.getHeureDebut_H();
+			Time upper = pl.getHeureFin_H();
+			// Si heure fin est inférieure à heure debut
+			if(lower.after(upper))
+			{
+				target.clear();
+				throw new Exception("Heure de Livraison invalide");
+			}
+			for (PlageHoraire interdit : target)
+			{
+				Time lowerInterdit = interdit.getHeureDebut_H();
+				Time upperInterdit = interdit.getHeureFin_H();
+				if (!upper.equals(lowerInterdit))
+				{
+					if (lowerInterdit.after(lower) && lowerInterdit.before(upper))
+					{
+						target.clear();
+						throw new Exception("Heure de Livraison invalide : Deux plages se chevauchent");
+					}
+				}
+			}
+		}
+	}
+
+	public Tournee getTournee() {
+		return tournee;
+	}
+
+	public void setTournee(Tournee tournee) {
+		this.tournee = tournee;
+	}
 }
 
 

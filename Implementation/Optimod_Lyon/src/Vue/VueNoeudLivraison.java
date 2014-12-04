@@ -28,7 +28,7 @@ public class VueNoeudLivraison extends VueNoeud {
 			g2d.setColor(Color.BLACK);
 			Stroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{2}, 0);
 	        g2d.setStroke(dashed);
-	        g2d.drawOval(x-3, y-3, rayon+6, rayon+6);
+	        g2d.drawOval(x-rayon-3, y-rayon-3, 2*rayon+6, 2*rayon+6);
 	        g2d.dispose();
 
 	        g.setColor( Proprietes.cols[couleur]);
@@ -36,7 +36,7 @@ public class VueNoeudLivraison extends VueNoeud {
 		{
 			g.setColor( Proprietes.cols[couleur]);
 		}
-		g.fillOval(x, y, rayon, rayon);
+		g.fillOval(x-rayon, y-rayon, 2*rayon, 2*rayon);
 	}
 	
 	

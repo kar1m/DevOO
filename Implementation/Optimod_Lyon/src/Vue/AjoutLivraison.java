@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -118,7 +119,20 @@ public class AjoutLivraison extends JDialog {
 	}
 	public int getIdClientSelectionne()
 	{
-		return Integer.parseInt(clientField.getText());
+		try
+		{
+			int i =  Integer.parseInt(clientField.getText());
+			if(i<0)
+			{
+				JOptionPane.showMessageDialog(null, "Le nombre doit etre positif");
+				return -1; 
+			}
+			return i; 
+		}catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, clientField.getText() + " n'est pas un entier");
+			return -1; 
+		}
 	}
 
 	public boolean isBtnOkSelected() {

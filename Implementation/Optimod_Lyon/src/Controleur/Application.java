@@ -8,10 +8,12 @@ import java.util.*;
 
 import javax.swing.JTable;
 
+import Modele.Chemin;
 import Modele.Client;
 import Modele.DataWareHouse;
 import Modele.Livraison;
 import Modele.PlageHoraire;
+import Modele.Tournee;
 import Outils.*;
 import Vue.AjoutLivraison;
 import Vue.Fenetre;
@@ -58,14 +60,18 @@ public class Application implements MouseListener, ActionListener{
 						this.listeExecution.addElement(action);
 						this.listeAnnulation.clear();	
 
-						vue.chargerLivraison(modele.getLivraisonData());
+						vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
+						vue.getPlan().chargerTournee(null);
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 						vue.logText("Livraison Ajoutee");
 					}
 					break;
 				case Proprietes.CALC_TOURNEE :
-						calculerTournee();
+						Tournee t = new Tournee(calculerTournee());
+						modele.setTournee(t);
+						vue.getPlan().chargerTournee(t);
+						vue.getPlan().repaint();
 					break;
 				case Proprietes.SUPP_LIVRAISON :
 					if(args.size() == 1)
@@ -76,7 +82,8 @@ public class Application implements MouseListener, ActionListener{
 						this.listeExecution.addElement(action1);
 						this.listeAnnulation.clear();
 						
-						vue.chargerLivraison(modele.getLivraisonData());
+						vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
+						vue.getPlan().chargerTournee(null);
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 						vue.logText("Livraison Supprimee");
@@ -90,12 +97,14 @@ public class Application implements MouseListener, ActionListener{
 						if(action2.Executer())
 						{
 							vue.chargerPlan(modele.getPlanApp());
-							vue.chargerLivraison(modele.getLivraisonData());
+							vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
+							vue.getPlan().chargerTournee(null);
 							vue.repaint();
 							vue.logText("Plan chargé");
-							vue.getBtnChargerDemandeLivraison().setEnabled(true);
 							this.listeAnnulation.clear();
 							this.listeExecution.clear();
+							vue.getBtnChargerDemandeLivraison().setEnabled(true);
+							vue.getBtnCalcul().setEnabled(false);
 							vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 						}else{
 							vue.logText("Erreur lors du chargement du plan.");
@@ -109,7 +118,8 @@ public class Application implements MouseListener, ActionListener{
 						ActionChargerLivraison action3 = new ActionChargerLivraison(modele, path);
 						if(action3.Executer())
 						{
-							vue.chargerLivraison(modele.getLivraisonData());
+							vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
+							vue.getPlan().chargerTournee(null);
 							vue.repaint();
 							vue.logText("Demande de livraison chargée");
 							vue.getBtnCalcul().setEnabled(true);
@@ -130,7 +140,8 @@ public class Application implements MouseListener, ActionListener{
 						this.listeExecution.removeElementAt(listeExecution.size()-1);
 						listeAnnulation.addElement(actionAnnulable);
 						
-						vue.chargerLivraison(modele.getLivraisonData());
+						vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
+						vue.getPlan().chargerTournee(null);
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
@@ -143,7 +154,8 @@ public class Application implements MouseListener, ActionListener{
 						listeAnnulation.removeElementAt(listeAnnulation.size()-1);
 						listeExecution.addElement(actionAnnulee);	
 						
-						vue.chargerLivraison(modele.getLivraisonData());
+						vue.chargerLivraison(modele.getLivraisonData(), modele.getEntrepot());
+						vue.getPlan().chargerTournee(null);
 						vue.getPlan().repaint();
 						vue.updateUndoRedo(listeExecution.size()>0, listeAnnulation.size()>0);
 					}
@@ -181,7 +193,7 @@ public class Application implements MouseListener, ActionListener{
 	
 	//--- CALCUL
 	
-	public void calculerTournee()
+	public HashMap<PlageHoraire, Vector<Chemin>> calculerTournee()
 	{
 		Graph chocoGraph = new RegularGraph(modele.getEntrepot(), modele.getLivraisonData(), modele.getPlanApp());
 		
@@ -197,7 +209,10 @@ public class Application implements MouseListener, ActionListener{
 		chocoGraph.calculerChoco();
 		//chocoGraph.calculerChocoNouveau();
 		
+
 		//chocoGraph.getChemins();
+
+		return chocoGraph.calculerChoco();
 	}
 	
 
@@ -242,17 +257,20 @@ public class Application implements MouseListener, ActionListener{
 						
 						if(md1.isBtnOkSelected())
 						{
-							Livraison l = new Livraison(); 
-					        Client c = new Client();
-					        c.initClient( noeud.getNoeudAssocie() , md1.getIdClientSelectionne());
-					        l.setDestinataire(c);
-					        l.generateIdLivraison();
-					        
-					        ArrayList<Object> args = new ArrayList<Object>(); 
-					        args.add(md1.getPlageSelectionnee());
-					        args.add(l);
+							if(md1.getIdClientSelectionne() != -1 )
+							{
+								Livraison l = new Livraison(); 
+						        Client c = new Client();
+						        c.initClient( noeud.getNoeudAssocie() , md1.getIdClientSelectionne());
+						        l.setDestinataire(c);
+						        l.generateIdLivraison();
+						        
+						        ArrayList<Object> args = new ArrayList<Object>(); 
+						        args.add(md1.getPlageSelectionnee());
+						        args.add(l);
 
-					        gererCommande(Proprietes.AJOUTER_LIVRAISON, args);			
+						        gererCommande(Proprietes.AJOUTER_LIVRAISON, args);				
+							}
 						}
 										 
 					}					

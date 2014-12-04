@@ -100,9 +100,9 @@ public class Fenetre extends JFrame {
 	{
 		plan.chargerPlan(planApp);
 	}
-	public void chargerLivraison(Vector<PlageHoraire> p)
+	public void chargerLivraison(Vector<PlageHoraire> p, Noeud entrepot)
 	{
-		plan.chargerLivraison(p);
+		plan.chargerLivraison(p, entrepot);
 		table.chargerTable(p);
 	}
 
