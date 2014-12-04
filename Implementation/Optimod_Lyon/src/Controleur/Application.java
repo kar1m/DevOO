@@ -186,16 +186,16 @@ public class Application implements MouseListener, ActionListener{
 		Graph chocoGraph = new RegularGraph(modele.getEntrepot(), modele.getLivraisonData(), modele.getPlanApp());
 		
 		int nbVertices = 9;
-		int degree = 8;
-		int minCost = 40;
-		int maxCost = 120;
+		int degree = 5;
+		int minCost = 80;
+		int maxCost = 1200;
 		//Graph chocoGraph = new RegularGraph(nbVertices, degree, minCost, maxCost);
 		
 		// Print succ and cost
 		chocoGraph.printCostAndSucc();
 		
-		//chocoGraph.calculerChoco();
-		chocoGraph.calculerChocoNouveau();
+		chocoGraph.calculerChoco();
+		//chocoGraph.calculerChocoNouveau();
 		
 		chocoGraph.getChemins();
 	}
