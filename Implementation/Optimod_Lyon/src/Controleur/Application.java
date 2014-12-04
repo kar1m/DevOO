@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.*;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import Modele.Chemin;
@@ -264,6 +265,20 @@ public class Application implements MouseListener, ActionListener{
 						args.add(a.getLivraison());
 						gererCommande(Proprietes.SUPP_LIVRAISON, args);		
 					}					
+				});
+				pop.getC().addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						for(PlageHoraire p : modele.getLivraisonData())
+						{
+							for(Livraison l : p.getLivraisons())
+							{
+								if(l == a.getLivraison())
+								{
+									JOptionPane.showMessageDialog(null, "Plage Horaire " + p.getHeureDebut() + "-" + p.getHeureFin() + "\n-" + a.getLivraison());
+								}
+							}
+						}
+					}
 				});
 			}else{
 				pop.getA().addActionListener(new ActionListener(){

@@ -74,5 +74,9 @@ public class Livraison {
 	{
 		this.idLivraison = (int)(Math.random()*50000);
 	}
+	public String toString()
+	{
+		return "Destinataire : " + destinataire.getIdClient() + " a l'adresse X :" + destinataire.getNoeudAdresse().getX() + " Y : " + destinataire.getNoeudAdresse().getY(); 
+	}
 
 }
