@@ -19,7 +19,7 @@ public class Noeud {
 	/**
 	 * methode d'initialisation du noeud
 	 * @param xmlChunk Element XML contenant les informations pour l'initialisation
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
 	 */
     public void initNoeud (Element xmlChunk) throws Exception
     {
@@ -29,7 +29,7 @@ public class Noeud {
 			this.y = Integer.parseInt(xmlChunk.getAttribute("y"));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			throw new Exception("Format numérique Noeud non respecté");
+			throw new Exception("Format numï¿½rique Noeud non respectï¿½");
 		}
     }
 

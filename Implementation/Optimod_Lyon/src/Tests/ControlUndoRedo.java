@@ -16,7 +16,14 @@ import Vue.Fenetre;
 
 public class ControlUndoRedo {
 
+	/**
+	 * Chemin ou se trouvent les fichiers a tester
+	 */
 	private String path = "/Users/Mehdi/Desktop/4IF/DevOO";
+	
+	/**
+	 * Application partagee par les differents tests
+	 */
 	private Application commandCenter ; 
 	
 	

@@ -19,7 +19,13 @@ import Outils.XMLhandler;
 public class ActionChargerPlan extends Action {
 
 	
+	/**
+	 * Modele associe a laction
+	 */
 	private DataWareHouse modele;
+	/**
+	 * Chemin du fichier associe a laction
+	 */
 	private String pathFichierData; 
 	
 	public ActionChargerPlan(DataWareHouse modele, String pathFichierData)
@@ -29,7 +35,6 @@ public class ActionChargerPlan extends Action {
 	}
 	
 	
-	@Override
 	public boolean Executer() {
 		// TODO Auto-generated method stub
 		modele.getLivraisonData().clear();

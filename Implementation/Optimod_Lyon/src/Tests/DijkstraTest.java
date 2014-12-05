@@ -16,12 +16,17 @@ import Controleur.Application;
 
 public class DijkstraTest {
 
+	/**
+	 * Chemin ou se trouvent les fichiers a tester
+	 */
+	private String pathFolder = "/Users/Mehdi/Desktop/4IF/DevOO";
+	
 	@Test
 	public void test() {
 		Application commandCenter = new Application(new Fenetre(), new DataWareHouse());
 		
 		ArrayList<Object> args = new ArrayList<Object>();
-		String path = "C:\\Users\\ABDELALIM\\Desktop\\DevOO\\Ressources\\plan10x10.xml";
+		String path = pathFolder + "/Ressources/plan10x10.xml";
 		args.add(path);
 		commandCenter.gererCommande(Proprietes.CHARGER_PLAN, args);
 		Plan p = commandCenter.getModele().getPlanApp();

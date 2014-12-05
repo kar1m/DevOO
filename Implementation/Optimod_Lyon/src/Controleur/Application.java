@@ -24,13 +24,27 @@ import Vue.VueNoeudLivraison;
 import Vue.VuePopup;
 
 /**
+ * Controleur principal.
+ * Recoit les evenements de la vue, effectue les actions correspondantes sur le modele puis notifie la vue des changements
  * @author Yassine Moreno
  */
 public class Application implements MouseListener, ActionListener{
 
+	/**
+	 * Modele associe a l'application
+	 */
 	private DataWareHouse modele;
+	/**
+	 * Fenetre associee a l'application
+	 */
 	private Fenetre vue;
+	/**
+	 * Liste des actions annulees
+	 */
 	private Vector<Action> listeAnnulation;
+	/**
+	 * Liste des actions executees
+	 */
 	private Vector<Action> listeExecution;
 	
     public Application(Fenetre vue, DataWareHouse modele) {
@@ -46,8 +60,8 @@ public class Application implements MouseListener, ActionListener{
     }
 
     /**
-	 * point d'entr�e du controleur, dispatch des commandes a executer. gestion des undo/redo
-	 * @param nom de code de la commande � executer
+	 * point d'entree du controleur, dispatch des commandes a executer. gestion des undo/redo
+	 * @param nom de code de la commande a executer
 	 * @param liste d'arguments necessaires pour la commande
 	 */
     public void gererCommande(String commande, ArrayList<Object> args) {
@@ -211,8 +225,8 @@ public class Application implements MouseListener, ActionListener{
 	
 	//--- CALCUL
     /**
-	 * m�thode de calcul de la tourn�e, utilise chocoGraph
-	 * @return la tourn�e calcul�e subdivis�e par plages horaires
+	 * methode de calcul de la tournee, utilise chocoGraph
+	 * @return la tournee calculee subdivisee par plages horaires
 	 */
 	public Vector<Vector<Chemin>> calculerTournee()
 	{
@@ -223,6 +237,11 @@ public class Application implements MouseListener, ActionListener{
 
 	
 	//-------------------------------------Mouse Listener--------------------------------------------//
+	/**
+	 * Methode qui gere le clic sur la table
+	 * Selectionne le noeud correspondant sur le plan
+	 * @param e
+	 */
 	public void clickTable(MouseEvent e)
 	{
 		JTable target = (JTable)e.getSource();
@@ -237,6 +256,13 @@ public class Application implements MouseListener, ActionListener{
 		vue.getPlan().repaint();
 	}
 	
+	
+	/**
+	 * Methode qui gere le click droit sur le plan et affiche le popup avec les bons boutons grises
+	 * @param e
+	 * @param livraison Si le noeud selectionne est une livraison
+	 * @param noeud	Vue associee au point clique
+	 */
 	public void gererClickDroit(MouseEvent e, boolean livraison, VueNoeud noeud)
 	{
 		if (e.getModifiers() == MouseEvent.BUTTON3_MASK) 
@@ -298,6 +324,12 @@ public class Application implements MouseListener, ActionListener{
 		}
 	}
 	
+	
+	/**
+	 * Methode qui gere le click sur un noeud associe a une livraison
+	 * @param e
+	 * @return boolean : Si une livraison est selectionnee ou pas
+	 */
 	public boolean gererClickLivraison(MouseEvent e)
 	{
 		boolean livraisonSelected = false; 
@@ -332,6 +364,11 @@ public class Application implements MouseListener, ActionListener{
 		return livraisonSelected; 
 	}
 	
+	/**
+	 * Methode qui gere le click sur un noeud du plan
+	 * @param e
+	 * @return boolean : Si un noeud du plan est selectionne ou pas
+	 */
 	public boolean gererClickPlan(MouseEvent e)
 	{
 		boolean selected = false; 
@@ -351,6 +388,11 @@ public class Application implements MouseListener, ActionListener{
 
 		return selected;
 	}
+	
+	/**
+	 * Methode qui gere le clic sur un plan
+	 * @param e
+	 */
 	public void clickPlan(MouseEvent e)
 	{
 		// TODO Auto-generated method stub
@@ -373,6 +415,10 @@ public class Application implements MouseListener, ActionListener{
 				
 		vue.getPlan().repaint();
 	}
+	
+	/**
+	 * Methode qui recoit les clics de souris et les dispatch a la table et au plan
+	 */
 	public void mouseClicked(MouseEvent e) {	
 		if(e.getSource() == vue.getTable().getT())
 		{
@@ -386,7 +432,10 @@ public class Application implements MouseListener, ActionListener{
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-
+	
+	/**
+	 * Methode qui recoit les clics sur les boutons et appelle la methode gererCommande
+	 */
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == vue.getBtnChargerPlan()){		

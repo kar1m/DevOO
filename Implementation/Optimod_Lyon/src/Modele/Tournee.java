@@ -3,7 +3,7 @@ package Modele;
 import java.util.*;
 
 /**
- * Tournee contenant les plus courts chemins calculés
+ * Tournee contenant les plus courts chemins calcules
  */
 public class Tournee {
 
@@ -12,7 +12,7 @@ public class Tournee {
     }
 
     /**
-     * Chemins calculés subdivisés en plages horaires
+     * Chemins calcules subdivises en plages horaires
      */
     private Vector<Vector<Chemin>> listeChemins;
 

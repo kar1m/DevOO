@@ -24,6 +24,10 @@ public class VueNoeudLivraison extends VueNoeud {
 		this.livraison = l ; 
 		this.couleur = couleur;
 	}
+	/**
+	 * Methode pour dessiner une vue
+	 * @param g
+	 */
 	public void dessiner(Graphics g)
 	{
 		if(selected)

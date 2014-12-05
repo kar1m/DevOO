@@ -24,7 +24,7 @@ public class Client {
     /**
      * methode d'initialisation du client
      * @param Noeud adresse du client
-     * @param int IdClient identifiant affecté au client
+     * @param int IdClient identifiant affecte au client
      */
     public void initClient(Noeud adresse, int id_Client) {
         this.noeudAdresse = adresse;

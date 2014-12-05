@@ -9,7 +9,13 @@ import org.w3c.dom.*;
  */
 public class Plan {
 
+	/**
+	 * Liste des noeuds du plan
+	 */
 	private Vector<Noeud> listeNoeuds;
+	/**
+	 * Liste des troncons du plan
+	 */
     private Vector<Troncon> listeTroncons;
 	
     public Plan() {
@@ -19,7 +25,7 @@ public class Plan {
     /**
      * methode d'initialisation du plan (attribut)
 	 * @param xmlChunk Element XML contenant les informations pour l'initialisation
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
      */
     public void initPlan(Element xmlChunk) throws Exception
     {

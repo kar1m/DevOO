@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import Modele.Livraison;
 import Modele.PlageHoraire;
 /**
- * 
+ * Vue correspondant a la table dans la fenetre
  * @author Mehdi Kitane
  *
  */
@@ -25,6 +25,10 @@ public class VueTable extends JPanel {
 		this.add(new JScrollPane(t), BorderLayout.CENTER);
 	}
 
+	/**
+	 * Methode qui permet de charger la table a partir du vecteur de plage horaire
+	 * @param p Vector<PlageHoraire>
+	 */
 	public void chargerTable(Vector<PlageHoraire> p) {
 		// TODO Auto-generated method stub
 		Vector<Vector<Object>> donnees = new Vector<Vector<Object>>();

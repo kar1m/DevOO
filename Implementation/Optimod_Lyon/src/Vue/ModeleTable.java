@@ -8,8 +8,19 @@ import javax.swing.table.AbstractTableModel;
 import Modele.Livraison;
 import Outils.Proprietes;
 
+/**
+ * Modele de donnée pour la table
+ * @author Mehdi
+ *
+ */
 public class ModeleTable extends AbstractTableModel {
+	/**
+	 * 
+	 */
 	String[] entetes = {"Couleur", "PlageHoraire", "id", "client", "adresse"};
+	/**
+	 * 
+	 */
 	Vector<Vector<Object>> donnees = new Vector<Vector<Object>>(); 
 	
 	public ModeleTable(Vector<Vector<Object>> donnees)

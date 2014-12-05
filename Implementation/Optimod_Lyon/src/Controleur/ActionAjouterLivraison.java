@@ -9,8 +9,17 @@ import Modele.PlageHoraire;
  */
 public class ActionAjouterLivraison extends Action {
 
+	/**
+	 * Modele associe a laction
+	 */
 	private DataWareHouse modele;
+	/**
+	 * Livraison associee a laction
+	 */
 	private Livraison livraison;
+	/**
+	 * PlageHoraire associee a laction
+	 */
 	private PlageHoraire plageHoraire; 
 	
 	public ActionAjouterLivraison(DataWareHouse modele,PlageHoraire plageHoraire, Livraison livraison)

@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- * classe de gestion/stockage des éléments du modèle
+ * classe de gestion/stockage des elements du modele
  * @author Yassine Moreno
  *
  */
@@ -17,15 +17,15 @@ public class DataWareHouse {
 	 */
 	private Plan planApp;
 	/**
-	 * Livraisons chargées (plages horaires + livraisons)
+	 * Livraisons chargees (plages horaires + livraisons)
 	 */
     private Vector<PlageHoraire> livraisonData;
     /**
-     * Entrepot associé à la livraison chargée
+     * Entrepot associe a la livraison chargee
      */
     private Noeud entrepot;
     /**
-     * Tournée calculée
+     * Tournee calculee
      */
 	private Tournee tournee; 
 
@@ -37,7 +37,7 @@ public class DataWareHouse {
 	/**
 	 * methode d'initialisation de l'entrepot (attribut)
 	 * @param racine Element XML contenant les informations pour l'initialisation
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
 	 */
 	public void initEntrepot(Element racine) throws Exception
 	{
@@ -65,7 +65,7 @@ public class DataWareHouse {
 	/**
 	 * methode d'initialisation des livraisons/plages horaires (attribut)
 	 * @param racine Element XML contenant les informations pour l'initialisation
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
 	 */
 	public void initLivraison(Element racine) throws Exception {
 			// appel des initialiseurs
@@ -84,7 +84,7 @@ public class DataWareHouse {
     /**
      * methode d'initialisation du plan (attribut)
 	 * @param racine Element XML contenant les informations pour l'initialisation
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
      */
 	public void initDataPlan(Element racine) throws Exception {
 			this.planApp = new Plan();
@@ -92,8 +92,8 @@ public class DataWareHouse {
 	}
 	/**
 	 * methode de suppression d'une demande de livraison
-	 * @param l livraison à supprimer
-	 * @return plage horaire mise à jour
+	 * @param l livraison e supprimer
+	 * @return plage horaire mise a jour
 	 */
 	public PlageHoraire supprimerLivraison(Livraison l)
 	{
@@ -111,9 +111,9 @@ public class DataWareHouse {
 		return null;
 	}
 	/**
-	 * méthode d'ajout d'une livraison dans le modèle
-	 * @param a plage horaire contenant la livraison à ajouter
-	 * @param l livraison à ajouter
+	 * methode d'ajout d'une livraison dans le modele
+	 * @param a plage horaire contenant la livraison a ajouter
+	 * @param l livraison a ajouter
 	 */
 	public void ajouterLivraison(PlageHoraire a, Livraison l)
 	{
@@ -142,8 +142,8 @@ public class DataWareHouse {
 	}
     /**
      * methode de verification de chevauchement de plages horaires
-     * @param target cible à vérifier
-     * @throws Exception liée au chevauchement ou incompatibilité des plages horaires
+     * @param target cible a verifier
+     * @throws Exception liee au chevauchement ou incompatibilite des plages horaires
      */
 	private void chevauchementPH(Vector<PlageHoraire> target) throws Exception
 	{

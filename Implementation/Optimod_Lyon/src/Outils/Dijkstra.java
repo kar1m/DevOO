@@ -13,13 +13,6 @@ import Modele.*;
  *
  */
 public class Dijkstra {
-	private Noeud origine;
-	private Noeud destination;
-	private Plan plan;
-	public static double MatAdjacence[][];
-	
-	
-
 	/**
 	 * calcul de la matrice d'adjacence
 	 * @param plan de l'application
@@ -136,7 +129,13 @@ public class Dijkstra {
       }
 	
 	
-	  
+	  /**
+	   * Recuperer le chemin le plus court
+	   * @param plan
+	   * @param idsource
+	   * @param iddestination
+	   * @return
+	   */
 	  public static ArrayList getShortPath(Plan plan,int idsource , int iddestination )
 	  { 
 		 
@@ -167,13 +166,5 @@ public class Dijkstra {
 	 
 	        	
 	  }
-	   
-	public Dijkstra(Plan plan, Noeud origine, Noeud destination)
-	{
-		this.plan = plan;
-		this.origine = origine;
-		this.destination = destination;
-	}
-	
 	
 }

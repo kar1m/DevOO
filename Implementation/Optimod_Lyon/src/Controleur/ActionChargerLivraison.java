@@ -18,7 +18,13 @@ import Outils.XMLhandler;
 
 public class ActionChargerLivraison extends Action {
 
+	/**
+	 * Modele associe a laction
+	 */
 	private DataWareHouse modele;
+	/**
+	 * Chemin du fichier associe a laction
+	 */
 	private String pathFichier;
 	
 	

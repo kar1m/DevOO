@@ -38,7 +38,7 @@ public class Fenetre extends JFrame {
 	private JLabel lblChargementFini;
 	private VueTable table; 
 	/**
-	 * création de la fenetre
+	 * creation de la fenetre
 	 */
 	public Fenetre() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,7 +95,7 @@ public class Fenetre extends JFrame {
 		
 	}
 	/**
-	 * Mis à jour des boutons undo/redo
+	 * Mise a jour des boutons undo/redo
 	 */
 	public void updateUndoRedo(boolean undo, boolean redo)
 	{
@@ -110,43 +110,97 @@ public class Fenetre extends JFrame {
 	{
 		lblChargementFini.setText(t);
 	}
+	/**
+	 * Charger le plan dans la vue
+	 * @param planApp
+	 */
 	public void chargerPlan(Plan planApp)
 	{
 		plan.chargerPlan(planApp);
 	}
+	/**
+	 * Charger les livraisons dans la vue
+	 * @param p
+	 * @param entrepot
+	 */
 	public void chargerLivraison(Vector<PlageHoraire> p, Noeud entrepot)
 	{
 		plan.chargerLivraison(p, entrepot);
 		table.chargerTable(p);
 	}
 
+	
+	/**
+	 * Getter
+	 */
 	public JPanel getContentPane() {
 		return contentPane;
 	}
+	
+	
+	/**
+	 * Getter VuePlan
+	 * @return VuePlan
+	 */
 	public VuePlan getPlan() {
 		return plan;
 	}
+	
+	
+	/**
+	 * Getter BtnChargerPlan
+	 * @return BtnChargerPlan
+	 */
 	public JButton getBtnChargerPlan() {
 		return btnChargerPlan;
 	}
+	
+	/**
+	 * Getter BtnChargerDemandeLivraison
+	 * @return BtnChargerDemandeLivraison
+	 */
 	public JButton getBtnChargerDemandeLivraison() {
 		return btnChargerDemandeLivraison;
 	}
+	/**
+	 * Getter BtnUndo
+	 * @return BtnUndo
+	 */
 	public JButton getBtnUndo() {
 		return btnUndo;
 	}
+	/**
+	 * Getter BtnRedo
+	 * @return BtnRedo
+	 */
 	public JButton getBtnRedo() {
 		return btnRedo;
 	}	
+	/**
+	 * Getter LblChargementFini
+	 * @return LblChargementFini
+	 */
 	public JLabel getLblChargementFini() {
 		return lblChargementFini;
 	}
+	/**
+	 * Getter Table
+	 * @return Table
+	 */
 	public VueTable getTable() {
 		return table;
 	}
+	/**
+	 * Getter BtnCalcul
+	 * @return BtnCalcul
+	 */
 	public JButton getBtnCalcul() {
 		return btnCalcul;
 	}
+	/**
+	 * Getter BtnEnregistrer
+	 * @return BtnEnregistrer
+	 */
 	public JButton getBtnEnregistrer() {
 		return btnEnregistrer;
 	}

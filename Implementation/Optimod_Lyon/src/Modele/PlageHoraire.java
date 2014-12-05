@@ -20,18 +20,36 @@ public class PlageHoraire {
     	this.heureFin_H = new Time(0);
     }
 
+    /**
+     * Identifiant de la plage horaire
+     */
     private int idPlageHoraire;
+    /**
+     * Heure de dÃ©but de la plage horaire
+     */
     private Time heureDebut_H;
+    /**
+     * Heure de fin de la plage horaire
+     */
     private Time heureFin_H;
+    /**
+     * Heure de dÃ©but de la plage horaire
+     */
     private String heureDebut;
+    /**
+     * Heure de fin de la plage horaire
+     */
     private String heureFin;
+    /**
+     * Vecteur de livraison associÃ© a cette plage horaire
+     */
     private Vector<Livraison> livraisons;
 
 
     /**
      * methode d'initialisation des plages horaires
 	 * @param Element XMLnode Element XML contenant les informations pour l'initialisation
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
      */
     public void initPlage(Element XMLnode, Vector<Noeud> l ) throws Exception {
         this.heureDebut = XMLnode.getAttribute("heureDebut");
@@ -52,10 +70,10 @@ public class PlageHoraire {
 		   this.livraisons =  livraisonPH;
     }
     /**
-     * methode de parsing/vérification des heures fournies dans le fichier XML
-     * @param target string contenant l'heure à verifier
-     * @param type heure début ou heure fin
-     * @throws Exception liée aux erreurs de parse
+     * methode de parsing/verification des heures fournies dans le fichier XML
+     * @param target string contenant l'heure a verifier
+     * @param type heure debut ou heure fin
+     * @throws Exception liee aux erreurs de parse
      */
     private void checkerHeure(String target,String type) throws Exception
     {

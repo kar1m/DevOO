@@ -6,7 +6,7 @@ import java.util.Vector;
 import org.w3c.dom.Element;
 
 /**
- * Demande de livraison associee à un client
+ * Demande de livraison associee a un client
  * @author Yassine Moreno
  */
 public class Livraison {
@@ -14,7 +14,7 @@ public class Livraison {
     public Livraison() {
     }
     /**
-     * Temps effectif de passage lors de la tournée
+     * Temps effectif de passage lors de la tournee
      */
     public Time tempsPassage;
     public Time getTempsPassage() {
@@ -31,7 +31,7 @@ public class Livraison {
     private int idLivraison;
 
     /**
-     * Client associé à la livraison
+     * Client associe a la livraison
      */
     private Client destinataire;
 
@@ -39,7 +39,7 @@ public class Livraison {
 	 * methode d'initialisation des livraisons
 	 * @param XMLnode Element XML contenant les informations pour l'initialisation
 	 * @param l Noeuds disponibles dans le plan
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
      */
     public void initLivraison(Element XMLnode, Vector<Noeud> l) throws Exception {
         this.idLivraison = Integer.parseInt(XMLnode.getAttribute("id"));

@@ -10,13 +10,13 @@ public abstract class Action {
     
     /**
 	 * methode d'execution d'une action
-	 * @return booléen de confirmation de l'execution
-	 * @exception exception relevée lors du chargement d'éléments (plan/livraisons) liés aux cas d'erreurs spécifiés
+	 * @return booleen de confirmation de l'execution
+	 * @exception exception relevee lors du chargement d'elements (plan/livraisons) lies aux cas d'erreurs specifies
 	 */
     public abstract boolean Executer();
     /**
 	 * methode d'annulation d'une action
-	 * @return booléen de confirmation de l'annulation
+	 * @return booleen de confirmation de l'annulation
 	 */
     public abstract boolean Annuler();
 

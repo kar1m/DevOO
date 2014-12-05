@@ -26,6 +26,11 @@ import Modele.Livraison;
 import Modele.Noeud;
 import Modele.PlageHoraire;
 
+/**
+ * Boite de Dialogue permettant l'ajout d'une livraison
+ * @author Mehdi
+ *
+ */
 public class AjoutLivraison extends JDialog {
 	private JComboBox plageHoraireComboBox;
 	private JTextField clientField;
@@ -44,6 +49,11 @@ public class AjoutLivraison extends JDialog {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Initialise la vue AjoutLivraison
+	 * @param noeudAdresse Noeud pour lequel on veut ajouter une livraison
+	 * @param p Plage Horaires que l'on peut selectionner
+	 */
 	private void initComponent(Vector<PlageHoraire> p, Noeud noeudAdresse){
 		JPanel panNom = new JPanel();
 		panNom.setPreferredSize(new Dimension(220, 60));
@@ -110,11 +120,19 @@ public class AjoutLivraison extends JDialog {
 		});
 	}
 
-
+	/**
+	 * Renvoie la plage horaire selectionee par l'utilisateur
+	 * @return PlageHoraire Selectionee
+	 */
 	public PlageHoraire getPlageSelectionnee()
 	{
 		return listePlage.get(plageHoraireComboBox.getSelectedIndex());
 	}
+	
+	/**
+	 * Renvoie l'identifiant du client selectionne
+	 * @return Identifiant client
+	 */
 	public int getIdClientSelectionne()
 	{
 		try
@@ -133,6 +151,10 @@ public class AjoutLivraison extends JDialog {
 		}
 	}
 
+	/**
+	 * Determine si le bouton selectionne est bien le bouton ok et non le bouton annuler
+	 * @return boolean : si le bouton ok est selectionne
+	 */
 	public boolean isBtnOkSelected() {
 		return btnOkSelected;
 	}

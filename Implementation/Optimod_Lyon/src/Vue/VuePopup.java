@@ -3,7 +3,7 @@ package Vue;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 /**
- * 
+ * Vue correspondant au pop up pour avoir plus d'information sur un noeud
  * @author Mehdi Kitane
  *
  */

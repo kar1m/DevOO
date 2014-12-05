@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 public class XMLhandler {
 	/**
 	 * Selection de fichier XML avec JfileChooser
-	 * @return path du fichier selectionné
+	 * @return path du fichier selectionne
 	 */
 	public static String selectXML()
 	{
@@ -40,9 +40,9 @@ public class XMLhandler {
 	}
 	
 		/**
-		 * methode de vérification syntaxique et sémantique des fichiers XML
-		 * @param input fichier à vérifier
-		 * @param modeleXSD modèle XSD
+		 * methode de verification syntaxique et semantique des fichiers XML
+		 * @param input fichier a verifier
+		 * @param modeleXSD modele XSD
 		 * @return vrai si fichier conforme, faux sinon
 		 * @throws SAXException
 		 * @throws IOException

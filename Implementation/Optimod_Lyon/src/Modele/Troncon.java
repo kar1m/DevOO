@@ -20,9 +20,9 @@ public class Troncon {
     /**
      * methode d'initialisation du troncon
 	 * @param xmlChunck Element XML contenant les informations pour l'initialisation
-	 * @param entree noeud de départ du troncon
-	 * @param sortie noeud d'arrivée du troncon
-	 * @throws Exception liée aux malformations sémantiques et syntaxiques des fichiers
+	 * @param entree noeud de depart du troncon
+	 * @param sortie noeud d'arrivee du troncon
+	 * @throws Exception liee aux malformations semantiques et syntaxiques des fichiers
      */
     public void initTrancon (Element xmlChunk,Noeud entree, Noeud sortie) throws Exception
     {
@@ -40,7 +40,7 @@ public class Troncon {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new Exception("Erreur dans les Tronï¿½ons dï¿½clarï¿½s");
+			throw new Exception("Erreur dans les Troncons declares");
 		}
     }
     
@@ -68,12 +68,12 @@ public class Troncon {
     private String nomRue;
 
     /**
-     * 
+     * Noeud Arrivee
      */
     private Noeud arrivee;
 
     /**
-     * 
+     * Noeud Depart
      */
     private Noeud depart;
     

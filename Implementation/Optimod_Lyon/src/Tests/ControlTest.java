@@ -15,6 +15,9 @@ import Outils.XMLhandler;
 import Vue.Fenetre;
 
 public class ControlTest {
+	/**
+	 * Chemin ou se trouvent les fichiers a tester
+	 */
 	private String path = "/Users/Mehdi/Desktop/4IF/DevOO";
 
 	@Test 

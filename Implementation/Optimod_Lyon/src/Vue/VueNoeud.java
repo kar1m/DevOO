@@ -8,7 +8,7 @@ import java.awt.Stroke;
 
 import Modele.Noeud;
 /**
- * 
+ * Vue Noeud
  * @author Mehdi Kitane
  *
  */
@@ -27,6 +27,10 @@ public class VueNoeud {
 		this.rayon = rayon;
 		this.noeudAssocie = noeudAssocie;
 	}
+	/**
+	 * Methode pour dessiner une vue
+	 * @param g
+	 */
 	public void dessiner(Graphics g)
 	{
 		
@@ -53,6 +57,13 @@ public class VueNoeud {
 	public int getRayon() {
 		return rayon;
 	}
+	
+	/**
+	 * Permet de savoir si on a clique sur cette vue
+	 * @param xclick
+	 * @param yclick
+	 * @return boolean
+	 */
 	public boolean clickDessus(int xclick, int yclick)
 	{
 		return xclick>x-rayon && xclick<x+rayon && yclick>y-rayon && yclick<y+rayon; 

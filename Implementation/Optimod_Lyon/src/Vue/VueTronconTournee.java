@@ -18,11 +18,15 @@ public class VueTronconTournee extends VueTroncon {
 		this.couleur = couleur;  
 	}
 
+	/**
+	 * Methode pour dessiner une vue
+	 * @param g
+	 */
 	public void dessiner(Graphics g)
 	{
         g.setColor( Proprietes.cols[couleur]);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(4));
+        g2.setStroke(new BasicStroke(2));
         g2.drawLine(noeudDepart.getX(), noeudDepart.getY(), noeudArrivee.getX(), noeudArrivee.getY());
 	
 		float x1 = this.noeudArrivee.x;

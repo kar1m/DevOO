@@ -10,8 +10,13 @@ import Outils.Proprietes;
 
 public class ActionSauvegarder extends Action {
 
-	
+	/**
+	 * Modele associe a laction
+	 */
 	private DataWareHouse modele;
+	/**
+	 * Chemin du fichier associe a laction
+	 */
 	private String pathFichier;
 	
 	public ActionSauvegarder(DataWareHouse modele, String pathFichier) {
@@ -43,8 +48,8 @@ public class ActionSauvegarder extends Action {
 		return true;
 	}
 	/**
-	 * @param modele contenant la tournée à sauvegarder
-	 * @return string parsé et formaté contenant les éléments de la sauvegarde
+	 * @param modele contenant la tournï¿½e ï¿½ sauvegarder
+	 * @return string parsï¿½ et formatï¿½ contenant les ï¿½lï¿½ments de la sauvegarde
 	 */
 	private String GenerateSaveString(DataWareHouse modele) {
 		String save = "TOURNEE CALCULEE \r\n";
@@ -81,10 +86,10 @@ public class ActionSauvegarder extends Action {
 		return save;
 	}
 	/**
-	 * méthode de calcul de temps
+	 * mï¿½thode de calcul de temps
 	 * @param top temps initial
-	 * @param delta délai d'attente à ajouter
-	 * @return nouveau temps calculé
+	 * @param delta dï¿½lai d'attente ï¿½ ajouter
+	 * @return nouveau temps calculï¿½
 	 */
 	private Time CalculerTempsAdditionnel(Time top,int delta){
 		long heuresOutput = top.getTime()+(delta*1000);

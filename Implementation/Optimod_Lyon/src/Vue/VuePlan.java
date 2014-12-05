@@ -39,6 +39,11 @@ public class VuePlan extends JPanel{
 		super();
 	}
 	
+	/**
+	 * Methode qui charge le plan dans la vuePlan
+	 * Cree les differentes vueNoeud et troncon correspondant
+	 * @param planApp
+	 */
 	public void chargerPlan(Plan planApp)
 	{
 		listeVueNoeuds = new Vector<VueNoeud>();
@@ -72,6 +77,12 @@ public class VuePlan extends JPanel{
 		}
 	}
 	
+	/**
+	 * Methode qui charge les livraisons a partir du vecteur de plage horaire et de l'entrepot
+	 * Cree les differentes vues noeud livraison correspondant
+	 * @param p
+	 * @param entrepot
+	 */
 	public void chargerLivraison(Vector<PlageHoraire> p, Noeud entrepot)
 	{
 		
@@ -162,12 +173,22 @@ public class VuePlan extends JPanel{
 	    }
 	}
 	
+	/**
+	 * Converti un point X à des coordonnes ecran Xecran
+	 * @param x
+	 * @return Xecran 
+	 */
 	public int toScreenX(int x)
 	{
 		int width = this.getWidth();		
 		float xecran = (float)(x) * (width-0) / (maxX + 30 - 0);
 		return (int) xecran; 
 	}
+	/**
+	 * Converti un point Y à des coordonnes ecran Yecran
+	 * @param y
+	 * @return Yecran 
+	 */
 	public int toScreenY(int y)
 	{
 		int width = this.getHeight();		
