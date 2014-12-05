@@ -44,8 +44,8 @@ public class XMLhandler {
 		 * @param input fichier a verifier
 		 * @param modeleXSD modele XSD
 		 * @return vrai si fichier conforme, faux sinon
-		 * @throws SAXException
-		 * @throws IOException
+		 * @throws SAXException SaxException
+		 * @throws IOException IOException
 		 */
 		public static boolean  checkXML (String input, String modeleXSD) throws SAXException, IOException {
 	        SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
