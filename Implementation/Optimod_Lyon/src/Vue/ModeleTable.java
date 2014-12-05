@@ -5,7 +5,6 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import Modele.Livraison;
 import Outils.Proprietes;
 
 /**
@@ -33,6 +32,7 @@ public class ModeleTable extends AbstractTableModel {
 		return donnees.size();
 	}
 
+	@Override
 	public String getColumnName(int column) {
         return entetes[column];
     }

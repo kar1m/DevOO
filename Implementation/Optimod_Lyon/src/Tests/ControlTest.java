@@ -5,13 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import Controleur.*;
 import Modele.*;
 import Outils.Proprietes;
-import Outils.XMLhandler;
 import Vue.Fenetre;
 
 public class ControlTest {

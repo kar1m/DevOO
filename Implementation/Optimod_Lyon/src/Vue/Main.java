@@ -1,15 +1,7 @@
 package Vue;
 
-import java.awt.EventQueue;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JTable;
-
 import Controleur.Application;
 import Modele.DataWareHouse;
-import Outils.Proprietes;
-import Tests.ControlTest;
 /**
  * 
  * @author Mehdi Kitane

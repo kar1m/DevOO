@@ -2,23 +2,15 @@ package Vue;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import Controleur.Action;
-import Controleur.Application;
-import Modele.Livraison;
 import Modele.Noeud;
 import Modele.PlageHoraire;
 import Modele.Plan;
-import Modele.Troncon;
-
-import java.awt.Color;
 import java.util.Vector;
 /**
  * Vue principale de l'application
@@ -133,6 +125,7 @@ public class Fenetre extends JFrame {
 	/**
 	 * Getter
 	 */
+	@Override
 	public JPanel getContentPane() {
 		return contentPane;
 	}

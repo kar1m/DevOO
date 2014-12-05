@@ -22,6 +22,7 @@ public class VueTronconTournee extends VueTroncon {
 	 * Methode pour dessiner une vue
 	 * @param g
 	 */
+	@Override
 	public void dessiner(Graphics g)
 	{
         g.setColor( Proprietes.cols[couleur]);

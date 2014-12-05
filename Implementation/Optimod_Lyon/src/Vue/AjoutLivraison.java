@@ -1,14 +1,12 @@
 package Vue;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -16,13 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
-import Modele.Client;
-import Modele.Livraison;
 import Modele.Noeud;
 import Modele.PlageHoraire;
 
@@ -103,6 +95,7 @@ public class AjoutLivraison extends JDialog {
 
 		btnOk.addActionListener(new ActionListener(){
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
@@ -112,6 +105,7 @@ public class AjoutLivraison extends JDialog {
 		});
 		btnAnnuler.addActionListener(new ActionListener(){
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);

@@ -2,8 +2,6 @@ package Tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import Outils.*;
-
 import Outils.Graph;
 import Outils.RegularGraph;
 

@@ -28,6 +28,7 @@ public class VueNoeudLivraison extends VueNoeud {
 	 * Methode pour dessiner une vue
 	 * @param g
 	 */
+	@Override
 	public void dessiner(Graphics g)
 	{
 		if(selected)

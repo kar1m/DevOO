@@ -1,10 +1,8 @@
 package Outils;
 
-import java.util.HashMap;
 import java.util.Vector;
 
 import Modele.Chemin;
-import Modele.PlageHoraire;
 
 /**
  * @author Christine Solnon

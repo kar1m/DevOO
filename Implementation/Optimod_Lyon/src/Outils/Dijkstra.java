@@ -2,7 +2,6 @@ package Outils;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Vector;
 
 import Modele.*;

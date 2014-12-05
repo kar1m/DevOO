@@ -2,6 +2,7 @@ package Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
@@ -265,7 +266,7 @@ public class Application implements MouseListener, ActionListener{
 	 */
 	public void gererClickDroit(MouseEvent e, boolean livraison, VueNoeud noeud)
 	{
-		if (e.getModifiers() == MouseEvent.BUTTON3_MASK) 
+		if (e.getModifiers() == InputEvent.BUTTON3_MASK) 
 		{
 			VuePopup pop = new VuePopup(livraison); 
 			pop.show(e.getComponent(), e.getX(), e.getY());
@@ -275,6 +276,7 @@ public class Application implements MouseListener, ActionListener{
 				VueNoeudLivraison a = (VueNoeudLivraison) noeud; 
 				
 				pop.getB().addActionListener(new ActionListener(){
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						ArrayList<Object> args = new ArrayList<Object>();
 						args.add(a.getLivraison());
@@ -282,6 +284,7 @@ public class Application implements MouseListener, ActionListener{
 					}					
 				});
 				pop.getC().addActionListener(new ActionListener(){
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						for(PlageHoraire p : modele.getLivraisonData())
 						{
@@ -297,6 +300,7 @@ public class Application implements MouseListener, ActionListener{
 				});
 			}else{
 				pop.getA().addActionListener(new ActionListener(){
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						AjoutLivraison md1 = new AjoutLivraison(vue, "Ajouter Livraison", true, modele.getLivraisonData(), noeud.getNoeudAssocie());
 						
@@ -419,6 +423,7 @@ public class Application implements MouseListener, ActionListener{
 	/**
 	 * Methode qui recoit les clics de souris et les dispatch a la table et au plan
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {	
 		if(e.getSource() == vue.getTable().getT())
 		{
@@ -428,14 +433,19 @@ public class Application implements MouseListener, ActionListener{
 			clickPlan(e);
 		}
 	}
+	@Override
 	public void mousePressed(MouseEvent e) {}
+	@Override
 	public void mouseReleased(MouseEvent e) {}
+	@Override
 	public void mouseEntered(MouseEvent e) {}
+	@Override
 	public void mouseExited(MouseEvent e) {}
 	
 	/**
 	 * Methode qui recoit les clics sur les boutons et appelle la methode gererCommande
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == vue.getBtnChargerPlan()){		

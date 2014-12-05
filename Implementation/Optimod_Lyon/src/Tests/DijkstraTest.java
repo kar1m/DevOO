@@ -1,16 +1,11 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
-
 import org.junit.Test;
 
 import Modele.*;
 import Outils.Dijkstra;
 import Outils.Proprietes;
-import Outils.XMLhandler;
 import Vue.Fenetre;
 import Controleur.Application;
 

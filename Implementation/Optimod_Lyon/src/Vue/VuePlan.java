@@ -2,12 +2,6 @@ package Vue;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Ellipse2D.Double;
-import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -137,6 +131,7 @@ public class VuePlan extends JPanel{
 			}
 		}
 	}
+	@Override
 	public void paintComponent(Graphics g)
 	{	    
 	    if(listeVueNoeuds != null && listeVueTroncons != null)

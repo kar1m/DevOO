@@ -216,6 +216,7 @@ public class RegularGraph implements Graph {
 	 * @return Un tableau contenant pour chaque index (correspondant à une plage
 	 *         horaire) un tableau de chemins ordonnés
 	 */
+	@Override
 	public Vector<Vector<Chemin>> calculerChoco() {
 		TSP tsp = new TSP(this);
 
@@ -300,6 +301,7 @@ public class RegularGraph implements Graph {
 	/**
 	 * @return L'arc ayant le plus grand cout
 	 */
+	@Override
 	public int getMaxArcCost() {
 		return maxArcCost;
 	}
@@ -307,6 +309,7 @@ public class RegularGraph implements Graph {
 	/**
 	 * @return L'arc ayant le plus petit cout
 	 */
+	@Override
 	public int getMinArcCost() {
 		return minArcCost;
 	}
@@ -314,6 +317,7 @@ public class RegularGraph implements Graph {
 	/**
 	 * @return Le nombre de sommets du graphe
 	 */
+	@Override
 	public int getNbVertices() {
 		return nbVertices;
 	}
@@ -321,6 +325,7 @@ public class RegularGraph implements Graph {
 	/**
 	 * @return La matrice de couts
 	 */
+	@Override
 	public int[][] getCost() {
 		return cost;
 	}
@@ -328,6 +333,7 @@ public class RegularGraph implements Graph {
 	/**
 	 * @return La matrice de successeurs
 	 */
+	@Override
 	public int[][] getSucc() {
 		int[][] succTab = new int[succ.size()][succ.size()];
 
@@ -338,6 +344,7 @@ public class RegularGraph implements Graph {
 		return succTab;
 	}
 
+	@Override
 	public int[] getSucc(int i) throws ArrayIndexOutOfBoundsException {
 		if ((i < 0) || (i >= nbVertices))
 			throw new ArrayIndexOutOfBoundsException();
@@ -348,6 +355,7 @@ public class RegularGraph implements Graph {
 		return tab;
 	}
 
+	@Override
 	public int getNbSucc(int i) throws ArrayIndexOutOfBoundsException {
 		if ((i < 0) || (i >= nbVertices))
 			throw new ArrayIndexOutOfBoundsException();
