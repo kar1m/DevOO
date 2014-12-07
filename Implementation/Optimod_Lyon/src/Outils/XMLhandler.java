@@ -4,6 +4,7 @@
 package Outils;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.JFileChooser;
 import javax.xml.transform.*;
@@ -48,11 +49,13 @@ public class XMLhandler {
 		 * @throws IOException IOException
 		 */
 		public static boolean  checkXML (String input, String modeleXSD) throws SAXException, IOException {
-	        SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-	        File schemaLocation = new File(modeleXSD);
-	        Schema schema = factory.newSchema(schemaLocation);
-	        Validator validator = schema.newValidator();
-	        Source source = new StreamSource(input);
+			 SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+		        
+		        URL schema = Thread.currentThread().getContextClassLoader().getResource(modeleXSD); 
+		        Schema compiledSchema = factory.newSchema(schema);
+
+		        Validator validator = compiledSchema.newValidator();
+		        Source source = new StreamSource(input);
 	        
 	        // Valider la structure du fichier XML
 	            try {

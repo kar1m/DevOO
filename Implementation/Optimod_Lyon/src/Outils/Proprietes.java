@@ -13,11 +13,11 @@ public class Proprietes {
 	/**
 	 *  Chemin du XSD livraison pour valider le XML.
 	 */
-	public static final String PATH_XSD_DL ="src/Outils/livraison.xsd";
+	public static final String PATH_XSD_DL ="livraison.xsd";
 	/**
 	 *  Chemin du XSD plan pour valider le XML.
 	 */
-	public static final String PATH_XSD_PLAN = "src/Outils/plan.xsd";
+	public static final String PATH_XSD_PLAN = "plan.xsd";
 
 	
 	/**
